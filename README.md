@@ -1,16 +1,3 @@
 # time_blocking
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+I did not find good and simple time blocking app in google play store, so i decided to maky my own, what is minimalistic and simple enough. I personllay don't like that when mobile applications become distractions instead of tools to improve productivity and this is the problem I try to fix with this project.
