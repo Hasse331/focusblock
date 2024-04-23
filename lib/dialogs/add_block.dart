@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/dialogs/time_picker.dart';
 
-void addBlockDialog(BuildContext context) {
+void addBlockDialog(context) async {
   final TextEditingController nameController = TextEditingController();
 
   showDialog(
@@ -17,6 +18,10 @@ void addBlockDialog(BuildContext context) {
                 labelText: 'Block name: ',
               ),
             ),
+            // Start time picker:
+            TimePicker(context: context, type: "Start"),
+            // End time picker:
+            TimePicker(context: context, type: "End")
           ],
         ),
         actions: [
