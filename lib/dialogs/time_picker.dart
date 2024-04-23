@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TimePicker extends StatelessWidget {
-  const TimePicker({super.key, required context, required this.type});
+  const TimePicker(
+      {super.key,
+      required context,
+      required this.type,
+      required this.onTimeSet});
 
   final String type;
+  final Function(TimeOfDay) onTimeSet;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +19,10 @@ class TimePicker extends StatelessWidget {
           initialTime: TimeOfDay.now(),
         );
         if (pickedTime != null) {
-          // Handle time here
+          onTimeSet(pickedTime);
         }
       },
-      child: Text("Select $type Time"),
+      child: Text("$type Time"),
     );
   }
 }

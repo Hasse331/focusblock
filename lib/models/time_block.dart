@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 class TimeBlock {
   String blockName;
-  DateTime startTime;
-  DateTime endTime;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
 
   TimeBlock({
     required this.blockName,
