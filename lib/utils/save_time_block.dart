@@ -15,11 +15,6 @@ Future<void> saveTimeBlock(
     'endTime': endTime.format(context),
   };
 
-  print("Saving the following data: ");
-  print(blockName);
-  print(startTime.format(context));
-  print(endTime.format(context));
-
   blocks.add(newBlock);
 
   await prefs.setString('timeBlocks', json.encode(blocks));

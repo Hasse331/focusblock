@@ -15,6 +15,7 @@ class TimePicker extends StatelessWidget {
     return TextButton(
       onPressed: () async {
         TimeOfDay? pickedTime = await showTimePicker(
+          // TODO: Validate the block times better
           context: context,
           initialTime: TimeOfDay.now(),
         );
