@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
 import 'package:time_blocking/utils/save_time_block.dart';
 
-void addBlockDialog(context) async {
+void addBlockDialog(context, Function updateState) async {
   final TextEditingController nameController = TextEditingController();
   TimeOfDay? startTime;
   TimeOfDay? endTime;
@@ -43,8 +43,12 @@ void addBlockDialog(context) async {
             ),
             TextButton(
               onPressed: () {
-                if (startTime != null && endTime != null) {
-                  saveTimeBlock("DummyBlock", startTime!, endTime!, context);
+                if (nameController.text.isNotEmpty &&
+                    startTime != null &&
+                    endTime != null) {
+                  saveTimeBlock(
+                      nameController.text, startTime!, endTime!, context);
+                  updateState();
                   Navigator.of(context).pop();
                 }
               },

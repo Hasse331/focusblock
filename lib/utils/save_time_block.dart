@@ -12,7 +12,7 @@ Future<void> saveTimeBlock(
   final Map<String, dynamic> newBlock = {
     'blockName': blockName,
     'startTime': startTime.format(context),
-    'end': endTime.format(context),
+    'endTime': endTime.format(context),
   };
 
   print("Saving the following data: ");

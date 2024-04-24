@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
-import 'package:time_blocking/models/time_block.dart';
+import 'package:time_blocking/utils/load_time_blocks.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,7 +9,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  List<TimeBlock> timeBlocks = [];
+  late List<dynamic> timeBlocks = [];
+  // -> Using TimeBlock type instead of <dynamic>?
+
+  @override
+  void initState() {
+    super.initState();
+    updateState();
+  }
+
+  void updateState() {
+    loadTimeBlocks().then((blocks) {
+      setState(() {
+        timeBlocks = blocks;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +34,18 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            addBlockDialog(context);
+            addBlockDialog(context, updateState);
           },
           child: const Icon(Icons.add)),
       body: ListView.builder(
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
-          return const ListTile(
-              title: Text("dummy title"), subtitle: Text("dummy subtitle"));
+          final currentBlock = timeBlocks[index];
+          return ListTile(
+            title: Text(currentBlock["blockName"]),
+            subtitle: Text(
+                '${currentBlock['startTime']} - ${currentBlock['endTime']}'),
+          );
         },
       ),
     );
