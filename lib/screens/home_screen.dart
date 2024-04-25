@@ -22,9 +22,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
-      blocks.sort(((a, b) {
-        return a['startTime'].compareTo(b['startTime']);
-      }));
+      // TODO: sorting was not working entirely -> not noticing AM/PM differences
+      // Implement following:
+      // 1. final blocks = blockSorting();
+      // 2. OR Order mechanism in saved data -> new datapoiont (more efficient)
+      // OLD SOLUTION:
+      //       blocks.sort(((a, b) {
+      //   return a['startTime'].compareTo(b['startTime']);
+      // }));
       setState(() {
         timeBlocks = blocks;
       });
@@ -58,8 +63,8 @@ class HomeScreenState extends State<HomeScreen> {
           },
           child: const Icon(Icons.add)),
       body: ListView.builder(
-        // TODO: Validate the block times better in TimePicker wdgt
-        // TODO: set the size of each block by making time length func
+        // TODO: set the size of each block by making timeblock length func
+        // TODO: Make user able to remove blocks by swiping l or r
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
