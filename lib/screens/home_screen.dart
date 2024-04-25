@@ -37,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("FocusBlock"),
         actions: [
-          ElevatedButton(
+          IconButton(
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTimeBlocks,
@@ -45,9 +45,9 @@ class HomeScreenState extends State<HomeScreen> {
                   message:
                       "This will permanently delete all timeblocks. Are you sure you want to continue?");
             },
-            child: const Text(
-              "RESET",
-              style: TextStyle(color: Colors.red),
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.red,
             ),
           ),
         ],

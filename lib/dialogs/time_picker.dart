@@ -5,22 +5,21 @@ class TimePicker extends StatelessWidget {
       {super.key,
       required context,
       required this.type,
-      required this.onTimeSet});
+      required this.updateState});
 
   final String type;
-  final Function(TimeOfDay) onTimeSet;
+  final Function(TimeOfDay) updateState;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
         TimeOfDay? pickedTime = await showTimePicker(
-          // TODO: Validate the block times better
           context: context,
           initialTime: TimeOfDay.now(),
         );
         if (pickedTime != null) {
-          onTimeSet(pickedTime);
+          updateState(pickedTime);
         }
       },
       child: Text("$type Time"),
