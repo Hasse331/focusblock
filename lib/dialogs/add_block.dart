@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
-import 'package:time_blocking/utils/save_time_block.dart';
+import 'package:time_blocking/storage/save_time_block.dart';
 
 void addBlockDialog(context, Function updateState) async {
   final TextEditingController nameController = TextEditingController();

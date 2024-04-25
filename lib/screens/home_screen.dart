@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
-import 'package:time_blocking/utils/load_time_blocks.dart';
+import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/storage/reset_time_blocks.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,7 +35,22 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Time Blocking made simple"),
+        title: const Text("FocusBlock"),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              confirmDialog(context, updateState,
+                  action: resetTimeBlocks,
+                  title: "Reset time blocks",
+                  message:
+                      "This will permanently delete all timeblocks. Are you sure you want to continue?");
+            },
+            child: const Text(
+              "RESET",
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -41,10 +58,8 @@ class HomeScreenState extends State<HomeScreen> {
           },
           child: const Icon(Icons.add)),
       body: ListView.builder(
-        // TODO: set the blocks in correct order, earlier in day first
-        // TODO: set the size of each block by making time length func
-        // TODO: add reset feature -> reset btn, dialog and function
         // TODO: Validate the block times better in TimePicker wdgt
+        // TODO: set the size of each block by making time length func
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
