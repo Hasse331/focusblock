@@ -20,6 +20,9 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
+      blocks.sort(((a, b) {
+        return a['startTime'].compareTo(b['startTime']);
+      }));
       setState(() {
         timeBlocks = blocks;
       });
