@@ -5,6 +5,9 @@ void main() {
   runApp(const MyApp());
 }
 
+var kHighlightColor = const Color.fromARGB(255, 17, 0, 255);
+var kforegroundColor = const Color.fromARGB(255, 200, 200, 200);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,10 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SSTB - Super Simple Time Blocking',
       theme: ThemeData(
-        // TODO: Adjust the theme settings and make cool looking styling
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 5, 28, 175)),
         useMaterial3: true,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: const Color.fromARGB(255, 14, 12, 35),
+          foregroundColor: kforegroundColor,
+          shadowColor: kHighlightColor,
+          elevation: 3,
+        ),
       ),
       home: const HomeScreen(),
     );

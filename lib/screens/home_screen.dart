@@ -22,7 +22,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
-      // TODO: sorting was not working entirely -> not noticing AM/PM differences
+      // TODO: sorting was not working -> not noticing AM/PM differences
       // Implement following:
       // 1. final blocks = blockSorting();
       // 2. OR Order mechanism in saved data -> new datapoiont (more efficient)
@@ -72,11 +72,28 @@ class HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(25),
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: const Color.fromARGB(66, 144, 126, 208),
-                borderRadius: BorderRadius.circular(5)),
+                border: Border.all(
+                    color: const Color.fromARGB(255, 21, 0, 255), width: 0.5),
+                boxShadow: [
+                  BoxShadow(
+                    color:
+                        const Color.fromARGB(255, 21, 0, 255).withOpacity(0.25),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+                color: const Color.fromARGB(255, 12, 16, 46),
+                borderRadius: BorderRadius.circular(8)),
             child: Column(children: [
-              Text(currentBlock["blockName"]),
-              Text('${currentBlock['startTime']} - ${currentBlock['endTime']}'),
+              Text(
+                currentBlock["blockName"],
+                style: const TextStyle(color: Colors.white),
+              ),
+              Text(
+                '${currentBlock['startTime']} - ${currentBlock['endTime']}',
+                style: const TextStyle(color: Colors.white),
+              ),
             ]),
           );
         },
