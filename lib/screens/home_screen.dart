@@ -69,8 +69,9 @@ class HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
           return Container(
-            padding: const EdgeInsets.all(25),
-            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(
+                30), // tänne palikan koko sen pituuden mukaan
+            margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: const Color.fromARGB(255, 21, 0, 255), width: 0.5),

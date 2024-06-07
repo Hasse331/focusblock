@@ -47,6 +47,7 @@ void addBlockDialog(context, Function updateState) async {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
             ),
+            // Save button
             TextButton(
               onPressed: () {
                 if (nameController.text.isNotEmpty &&
@@ -59,8 +60,7 @@ void addBlockDialog(context, Function updateState) async {
                     updateState();
                     Navigator.of(context).pop();
                   } else {
-                    showError(
-                        context, "Stay focused: Block has to be +30 min long");
+                    showError(context, "Block has to be +30 min long");
                   }
                 } else {
                   showError(
