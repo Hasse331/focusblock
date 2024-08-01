@@ -58,21 +58,34 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            addBlockDialog(context, updateState);
-          },
-          child: const Icon(Icons.add)),
+        onPressed: () {
+          addBlockDialog(context, updateState);
+        },
+        child: const Icon(Icons.add),
+      ),
       body: ListView.builder(
         // TODO: set the size of each block by making timeblock length func
         // TODO: Make user able to remove blocks by swiping l or r
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
-          return Container(
-            padding: const EdgeInsets.all(
-                30), // tänne palikan koko sen pituuden mukaan
-            margin: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
+          return Dismissible(
+            key: Key(currentBlock["blockName"]),
+            onDismissed: (direction) {
+              setState(
+                () {},
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("${currentBlock["blockName"]}, dismissed"),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(
+                  30), // tänne dynaaminen palikan koko sen min pituuden mukaan
+              margin: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
                 border: Border.all(
                     color: const Color.fromARGB(255, 21, 0, 255), width: 0.5),
                 boxShadow: [
@@ -85,17 +98,19 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
                 color: const Color.fromARGB(255, 12, 16, 46),
-                borderRadius: BorderRadius.circular(8)),
-            child: Column(children: [
-              Text(
-                currentBlock["blockName"],
-                style: const TextStyle(color: Colors.white),
+                borderRadius: BorderRadius.circular(8),
               ),
-              Text(
-                '${currentBlock['startTime']} - ${currentBlock['endTime']}',
-                style: const TextStyle(color: Colors.white),
-              ),
-            ]),
+              child: Column(children: [
+                Text(
+                  currentBlock["blockName"],
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  '${currentBlock['startTime']} - ${currentBlock['endTime']}',
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ]),
+            ),
           );
         },
       ),
