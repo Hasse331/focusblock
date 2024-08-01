@@ -22,14 +22,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
-      // TODO: sorting was not working -> not noticing AM/PM differences
-      // Implement following:
-      // 1. final blocks = blockSorting();
-      // 2. OR Order mechanism in saved data -> new datapoiont (more efficient)
-      // OLD SOLUTION:
-      //       blocks.sort(((a, b) {
-      //   return a['startTime'].compareTo(b['startTime']);
-      // }));
+      // TODO:  1. Implement drag and drop order feature 2. Automatic sorting later
       setState(() {
         timeBlocks = blocks;
       });
@@ -64,7 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
-        // TODO: set the size of each block by making timeblock length func
+        // TODO: add dynamic time block size
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
@@ -72,6 +65,7 @@ class HomeScreenState extends State<HomeScreen> {
             key: Key(currentBlock["blockName"]),
             onDismissed: (direction) {
               setState(
+                // TODO: Add block dismissing function
                 () {},
               );
               ScaffoldMessenger.of(context).showSnackBar(
