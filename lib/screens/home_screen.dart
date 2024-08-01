@@ -61,7 +61,6 @@ class HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
-        // TODO: add dynamic time block size
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           // missing type:
