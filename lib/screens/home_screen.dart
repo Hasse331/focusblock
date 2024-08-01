@@ -3,6 +3,7 @@ import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
+import 'package:time_blocking/storage/update_time_block.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar
       appBar: AppBar(
         title: const Text("FocusBlock"),
         actions: [
@@ -50,6 +52,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      // Add btn
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           addBlockDialog(context, updateState);
@@ -61,22 +64,25 @@ class HomeScreenState extends State<HomeScreen> {
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
+          // Block Dismissing
           return Dismissible(
             key: Key(currentBlock["blockName"]),
             onDismissed: (direction) {
               setState(
-                // TODO: Add block dismissing function
-                () {},
+                () {
+                  timeBlocks.removeAt(index);
+                  updateTimeBlocks(timeBlocks);
+                },
               );
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("${currentBlock["blockName"]}, dismissed"),
+                  content: Text("${currentBlock["blockName"]} dismissed"),
                 ),
               );
             },
+            // Block
             child: Container(
-              padding: const EdgeInsets.all(
-                  30), // tänne dynaaminen palikan koko sen min pituuden mukaan
+              padding: const EdgeInsets.all(30), // Dynamic block size
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 border: Border.all(
