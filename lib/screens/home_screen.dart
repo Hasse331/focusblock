@@ -65,7 +65,6 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView.builder(
         // TODO: set the size of each block by making timeblock length func
-        // TODO: Make user able to remove blocks by swiping l or r
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final currentBlock = timeBlocks[index];
