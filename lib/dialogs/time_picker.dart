@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TimePicker extends StatelessWidget {
-  const TimePicker(
-      {super.key,
-      required context,
-      required this.type,
-      required this.updateState});
+class MyTimePicker extends StatelessWidget {
+  const MyTimePicker({
+    super.key,
+    required context,
+    required this.type,
+    required this.updateState,
+    required this.selectedTime,
+  });
 
   final String type;
   final Function(TimeOfDay) updateState;
+  final TimeOfDay? selectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,17 @@ class TimePicker extends StatelessWidget {
           updateState(pickedTime);
         }
       },
-      child: Text("$type Time"),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (selectedTime == null) Text("$type Time"),
+          if (selectedTime != null)
+            Text(
+              "Selected $type ${selectedTime!.format(context)}",
+              style: const TextStyle(fontSize: 12),
+            ),
+        ],
+      ),
     );
   }
 }

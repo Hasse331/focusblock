@@ -28,17 +28,20 @@ void addBlockDialog(context, Function updateState) async {
                 ),
               ),
               // Start time picker:
-              TimePicker(
-                  context: context,
-                  type: "Start",
-                  updateState: (pickedTime) =>
-                      setState(() => startTime = pickedTime)),
+              MyTimePicker(
+                context: context,
+                type: "Start",
+                updateState: (pickedTime) =>
+                    setState(() => startTime = pickedTime),
+                selectedTime: startTime,
+              ),
               // End time picker:
-              TimePicker(
+              MyTimePicker(
                 context: context,
                 type: "End",
                 updateState: (pickedTime) =>
                     setState(() => endTime = pickedTime),
+                selectedTime: endTime,
               )
             ],
           ),
