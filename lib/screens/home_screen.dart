@@ -4,6 +4,7 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
+import 'package:time_blocking/utils/calc_block_length.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,7 +64,9 @@ class HomeScreenState extends State<HomeScreen> {
         // TODO: add dynamic time block size
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
+          // missing type:
           final currentBlock = timeBlocks[index];
+          final blockSize = calcBlockLength(currentBlock);
           // Block Dismissing
           return Dismissible(
             key: Key(currentBlock["blockName"]),
@@ -82,7 +85,7 @@ class HomeScreenState extends State<HomeScreen> {
             },
             // Block
             child: Container(
-              padding: const EdgeInsets.all(30), // Dynamic block size
+              padding: EdgeInsets.all(blockSize), // Dynamic block size
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 border: Border.all(
