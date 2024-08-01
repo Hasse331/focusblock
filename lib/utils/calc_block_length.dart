@@ -7,12 +7,9 @@ double calcBlockLength(currentBlock) {
   }
 
   int startMinutes = int.parse(startParts[0]) * 60 + int.parse(startParts[1]);
-  print(startMinutes);
   int endMinutes = int.parse(endParts[0]) * 60 + int.parse(endParts[1]);
-  print(endMinutes);
 
   double timeDifference = (endMinutes - startMinutes) / 2;
-  print(timeDifference);
 
   return timeDifference;
 }
