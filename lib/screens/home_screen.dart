@@ -6,6 +6,9 @@ import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/utils/calc_block_length.dart';
 
+// TODO: Add edit block feature and notes
+// TODO: Add save schedules feature and menu
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
@@ -84,7 +87,8 @@ class HomeScreenState extends State<HomeScreen> {
             },
             // Block
             child: Container(
-              padding: EdgeInsets.all(blockSize), // Dynamic block size
+              padding: EdgeInsets.symmetric(
+                  vertical: blockSize), // Dynamic block size
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 border: Border.all(
