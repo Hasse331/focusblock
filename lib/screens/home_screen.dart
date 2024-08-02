@@ -4,10 +4,11 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
-import 'package:time_blocking/utils/calc_block_length.dart';
+import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: Add edit block feature and notes
-// TODO: Add save schedules feature and menu
+// TODO: 1. Add edit block feature
+// TODO: 3. Block notes feature
+// TODO: 4. Add save schedules feature and menu
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +28,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
-      // TODO:  1. Implement drag and drop order feature 2. Automatic sorting later
+      // TODO:  2. Implement drag and drop order feature
       setState(() {
         timeBlocks = blocks;
       });
@@ -63,12 +64,12 @@ class HomeScreenState extends State<HomeScreen> {
         },
         child: const Icon(Icons.add),
       ),
+      // Blocks
       body: ListView.builder(
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
-          // missing type:
-          final currentBlock = timeBlocks[index];
-          final blockSize = calcBlockLength(currentBlock);
+          final Map<String, dynamic> currentBlock = timeBlocks[index];
+
           // Block Dismissing
           return Dismissible(
             key: Key(currentBlock["blockName"]),
@@ -86,36 +87,7 @@ class HomeScreenState extends State<HomeScreen> {
               );
             },
             // Block
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: blockSize), // Dynamic block size
-              margin: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: const Color.fromARGB(255, 21, 0, 255), width: 0.5),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        const Color.fromARGB(255, 21, 0, 255).withOpacity(0.25),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: const Offset(0, 2), // changes position of shadow
-                  ),
-                ],
-                color: const Color.fromARGB(255, 12, 16, 46),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(children: [
-                Text(
-                  currentBlock["blockName"],
-                  style: const TextStyle(color: Colors.white),
-                ),
-                Text(
-                  '${currentBlock['startTime']} - ${currentBlock['endTime']}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ]),
-            ),
+            child: MyTimeBlock(currentBlock),
           );
         },
       ),
