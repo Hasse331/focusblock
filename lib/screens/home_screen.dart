@@ -81,6 +81,7 @@ class HomeScreenState extends State<HomeScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("${currentBlock["blockName"]} dismissed"),
+                  // TODO: add undo/cancel feature for 3-5 sec
                 ),
               );
             },
@@ -95,7 +96,7 @@ class HomeScreenState extends State<HomeScreen> {
                 );
               },
               onPanStart: (details) {
-                // TODO:  Implement drag and drop order feature
+                // TODO:  Implement drag and drop order feature to change order
                 // print('Drag started');
               },
               onPanUpdate: (details) {
