@@ -33,6 +33,11 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void removeBlock(index) {
+    timeBlocks.removeAt(index);
+    updateTimeBlocks(timeBlocks);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +63,7 @@ class HomeScreenState extends State<HomeScreen> {
       // Add btn
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addBlockDialog(context, updateState);
+          addBlockDialog(context, updateState, type: "new");
         },
         child: const Icon(Icons.add),
       ),
@@ -74,8 +79,7 @@ class HomeScreenState extends State<HomeScreen> {
             onDismissed: (direction) {
               setState(
                 () {
-                  timeBlocks.removeAt(index);
-                  updateTimeBlocks(timeBlocks);
+                  removeBlock(index);
                 },
               );
               ScaffoldMessenger.of(context).showSnackBar(
@@ -91,7 +95,8 @@ class HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OpenBlockScreen(currentBlock),
+                    builder: (context) => OpenBlockScreen(
+                        currentBlock, index, removeBlock, updateState),
                   ),
                 );
               },

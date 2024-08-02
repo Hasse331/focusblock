@@ -3,21 +3,25 @@ import 'package:time_blocking/dialogs/time_picker.dart';
 import 'package:time_blocking/storage/save_time_block.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
-void addBlockDialog(context, Function updateState) async {
+void addBlockDialog(context, Function updateState, {required type}) async {
   final TextEditingController nameController = TextEditingController();
   TimeOfDay? startTime;
   TimeOfDay? endTime;
+  late String type; // "new" or "edit"
 
   int timeToMinutes(TimeOfDay time) {
     return time.hour * 60 + time.minute;
   }
+
+  // TODO: Making this reusable for new and edit by using type
 
   showDialog(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
-          title: const Text('New Time Block'),
+          title: Text(
+              '$type Time Block'), //TODO: ???????????????????????? fix this
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
