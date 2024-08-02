@@ -6,9 +6,7 @@ import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: 1. Add edit block feature
-// TODO: 3. Block notes feature
-// TODO: 4. Add save schedules feature and menu
+// TODO: Add save schedules feature and menu
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +26,6 @@ class HomeScreenState extends State<HomeScreen> {
 
   void updateState() {
     loadTimeBlocks().then((blocks) {
-      // TODO:  2. Implement drag and drop order feature
       setState(() {
         timeBlocks = blocks;
       });
@@ -87,7 +84,24 @@ class HomeScreenState extends State<HomeScreen> {
               );
             },
             // Block
-            child: MyTimeBlock(currentBlock),
+            child: GestureDetector(
+              onTap: () {
+                // print('Block tapped');
+              },
+              onPanStart: (details) {
+                // TODO:  Implement drag and drop order feature
+                // print('Drag started');
+              },
+              onPanUpdate: (details) {
+                // Handle drag updates
+                // print('Dragging: ${details.delta}');
+              },
+              onPanEnd: (details) {
+                // Handle the end of a drag gesture
+                // print('Drag ended');
+              },
+              child: MyTimeBlock(currentBlock),
+            ),
           );
         },
       ),
