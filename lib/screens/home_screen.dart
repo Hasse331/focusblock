@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/screens/open_block.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
@@ -86,7 +87,12 @@ class HomeScreenState extends State<HomeScreen> {
             // Block
             child: GestureDetector(
               onTap: () {
-                // print('Block tapped');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OpenBlockScreen(currentBlock),
+                  ),
+                );
               },
               onPanStart: (details) {
                 // TODO:  Implement drag and drop order feature
