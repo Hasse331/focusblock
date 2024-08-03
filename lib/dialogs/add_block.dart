@@ -78,7 +78,9 @@ void addBlockDialog(context, Function updateState,
                         type, context,
                         index: index);
                     updateState();
-                    updateParent();
+                    if (type == "Edit") {
+                      updateParent();
+                    }
                     Navigator.of(context).pop();
                   } else {
                     showError(context, "Block has to be +30 min long");

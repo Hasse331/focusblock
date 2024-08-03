@@ -11,10 +11,12 @@ double calcBlockLength(currentBlock) {
     int minutes = int.parse(hoursAndMinutes[1]);
 
     // Tranform all to 24 hour format
-    if (timeParts[1] == 'PM' && hours != 12) {
-      hours += 12;
-    } else if (timeParts[1] == 'AM' && hours == 12) {
-      hours = 0;
+    if (timeParts.length > 1) {
+      if (timeParts[1] == 'PM' && hours != 12) {
+        hours += 12;
+      } else if (timeParts[1] == 'AM' && hours == 12) {
+        hours = 0;
+      }
     }
 
     // turn all to same units in minutes and return

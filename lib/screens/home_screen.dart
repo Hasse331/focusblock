@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/screens/open_block.dart';
+import 'package:time_blocking/storage/add_test_data.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
@@ -22,6 +23,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    addTestData();
     updateState();
   }
 
@@ -34,8 +36,10 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void removeBlock(index) {
-    timeBlocks.removeAt(index);
-    updateTimeBlocks(timeBlocks);
+    setState(() {
+      timeBlocks.removeAt(index);
+      updateTimeBlocks(timeBlocks);
+    });
   }
 
   @override
@@ -75,17 +79,22 @@ class HomeScreenState extends State<HomeScreen> {
 
           // Block Dismissing
           return Dismissible(
-            key: Key(currentBlock["blockName"]),
+            key: Key(currentBlock["blockName"] + index.toString()),
             onDismissed: (direction) {
-              setState(
-                () {
-                  removeBlock(index);
-                },
-              );
+              removeBlock(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("${currentBlock["blockName"]} dismissed"),
-                  // TODO: add undo/cancel feature for 3-5 sec
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      setState(() {
+                        timeBlocks.insert(index, currentBlock);
+                        updateTimeBlocks(timeBlocks);
+                      });
+                    },
+                  ),
+                  duration: const Duration(seconds: 5),
                 ),
               );
             },
