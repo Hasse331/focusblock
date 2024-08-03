@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
+import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/save_time_block.dart';
+import 'package:time_blocking/utils/convert_to_time_of_day.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
 void addBlockDialog(context, Function updateState,
@@ -8,6 +10,7 @@ void addBlockDialog(context, Function updateState,
   final TextEditingController nameController = TextEditingController();
   TimeOfDay? startTime;
   TimeOfDay? endTime;
+  late List<dynamic> timeBlocks = [];
 
   int timeToMinutes(TimeOfDay time) {
     return time.hour * 60 + time.minute;
@@ -24,6 +27,16 @@ void addBlockDialog(context, Function updateState,
       throw ArgumentError(
           "Error: when using 'Edit' mode: 1. valid index integer is required 2. updateParent function is required");
     }
+  }
+
+  if (type == "Edit") {
+    loadTimeBlocks().then((blocks) {
+      timeBlocks = blocks;
+
+      // Reformat these to timeOfDay:
+      startTime = convertStringToTimeOfDay(timeBlocks[index]["startTime"]);
+      endTime = convertStringToTimeOfDay(timeBlocks[index]["endTime"]);
+    });
   }
 
   // TODO: Prefill all forms in edit mode
