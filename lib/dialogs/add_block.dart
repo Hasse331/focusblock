@@ -18,6 +18,7 @@ void addBlockDialog(context, Function updateState,
 
   type = type[0].toUpperCase() + type.substring(1);
 
+  // Validating required arguments for edit mode
   if (type != "New") {
     if (index is! int || updateParent is! Function) {
       throw ArgumentError(
