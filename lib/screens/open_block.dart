@@ -47,7 +47,8 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              addBlockDialog(context, updateState, type: "Edit", index: index);
+              addBlockDialog(context, updateState,
+                  type: "Edit", index: index, updateParent: updateParentState);
             },
             icon: const Icon(
               Icons.edit,

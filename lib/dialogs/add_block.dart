@@ -4,7 +4,7 @@ import 'package:time_blocking/storage/save_time_block.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
 void addBlockDialog(context, Function updateState,
-    {required String type, index}) async {
+    {required String type, index, updateParent}) async {
   final TextEditingController nameController = TextEditingController();
   TimeOfDay? startTime;
   TimeOfDay? endTime;
@@ -15,6 +15,15 @@ void addBlockDialog(context, Function updateState,
 
   // This dialog is reusable for new blocks and editing existing blocks
   // Use "Edit" or "New" strings for type variable
+
+  type = type[0].toUpperCase() + type.substring(1);
+
+  if (type != "New") {
+    if (index is! int || updateParent is! Function) {
+      throw ArgumentError(
+          "Error: when using 'Edit' mode: 1. valid index integer is required 2. updateParent function is required");
+    }
+  }
 
   showDialog(
     context: context,
@@ -66,6 +75,7 @@ void addBlockDialog(context, Function updateState,
                         type, context,
                         index: index);
                     updateState();
+                    updateParent();
                     Navigator.of(context).pop();
                   } else {
                     showError(context, "Block has to be +30 min long");
