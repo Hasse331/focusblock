@@ -117,6 +117,7 @@ class HomeScreenState extends State<HomeScreen> {
           setState(() {
             final item = timeBlocks.removeAt(oldIndex);
             timeBlocks.insert(newIndex, item);
+            updateTimeBlocks(timeBlocks);
           });
         },
       ),
