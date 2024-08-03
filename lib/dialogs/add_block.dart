@@ -3,25 +3,25 @@ import 'package:time_blocking/dialogs/time_picker.dart';
 import 'package:time_blocking/storage/save_time_block.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
-void addBlockDialog(context, Function updateState, {required type}) async {
+void addBlockDialog(context, Function updateState,
+    {required String type, index}) async {
   final TextEditingController nameController = TextEditingController();
   TimeOfDay? startTime;
   TimeOfDay? endTime;
-  late String type; // "new" or "edit"
 
   int timeToMinutes(TimeOfDay time) {
     return time.hour * 60 + time.minute;
   }
 
-  // TODO: Making this reusable for new and edit by using type
+  // This dialog is reusable for new blocks and editing existing blocks
+  // Use "Edit" or "New" strings for type variable
 
   showDialog(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
-          title: Text(
-              '$type Time Block'), //TODO: ???????????????????????? fix this
+          title: Text('$type Time Block'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -62,8 +62,9 @@ void addBlockDialog(context, Function updateState, {required type}) async {
                     endTime != null) {
                   if (timeToMinutes(endTime!) - timeToMinutes(startTime!) >=
                       30) {
-                    saveTimeBlock(
-                        nameController.text, startTime!, endTime!, context);
+                    saveTimeBlock(nameController.text, startTime!, endTime!,
+                        type, context,
+                        index: index);
                     updateState();
                     Navigator.of(context).pop();
                   } else {
@@ -74,7 +75,7 @@ void addBlockDialog(context, Function updateState, {required type}) async {
                       context, "Missing: block name, start time or end time");
                 }
               },
-              child: const Text("Save"),
+              child: Text("$type Block"),
             ),
           ],
         );

@@ -63,7 +63,7 @@ class HomeScreenState extends State<HomeScreen> {
       // Add btn
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addBlockDialog(context, updateState, type: "new");
+          addBlockDialog(context, updateState, type: "New");
         },
         child: const Icon(Icons.add),
       ),

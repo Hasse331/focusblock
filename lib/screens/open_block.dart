@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 
 class OpenBlockScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: Make edit dialog
+              addBlockDialog(context, updateState, type: "Edit", index: index);
             },
             icon: const Icon(
               Icons.edit,
