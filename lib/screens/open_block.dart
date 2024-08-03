@@ -78,7 +78,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         child: const Center(
           child: Column(
             children:
-                // TODO: Block notes feature -> title, text, links
+                // TODO: Block notes feature -> title, description, to do list, links
                 [Text("text 1"), Text("text 2")],
           ),
         ),
