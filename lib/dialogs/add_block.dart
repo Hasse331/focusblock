@@ -7,7 +7,7 @@ import 'package:time_blocking/widgets/show_error.dart';
 
 void addBlockDialog(context, Function updateState,
     {required String type, index, updateParent}) async {
-  final TextEditingController nameController = TextEditingController();
+  TextEditingController nameController;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
   late List<dynamic> timeBlocks = [];
@@ -33,11 +33,16 @@ void addBlockDialog(context, Function updateState,
     loadTimeBlocks().then((blocks) {
       timeBlocks = blocks;
 
+      nameController =
+          TextEditingController(text: timeBlocks[index]["blockName"]);
+
       // Reformat these to timeOfDay:
       startTime = convertStringToTimeOfDay(timeBlocks[index]["startTime"]);
       endTime = convertStringToTimeOfDay(timeBlocks[index]["endTime"]);
     });
   }
+
+  nameController = TextEditingController();
 
   // TODO: Prefill all forms in edit mode
 
