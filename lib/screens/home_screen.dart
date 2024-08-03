@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/screens/open_block.dart';
-import 'package:time_blocking/storage/add_test_data.dart';
+// import 'package:time_blocking/storage/add_test_data.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
@@ -23,7 +23,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    addTestData();
+    // addTestData();
     updateState();
   }
 
@@ -72,7 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
       // Blocks
-      body: ListView.builder(
+      body: ReorderableListView.builder(
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
           final Map<String, dynamic> currentBlock = timeBlocks[index];
@@ -109,21 +109,15 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-              onPanStart: (details) {
-                // TODO:  Implement drag and drop order feature to change order
-                // print('Drag started');
-              },
-              onPanUpdate: (details) {
-                // Handle drag updates
-                // print('Dragging: ${details.delta}');
-              },
-              onPanEnd: (details) {
-                // Handle the end of a drag gesture
-                // print('Drag ended');
-              },
               child: MyTimeBlock(currentBlock),
             ),
           );
+        },
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            final item = timeBlocks.removeAt(oldIndex);
+            timeBlocks.insert(newIndex, item);
+          });
         },
       ),
     );
