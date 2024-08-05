@@ -22,6 +22,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
+  bool showInput = false;
 
   @override
   void initState() {
@@ -34,6 +35,12 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       setState(() {
         _currentBlock = updatedBlocks[index];
       });
+    });
+  }
+
+  void toggleInput() {
+    setState(() {
+      showInput = true;
     });
   }
 
@@ -75,11 +82,25 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: const Center(
+        child: Center(
           child: Column(
-            children:
-                // TODO: Block notes feature -> title, description, to do list, links
-                [Text("text 1"), Text("text 2")],
+            children: [
+              // TODO: Description
+              // TODO: ToDo list
+              // TODO: Links
+
+              // TODO: Add save button and function
+              if (_currentBlock["description"] != null)
+                Text("${_currentBlock["description"]}"),
+              if (showInput) const TextField(),
+              TextButton(
+                onPressed: () {
+                  toggleInput();
+                },
+                // TODO: Make user able to hide the input field
+                child: Text(showInput ? "Return" : "Add description"),
+              )
+            ],
           ),
         ),
       ),
