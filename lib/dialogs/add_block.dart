@@ -44,8 +44,6 @@ void addBlockDialog(context, Function updateState,
 
   nameController = TextEditingController();
 
-  // TODO: Prefill all forms in edit mode
-
   showDialog(
     context: context,
     builder: (context) => StatefulBuilder(
