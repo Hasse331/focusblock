@@ -114,11 +114,18 @@ class HomeScreenState extends State<HomeScreen> {
           );
         },
         onReorder: (oldIndex, newIndex) {
-          setState(() {
-            final item = timeBlocks.removeAt(oldIndex);
-            timeBlocks.insert(newIndex, item);
-            updateTimeBlocks(timeBlocks);
-          });
+          setState(
+            () {
+              // onRecorder is moving index up too much by 1 for some reason,
+              // so this adjustemnt is needed:
+              if (newIndex > oldIndex && newIndex - oldIndex <= 2) {
+                newIndex--;
+              }
+              final block = timeBlocks.removeAt(oldIndex);
+              timeBlocks.insert(newIndex, block);
+              updateTimeBlocks(timeBlocks);
+            },
+          );
         },
       ),
     );
