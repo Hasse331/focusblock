@@ -36,6 +36,10 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     _currentBlock = widget.currentBlock;
     _descriptionController = TextEditingController();
     nullDescription = descriptionNullCheck();
+    if (!nullDescription) {
+      _descriptionController =
+          TextEditingController(text: _currentBlock["description"]);
+    }
   }
 
   bool descriptionNullCheck() {

@@ -33,9 +33,9 @@ void addBlockDialog(context, Function updateState,
     loadTimeBlocks().then((blocks) {
       timeBlocks = blocks;
 
+      // Prefill field controllers in correct format:
       nameController =
           TextEditingController(text: timeBlocks[index]["blockName"]);
-
       // Reformat these to timeOfDay:
       startTime = convertStringToTimeOfDay(timeBlocks[index]["startTime"]);
       endTime = convertStringToTimeOfDay(timeBlocks[index]["endTime"]);
