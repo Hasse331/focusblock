@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/storage/save_description.dart';
 import 'package:time_blocking/storage/save_time_block.dart';
 
 class OpenBlockScreen extends StatefulWidget {
@@ -114,7 +115,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                         nullDescription = descriptionNullCheck();
                         showInput = !showInput;
                       });
-                      // TODO: Save data to the device
+                      saveBlockDescription(index, _descriptionController.text);
                     }
                   },
                 ),
