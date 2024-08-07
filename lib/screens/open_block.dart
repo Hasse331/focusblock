@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/storage/save_time_block.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -23,11 +26,20 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
   bool showInput = false;
+  bool nullDescription = true;
+  late TextEditingController _descriptionController;
 
   @override
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
+    _descriptionController = TextEditingController();
+    nullDescription = descriptionNullCheck();
+  }
+
+  bool descriptionNullCheck() {
+    return nullDescription =
+        _currentBlock["description"] == null ? true : false;
   }
 
   void updateState() {
@@ -35,12 +47,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       setState(() {
         _currentBlock = updatedBlocks[index];
       });
-    });
-  }
-
-  void toggleInput() {
-    setState(() {
-      showInput = true;
     });
   }
 
@@ -86,20 +92,43 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         child: Center(
           child: Column(
             children: [
-              // TODO: Description
+              // TODO: Description (almost ready)
               // TODO: ToDo list
               // TODO: Links
 
-              // TODO: Add save button and function
-              if (_currentBlock["description"] != null)
-                Text("${_currentBlock["description"]}"),
-              if (showInput) const TextField(),
+              if (!nullDescription) Text("${_currentBlock["description"]}"),
+              if (showInput)
+                TextField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                    labelText: nullDescription
+                        ? "Add description"
+                        : "Edti description",
+                  ),
+                  onSubmitted: (String value) {
+                    if (_descriptionController.text.isNotEmpty) {
+                      // Update relevant states:
+                      setState(() {
+                        _currentBlock["description"] =
+                            _descriptionController.text;
+                        nullDescription = descriptionNullCheck();
+                        showInput = !showInput;
+                      });
+                      // TODO: Save data to the device
+                    }
+                  },
+                ),
               TextButton(
                 onPressed: () {
-                  toggleInput();
+                  setState(() {
+                    showInput = !showInput;
+                  });
                 },
-                // TODO: Make user able to hide the input field
-                child: Text(showInput ? "Return" : "Add description"),
+                child: Text(showInput
+                    ? "Return"
+                    : nullDescription
+                        ? "Add description"
+                        : "Edit description"),
               )
             ],
           ),
