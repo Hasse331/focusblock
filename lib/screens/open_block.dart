@@ -1,11 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/save_description.dart';
-import 'package:time_blocking/storage/save_time_block.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -97,10 +94,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         child: Center(
           child: Column(
             children: [
-              // TODO: Description (almost ready)
+              // TODO: Refactor description as a separate widget
               // TODO: ToDo list
               // TODO: Links
 
+              // Descritpion:
               if (!nullDescription) Text("${_currentBlock["description"]}"),
               if (showInput)
                 TextField(
