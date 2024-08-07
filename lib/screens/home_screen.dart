@@ -8,9 +8,6 @@ import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: Add save schedules feature and menu
-// TOD: Add
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
@@ -48,6 +45,15 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // AppBar
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            // TODO: Add save schedules feature and menu
+            // TODO: Add To Do - Not today / later screen and feature to add these blocks to today's schedule
+          },
+          icon: const Icon(
+            Icons.menu,
+          ),
+        ),
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
