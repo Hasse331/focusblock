@@ -50,6 +50,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       appBar: AppBar(
         title: Text(
           _currentBlock["blockName"],
+          style: const TextStyle(fontSize: 18),
         ),
         actions: [
           IconButton(
