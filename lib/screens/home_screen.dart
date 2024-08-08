@@ -8,6 +8,8 @@ import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
+// TODO: Optimizing UI for wide screens and other devices desktop/web
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
