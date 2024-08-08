@@ -114,7 +114,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               // TODO: ToDo list
               // TODO: Links/sources
 
-              // Descritpion:
+              // Descritpion text:
               Row(
                 children: [
                   if (!nullDescription && !showInput)
@@ -125,6 +125,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                         overflow: TextOverflow.fade,
                       ),
                     ),
+                  // Descritpion add/edit icon:
                   if (!showInput)
                     TextButton(
                       onPressed: () {
@@ -139,6 +140,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                     )
                 ],
               ),
+              // Descritpion input field:
               if (showInput)
                 Expanded(
                   child: Column(
@@ -153,6 +155,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                               : "Edti description",
                         ),
                       ),
+                      // Descritpion input field buttons:
                       Row(
                         children: [
                           TextButton(
