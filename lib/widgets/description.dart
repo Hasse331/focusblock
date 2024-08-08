@@ -59,6 +59,10 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
         // Descritpion text:
         Row(
           children: [
+            if (nullDescription && !showInput)
+              const Text(
+                "Add description:",
+              ),
             if (!nullDescription && !showInput)
               Expanded(
                 child: Text(
@@ -69,15 +73,16 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
               ),
             // Descritpion add/edit icon:
             if (!showInput)
-              TextButton(
+              IconButton(
                 onPressed: () {
                   setState(() {
                     showInput = true;
                   });
                 },
-                child: Icon(
+                padding: EdgeInsets.only(left: nullDescription ? 0 : 18),
+                icon: Icon(
                   nullDescription ? Icons.add : Icons.edit,
-                  size: 18,
+                  size: nullDescription ? 20 : 15,
                 ),
               ),
 

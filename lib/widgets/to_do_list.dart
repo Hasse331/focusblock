@@ -10,7 +10,9 @@ class ToDoList extends StatefulWidget {
 class ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return const Text(
+      "To Do List",
+      style: TextStyle(fontSize: 25),
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/widgets/description.dart';
+import 'package:time_blocking/widgets/to_do_list.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -77,17 +78,20 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: Center(
-          child: Column(
-            children: [
-              DescriptionWidget(
-                currentBlock: _currentBlock,
-                index: index,
-              ),
-              // TODO: ToDo list
-              // TODO: Links/sources
-            ],
-          ),
+        child: Column(
+          children: [
+            DescriptionWidget(
+              currentBlock: _currentBlock,
+              index: index,
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 10,
+            ),
+            // TODO: ToDo list
+            const ToDoList()
+            // TODO: Links/sources
+          ],
         ),
       ),
     );
