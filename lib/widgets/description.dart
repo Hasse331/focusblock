@@ -60,8 +60,13 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
         Row(
           children: [
             if (nullDescription && !showInput)
-              const Text(
-                "Add description:",
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    showInput = !showInput;
+                  });
+                },
+                child: const Text('Add decription'),
               ),
             if (!nullDescription && !showInput)
               Expanded(
