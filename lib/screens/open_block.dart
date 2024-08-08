@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/storage/save_description.dart';
+import 'package:time_blocking/widgets/description.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -23,41 +23,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
-  bool showInput = false;
-  bool nullDescription = true;
-  late TextEditingController _descriptionController;
 
   @override
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
-    _descriptionController = TextEditingController();
-    nullDescription = descriptionNullCheck();
-    if (!nullDescription) {
-      _descriptionController =
-          TextEditingController(text: _currentBlock["description"]);
-    }
-  }
-
-  bool descriptionNullCheck() {
-    if (_currentBlock["description"] == "" ||
-        _currentBlock["description"] == null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void saveDescription() {
-    // Update relevant states:
-    setState(() {
-      _currentBlock["description"] = _descriptionController.text;
-      nullDescription = descriptionNullCheck();
-      showInput = !showInput;
-    });
-
-    // saveBlockDescription is saving null values as empty string
-    saveBlockDescription(index, _descriptionController.text);
   }
 
   void updateState() {
@@ -110,73 +80,12 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         child: Center(
           child: Column(
             children: [
-              // TODO: Refactor description as a separate widget(s)
+              DescriptionWidget(
+                currentBlock: _currentBlock,
+                index: index,
+              ),
               // TODO: ToDo list
               // TODO: Links/sources
-
-              // Descritpion text:
-              Row(
-                children: [
-                  if (!nullDescription && !showInput)
-                    Expanded(
-                      child: Text(
-                        "${_currentBlock["description"]}",
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                      ),
-                    ),
-                  // Descritpion add/edit icon:
-                  if (!showInput)
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          showInput = true;
-                        });
-                      },
-                      child: Icon(
-                        nullDescription ? Icons.add : Icons.edit,
-                        size: 18,
-                      ),
-                    )
-                ],
-              ),
-              // Descritpion input field:
-              if (showInput)
-                Expanded(
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: _descriptionController,
-                        maxLines: 10,
-                        minLines: 1,
-                        decoration: InputDecoration(
-                          labelText: nullDescription
-                              ? "Add description"
-                              : "Edti description",
-                        ),
-                      ),
-                      // Descritpion input field buttons:
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                showInput = !showInput;
-                              });
-                            },
-                            child: const Text("Return"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              saveDescription();
-                            },
-                            child: const Text("Save"),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
             ],
           ),
         ),
