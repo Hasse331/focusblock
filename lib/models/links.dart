@@ -1,6 +1,6 @@
-class Links {
+class Link {
   final String name;
   final String link;
 
-  Links({required this.name, required this.link});
+  Link({required this.name, required this.link});
 }

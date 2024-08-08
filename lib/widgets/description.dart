@@ -67,6 +67,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
               Expanded(
                 child: Text(
                   "${_currentBlock["description"]}",
+                  style: const TextStyle(fontSize: 15),
                   softWrap: true,
                   overflow: TextOverflow.fade,
                 ),
@@ -82,7 +83,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                 padding: EdgeInsets.only(left: nullDescription ? 0 : 18),
                 icon: Icon(
                   nullDescription ? Icons.add : Icons.edit,
-                  size: nullDescription ? 20 : 15,
+                  size: nullDescription ? 25 : 20,
                 ),
               ),
 

@@ -12,7 +12,7 @@ class TimeBlock {
   final TimeOfDay endTime;
   final String? description;
   final List<ToDoItem>? toDoItems;
-  final List<Links>? links;
+  final List<Link>? links;
 
   TimeBlock({
     required this.blockName,
