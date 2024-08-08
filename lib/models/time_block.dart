@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/to_do.dart';
 
 // TODO: Define, understand and use this data type correctly
@@ -11,6 +12,7 @@ class TimeBlock {
   final TimeOfDay endTime;
   final String? description;
   final List<ToDoItem>? toDoItems;
+  final List<Links>? links;
 
   TimeBlock({
     required this.blockName,
@@ -18,5 +20,6 @@ class TimeBlock {
     required this.endTime,
     this.description,
     this.toDoItems,
+    this.links,
   });
 }
