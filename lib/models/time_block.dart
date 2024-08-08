@@ -5,12 +5,15 @@ class TimeBlock {
   TimeOfDay startTime;
   TimeOfDay endTime;
   String? description;
-  List<String>? toDo;
+  String? toDoName;
+  bool? toDoChecked;
 
   TimeBlock({
     required this.blockName,
     required this.startTime,
     required this.endTime,
     this.description,
+    this.toDoName,
+    this.toDoChecked,
   });
 }

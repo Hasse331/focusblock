@@ -80,6 +80,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            // Description
             DescriptionWidget(
               currentBlock: _currentBlock,
               index: index,
@@ -89,7 +90,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               height: 10,
             ),
             // TODO: ToDo list
-            const ToDoList()
+            const Text(
+              "To Do List",
+              style: TextStyle(fontSize: 25),
+            ),
+            const ToDoList(),
             // TODO: Links/sources
           ],
         ),
