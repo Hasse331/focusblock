@@ -40,8 +40,24 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   }
 
   bool descriptionNullCheck() {
-    return nullDescription =
-        _currentBlock["description"] == null ? true : false;
+    if (_currentBlock["description"] == "" ||
+        _currentBlock["description"] == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void saveDescription() {
+    // Update relevant states:
+    setState(() {
+      _currentBlock["description"] = _descriptionController.text;
+      nullDescription = descriptionNullCheck();
+      showInput = !showInput;
+    });
+
+    // saveBlockDescription is saving null values as empty string
+    saveBlockDescription(index, _descriptionController.text);
   }
 
   void updateState() {
@@ -94,45 +110,70 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         child: Center(
           child: Column(
             children: [
-              // TODO: Refactor description as a separate widget
+              // TODO: Refactor description as a separate widget(s)
               // TODO: ToDo list
-              // TODO: Links
+              // TODO: Links/sources
 
               // Descritpion:
-              if (!nullDescription) Text("${_currentBlock["description"]}"),
+              Row(
+                children: [
+                  if (!nullDescription && !showInput)
+                    Expanded(
+                      child: Text(
+                        "${_currentBlock["description"]}",
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  if (!showInput)
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          showInput = true;
+                        });
+                      },
+                      child: Icon(
+                        nullDescription ? Icons.add : Icons.edit,
+                        size: 18,
+                      ),
+                    )
+                ],
+              ),
               if (showInput)
-                TextField(
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: nullDescription
-                        ? "Add description"
-                        : "Edti description",
+                Expanded(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _descriptionController,
+                        maxLines: 10,
+                        minLines: 1,
+                        decoration: InputDecoration(
+                          labelText: nullDescription
+                              ? "Add description"
+                              : "Edti description",
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                showInput = !showInput;
+                              });
+                            },
+                            child: const Text("Return"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              saveDescription();
+                            },
+                            child: const Text("Save"),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  onSubmitted: (String value) {
-                    if (_descriptionController.text.isNotEmpty) {
-                      // Update relevant states:
-                      setState(() {
-                        _currentBlock["description"] =
-                            _descriptionController.text;
-                        nullDescription = descriptionNullCheck();
-                        showInput = !showInput;
-                      });
-                      saveBlockDescription(index, _descriptionController.text);
-                    }
-                  },
                 ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    showInput = !showInput;
-                  });
-                },
-                child: Text(showInput
-                    ? "Return"
-                    : nullDescription
-                        ? "Add description"
-                        : "Edit description"),
-              )
             ],
           ),
         ),
