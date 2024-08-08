@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   late List<dynamic> timeBlocks = [];
-  // -> Using TimeBlock type instead of <dynamic>?
+  // TODO: Use TimeBlock type instead of <dynamic>?
 
   @override
   void initState() {

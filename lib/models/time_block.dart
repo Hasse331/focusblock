@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/to_do.dart';
+
+// TODO: Define, understand and use this data type correctly
+
+// Currently this model is not used anywhere and may be incorrecly defined
 
 class TimeBlock {
-  String blockName;
-  TimeOfDay startTime;
-  TimeOfDay endTime;
-  String? description;
-  String? toDoName;
-  bool? toDoChecked;
+  final String blockName;
+  final TimeOfDay startTime;
+  final TimeOfDay endTime;
+  final String? description;
+  final List<ToDoItem>? toDoItems;
 
   TimeBlock({
     required this.blockName,
     required this.startTime,
     required this.endTime,
     this.description,
-    this.toDoName,
-    this.toDoChecked,
+    this.toDoItems,
   });
 }

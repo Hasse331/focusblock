@@ -89,7 +89,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
             const SizedBox(
               height: 10,
             ),
-            // TODO: ToDo list
             const Text(
               "To Do List",
               style: TextStyle(fontSize: 25),
