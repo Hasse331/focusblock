@@ -12,7 +12,6 @@ class ToDoList extends StatefulWidget {
   ToDoListState createState() => ToDoListState();
 }
 
-// TODO: 1. Plan and understand completely the data structure for todo data
 // TODO: 2. Continue the ToDo feature when my brains are working and feeling good (not frustrated)
 
 class ToDoListState extends State<ToDoList> {
