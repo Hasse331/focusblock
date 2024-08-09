@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/time_block.dart';
+import 'package:time_blocking/models/to_do.dart';
+import 'package:time_blocking/storage/update_time_block.dart';
 
 class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+  const ToDoList({super.key, required this.blockIndex});
+
+  final int blockIndex;
 
   @override
   ToDoListState createState() => ToDoListState();
@@ -11,26 +16,39 @@ class ToDoList extends StatefulWidget {
 // TODO: 2. Continue the ToDo feature when my brains are working and feeling good (not frustrated)
 
 class ToDoListState extends State<ToDoList> {
-  final List<String> testItems = ['Task 1', 'Task 2', 'Task 3'];
-  final List<bool> checked = [false, false, false];
-
-  void _toggleCheckbox(int index) {
-    setState(() {
-      checked[index] = !checked[index];
-    });
-  }
+  // Correctly formatted dummy data:
+  List<TimeBlock> timeBlocks = [
+    TimeBlock(
+      blockName: 'Morning',
+      startTime: const TimeOfDay(hour: 8, minute: 0),
+      endTime: const TimeOfDay(hour: 12, minute: 0),
+      description: 'Focus on important tasks',
+      toDoItems: [
+        ToDoItem(name: 'Finish report', isChecked: true),
+        ToDoItem(name: 'Meeting with client', isChecked: false),
+        ToDoItem(name: 'Check emails', isChecked: false),
+      ],
+    ),
+    // ... Add more TimeBlocks with details
+  ];
 
   @override
   Widget build(BuildContext context) {
+    // Use blockIndex here when implemented
+    TimeBlock currentBlock = timeBlocks[0];
+    // Add null check here when implemented:
+    List<ToDoItem> toDoList = currentBlock.toDoItems!;
     return Expanded(
       child: ListView.builder(
-        itemCount: testItems.length,
+        itemCount: toDoList.length,
         itemBuilder: (context, index) {
           return CheckboxListTile(
-            title: Text(testItems[index]),
-            value: checked[index],
+            title: Text(toDoList[index].name),
+            value: toDoList[index].isChecked,
             onChanged: (value) {
-              _toggleCheckbox(index);
+              setState(() {
+                // Add state update
+              });
             },
           );
         },

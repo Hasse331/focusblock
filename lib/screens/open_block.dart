@@ -93,7 +93,9 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               "To Do List",
               style: TextStyle(fontSize: 25),
             ),
-            const ToDoList(),
+            ToDoList(
+              blockIndex: index,
+            ),
             // TODO: Links/sources
           ],
         ),
