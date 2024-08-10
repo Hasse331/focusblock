@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/storage/save_description.dart';
 
 class DescriptionWidget extends StatefulWidget {
   const DescriptionWidget(
       {super.key, required this.currentBlock, required this.index});
 
-  final Map<String, dynamic> currentBlock;
+  final TimeBlock currentBlock;
   final int index;
 
   @override
@@ -13,7 +14,7 @@ class DescriptionWidget extends StatefulWidget {
 }
 
 class DescriptionWidgetState extends State<DescriptionWidget> {
-  late Map<String, dynamic> _currentBlock;
+  late TimeBlock _currentBlock;
   int get index => widget.index;
   bool showInput = false;
   bool nullDescription = true;
@@ -27,13 +28,12 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
     nullDescription = descriptionNullCheck();
     if (!nullDescription) {
       _descriptionController =
-          TextEditingController(text: _currentBlock["description"]);
+          TextEditingController(text: _currentBlock.description);
     }
   }
 
   bool descriptionNullCheck() {
-    if (_currentBlock["description"] == "" ||
-        _currentBlock["description"] == null) {
+    if (_currentBlock.description == "" || _currentBlock.description == null) {
       return true;
     } else {
       return false;
@@ -43,7 +43,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
   void saveDescription() {
     // Update relevant states:
     setState(() {
-      _currentBlock["description"] = _descriptionController.text;
+      _currentBlock.description = _descriptionController.text;
       nullDescription = descriptionNullCheck();
       showInput = !showInput;
     });
@@ -71,7 +71,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
             if (!nullDescription && !showInput)
               Expanded(
                 child: Text(
-                  "${_currentBlock["description"]}",
+                  "${_currentBlock.description}",
                   style: const TextStyle(fontSize: 15),
                   softWrap: true,
                   overflow: TextOverflow.fade,

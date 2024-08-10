@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/to_do.dart';
 
-// Currently this model is not used anywhere and may be incorrecly defined
-// TODO: transform loaded JSON data to dart object structure for readability and type safety
-
 class TimeBlock {
   final String blockName;
   final String startTime;
   final String endTime;
-  final String? description; // referred as notes also in UI
+  String? description; // referred as notes also in UI
   final List<ToDoItem>? toDoItems;
   final List<Link>? links;
 
@@ -26,9 +23,13 @@ class TimeBlock {
         blockName: json['blockName'] as String,
         startTime: json['startTime'] as String,
         endTime: json['endTime'] as String,
-        description: json["description"] as String,
-        toDoItems: json["toDoItems"] as List<ToDoItem>,
-        links: json["links"] as List<Link>,
+        description: json["description"] as String?,
+        toDoItems: (json['toDoItems'] as List<dynamic>?)
+            ?.map((item) => ToDoItem.fromJson(item as Map<String, dynamic>))
+            .toList(),
+        links: (json['links'] as List<dynamic>?)
+            ?.map((item) => Link.fromJson(item as Map<String, dynamic>))
+            .toList(),
       );
 
   TimeOfDay stringToTimeOfDay(String timeString) {

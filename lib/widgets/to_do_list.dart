@@ -7,14 +7,14 @@ class ToDoList extends StatefulWidget {
       {super.key, required this.blockIndex, required this.currentBlock});
 
   final int blockIndex;
-  final Map<String, dynamic> currentBlock;
+  final TimeBlock currentBlock;
 
   @override
   ToDoListState createState() => ToDoListState();
 }
 
 class ToDoListState extends State<ToDoList> {
-  late Map<String, dynamic> _currentBlock;
+  late TimeBlock _currentBlock;
   late List toDoList;
 
   @override
@@ -22,7 +22,7 @@ class ToDoListState extends State<ToDoList> {
     super.initState();
     setState(() {
       _currentBlock = widget.currentBlock;
-      if (_currentBlock["toDoList"] == null) {
+      if (_currentBlock.toDoItems == null) {
         toDoList = [
           ToDoItem(name: 'No data', isChecked: false),
         ];

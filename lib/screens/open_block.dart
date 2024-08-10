@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/widgets/description.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
@@ -10,7 +11,7 @@ class OpenBlockScreen extends StatefulWidget {
       this.currentBlock, this.index, this.removeBlock, this.updateParentState,
       {super.key});
 
-  final Map<String, dynamic> currentBlock;
+  final TimeBlock currentBlock;
   final int index;
   final Function(dynamic) removeBlock;
   final Function() updateParentState;
@@ -20,7 +21,7 @@ class OpenBlockScreen extends StatefulWidget {
 }
 
 class OpenBlockScreenState extends State<OpenBlockScreen> {
-  late Map<String, dynamic> _currentBlock;
+  late TimeBlock _currentBlock;
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
@@ -44,7 +45,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _currentBlock["blockName"],
+          _currentBlock.blockName,
           style: const TextStyle(fontSize: 18),
         ),
         actions: [

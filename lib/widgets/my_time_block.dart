@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/utils/calc_block_length.dart';
 
 class MyTimeBlock extends StatelessWidget {
@@ -7,7 +8,7 @@ class MyTimeBlock extends StatelessWidget {
     super.key,
   });
 
-  final Map<String, dynamic> currentBlock;
+  final TimeBlock currentBlock;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,11 @@ class MyTimeBlock extends StatelessWidget {
       ),
       child: Column(children: [
         Text(
-          currentBlock["blockName"],
+          currentBlock.blockName,
           style: const TextStyle(color: Colors.white),
         ),
         Text(
-          '${currentBlock['startTime']} - ${currentBlock['endTime']}',
+          '${currentBlock.startTime} - ${currentBlock.endTime}',
           style: const TextStyle(color: Colors.white),
         ),
       ]),

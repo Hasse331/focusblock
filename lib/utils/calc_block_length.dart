@@ -26,8 +26,8 @@ double calcBlockLength(currentBlock) {
   }
 
   // calculate the difference and change to double
-  double timeDifference = formatTimes(currentBlock["endTime"]) -
-      formatTimes(currentBlock["startTime"]).toDouble();
+  double timeDifference = formatTimes(currentBlock.endTime) -
+      formatTimes(currentBlock.startTime).toDouble();
 
   return timeDifference;
 }

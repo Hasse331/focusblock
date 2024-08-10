@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/open_block.dart';
 // import 'package:time_blocking/storage/add_test_data.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
@@ -17,8 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  late List<dynamic> timeBlocks = [];
-  // TODO: Use TimeBlock type instead of <dynamic>
+  late List<TimeBlock> timeBlocks = [];
 
   @override
   void initState() {
@@ -102,16 +102,16 @@ class HomeScreenState extends State<HomeScreen> {
       body: ReorderableListView.builder(
         itemCount: timeBlocks.length,
         itemBuilder: (context, index) {
-          final Map<String, dynamic> currentBlock = timeBlocks[index];
+          final TimeBlock currentBlock = timeBlocks[index];
 
           // Block Dismissing
           return Dismissible(
-            key: Key(currentBlock["blockName"] + index.toString()),
+            key: Key(currentBlock.blockName + index.toString()),
             onDismissed: (direction) {
               removeBlock(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("${currentBlock["blockName"]} dismissed"),
+                  content: Text("${currentBlock.blockName} dismissed"),
                   action: SnackBarAction(
                     label: 'Undo',
                     onPressed: () {
