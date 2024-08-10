@@ -7,8 +7,8 @@ import 'package:time_blocking/models/to_do.dart';
 
 class TimeBlock {
   final String blockName;
-  final TimeOfDay startTime;
-  final TimeOfDay endTime;
+  final String startTime;
+  final String endTime;
   final String? description; // referred as notes also in UI
   final List<ToDoItem>? toDoItems;
   final List<Link>? links;
@@ -21,7 +21,25 @@ class TimeBlock {
     this.toDoItems,
     this.links,
   });
+
+  factory TimeBlock.fromJson(Map<String, dynamic> json) => TimeBlock(
+        blockName: json['blockName'] as String,
+        startTime: json['startTime'] as String,
+        endTime: json['endTime'] as String,
+        description: json["description"] as String,
+        toDoItems: json["toDoItems"] as List<ToDoItem>,
+        links: json["links"] as List<Link>,
+      );
+
+  TimeOfDay stringToTimeOfDay(String timeString) {
+    final splitTime = timeString.split(':');
+    final hour = int.parse(splitTime[0]);
+    final minute = int.parse(splitTime[1]);
+    return TimeOfDay(hour: hour, minute: minute);
+  }
 }
+
+
 
 /* Correctly formatted dummy data example:
 class ToDoListState extends State<ToDoList> {
