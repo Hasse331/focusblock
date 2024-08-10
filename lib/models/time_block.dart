@@ -7,7 +7,7 @@ class TimeBlock {
   final String startTime;
   final String endTime;
   String? description; // referred as notes also in UI
-  final List<ToDoItem>? toDoItems;
+  List<ToDoItem>? toDoItems;
   final List<Link>? links;
 
   TimeBlock({
