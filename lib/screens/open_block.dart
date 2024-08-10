@@ -61,6 +61,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   type: "Edit", index: index, updateParent: updateParentState);
             },
             icon: const Icon(
+              // TODO: Edit icon crashing the app
               Icons.edit,
               color: Colors.white,
             ),

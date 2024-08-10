@@ -9,7 +9,7 @@ Future<void> saveToDo({required int blockIndex, required String toDo}) async {
 
   if (blockIndex >= 0 && blockIndex < blocks.length) {
     final timeBlock = blocks[blockIndex] as Map<String, dynamic>;
-    if (!timeBlock.containsKey('toDoItems')) {
+    if (!timeBlock.containsKey('toDoItems') || timeBlock["toDoItems"] == null) {
       timeBlock['toDoItems'] = [];
     }
     final toDoItems = timeBlock['toDoItems'] as List<dynamic>;

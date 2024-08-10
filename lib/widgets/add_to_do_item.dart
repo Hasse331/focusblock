@@ -78,6 +78,7 @@ class AddToDoItemState extends State<AddToDoItem> {
                   saveToDo(
                       blockIndex: blockIndex, toDo: _toDoNameController.text);
                   updateState();
+                  _toDoNameController.clear();
                   FocusScope.of(context).unfocus();
                 },
                 child: const Text("Save"),

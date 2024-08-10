@@ -4,6 +4,9 @@ import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 
+// TODO: new todo items are not displaying when going home_screen and back
+// getting old toDoList form parent maybe/ not updating it idk??
+
 class ToDoList extends StatefulWidget {
   const ToDoList(
       {super.key,
@@ -28,12 +31,12 @@ class ToDoListState extends State<ToDoList> {
   Function get updateState => widget.updateState;
 
   void removeToDoItem(int blockIndex, int index) {
-    setState(() {
-      loadTimeBlocks().then((blocks) {
-        setState(() {
-          blocks[blockIndex].toDoItems!.removeAt(index);
-          // updateTimeBlocks(blocks);
-        });
+    loadTimeBlocks().then((blocks) {
+      setState(() {
+        toDoItem.removeAt(index);
+        blocks[blockIndex].toDoItems!.removeAt(index);
+        updateTimeBlocks(blocks);
+        updateState();
       });
     });
   }
@@ -48,31 +51,35 @@ class ToDoListState extends State<ToDoList> {
             key: Key(toDoItem[index].name + index.toString()),
             onDismissed: (direction) {
               removeToDoItem(blockIndex, index);
-              updateState();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      "${toDoItem[index].name} dismissed (not working yet)"),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {
-                      setState(() {
-                        // Make this work
-                        // toDoItems.insert(index, toDoItem[index]);
-                        // updateToDoItems(toDoItem);
-                      });
-                    },
-                  ),
-                  duration: const Duration(seconds: 5),
-                ),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(
+              //         "${toDoItem[index].name} dismissed (not working yet)"),
+              //     action: SnackBarAction(
+              //       label: 'Undo',
+              //       onPressed: () {
+              //         setState(() {
+              //           // Make this work
+              //           // toDoItems.insert(index, toDoItem[index]);
+              //           // updateToDoItems(toDoItem);
+              //         });
+              //       },
+              //     ),
+              //     duration: const Duration(seconds: 5),
+              //   ),
+              // );
             },
             child: CheckboxListTile(
               title: Text(toDoItem[index].name),
               value: toDoItem[index].isChecked,
               onChanged: (value) {
-                setState(() {
-                  toDoItem[index].isChecked = value!;
+                loadTimeBlocks().then((blocks) {
+                  setState(() {
+                    toDoItem[index].isChecked = !toDoItem[index].isChecked;
+                    // TODO: This is buggy somehow
+                    // blocks[blockIndex].toDoItems![index].isChecked = value!;
+                    // updateTimeBlocks(blocks);
+                  });
                 });
               },
             ),
