@@ -16,14 +16,28 @@ class ToDoList extends StatefulWidget {
 class ToDoListState extends State<ToDoList> {
   late TimeBlock _currentBlock;
   late List<ToDoItem>? toDoList;
+  final FocusNode _focusNode = FocusNode();
+
+  bool _isFocused = false;
 
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
     setState(() {
       _currentBlock = widget.currentBlock;
       toDoList = _currentBlock.toDoItems;
     });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,6 +60,29 @@ class ToDoListState extends State<ToDoList> {
                 );
               },
             ),
+          TextField(
+            focusNode: _focusNode,
+            decoration: const InputDecoration(
+              hintText: 'Add new To Do',
+            ),
+          ),
+          if (_isFocused)
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      FocusScope.of(context).unfocus();
+                    });
+                  },
+                  child: const Text("Return"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text("Save"),
+                ),
+              ],
+            )
         ],
       ),
     );
