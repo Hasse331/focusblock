@@ -32,6 +32,15 @@ class TimeBlock {
             .toList(),
       );
 
+  Map<String, dynamic> toJson() => {
+        'blockName': blockName,
+        'startTime': startTime, // Convert TimeOfDay to string
+        'endTime': endTime,
+        'description': description,
+        'toDoItems': toDoItems?.map((item) => item.toJson()).toList(),
+        'links': links?.map((item) => item.toJson()).toList(),
+      };
+
   TimeOfDay stringToTimeOfDay(String timeString) {
     final splitTime = timeString.split(':');
     final hour = int.parse(splitTime[0]);

@@ -1,9 +1,10 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:time_blocking/models/time_block.dart';
 
-Future<void> updateTimeBlocks(List<dynamic> updatedList) async {
+Future<void> updateTimeBlocks(List<TimeBlock> timeBlocks) async {
   final prefs = await SharedPreferences.getInstance();
-
-  await prefs.setString('timeBlocks', json.encode(updatedList));
+  final timeBlocksJson =
+      jsonEncode(timeBlocks.map((block) => block.toJson()).toList());
+  await prefs.setString('timeBlocks', timeBlocksJson);
 }

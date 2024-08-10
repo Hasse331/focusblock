@@ -6,4 +6,9 @@ class Link {
 
   factory Link.fromJson(Map<String, dynamic> json) =>
       Link(name: json["name"] as String, link: json["link"] as String);
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'isChecked': link,
+      };
 }
