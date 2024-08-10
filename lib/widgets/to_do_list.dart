@@ -15,37 +15,38 @@ class ToDoList extends StatefulWidget {
 
 class ToDoListState extends State<ToDoList> {
   late TimeBlock _currentBlock;
-  late List toDoList;
+  late List<ToDoItem>? toDoList;
 
   @override
   void initState() {
     super.initState();
     setState(() {
       _currentBlock = widget.currentBlock;
-      if (_currentBlock.toDoItems == null) {
-        toDoList = [
-          ToDoItem(name: 'No data', isChecked: false),
-        ];
-      }
+      toDoList = _currentBlock.toDoItems;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: toDoList.length,
-        itemBuilder: (context, index) {
-          return CheckboxListTile(
-            title: Text(toDoList[index].name),
-            value: toDoList[index].isChecked,
-            onChanged: (value) {
-              setState(() {
-                // Add state update
-              });
-            },
-          );
-        },
+      child: Column(
+        children: [
+          if (toDoList != null)
+            ListView.builder(
+              itemCount: toDoList?.length,
+              itemBuilder: (context, index) {
+                return CheckboxListTile(
+                  title: Text(toDoList![index].name),
+                  value: toDoList![index].isChecked,
+                  onChanged: (value) {
+                    setState(() {
+                      // Add state update
+                    });
+                  },
+                );
+              },
+            ),
+        ],
       ),
     );
   }
