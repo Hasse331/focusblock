@@ -94,6 +94,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               style: TextStyle(fontSize: 25),
             ),
             ToDoList(
+              currentBlock: _currentBlock,
               blockIndex: index,
             ),
             // TODO: Links/sources

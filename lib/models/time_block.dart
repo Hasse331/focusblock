@@ -3,6 +3,7 @@ import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/to_do.dart';
 
 // Currently this model is not used anywhere and may be incorrecly defined
+// TODO: transform loaded JSON data to dart object structure for readability and type safety
 
 class TimeBlock {
   final String blockName;
@@ -40,8 +41,6 @@ class ToDoListState extends State<ToDoList> {
     // ... Add more TimeBlocks with details
   ];
  */
-
-
 
 /* Accessing the data example:
 TimeBlock firstBlock = timeBlocks[0]; // Access the first TimeBlock

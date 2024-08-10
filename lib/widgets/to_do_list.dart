@@ -3,39 +3,35 @@ import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 
 class ToDoList extends StatefulWidget {
-  const ToDoList({super.key, required this.blockIndex});
+  const ToDoList(
+      {super.key, required this.blockIndex, required this.currentBlock});
 
   final int blockIndex;
+  final Map<String, dynamic> currentBlock;
 
   @override
   ToDoListState createState() => ToDoListState();
 }
 
-// TODO: 2. Continue the ToDo feature when my brains are working and feeling good (not frustrated)
-
 class ToDoListState extends State<ToDoList> {
-  // Correctly formatted dummy data:
-  List<TimeBlock> timeBlocks = [
-    TimeBlock(
-      blockName: 'Morning',
-      startTime: const TimeOfDay(hour: 8, minute: 0),
-      endTime: const TimeOfDay(hour: 12, minute: 0),
-      description: 'Focus on important tasks',
-      toDoItems: [
-        ToDoItem(name: 'Finish report', isChecked: true),
-        ToDoItem(name: 'Meeting with client', isChecked: false),
-        ToDoItem(name: 'Check emails', isChecked: false),
-      ],
-    ),
-    // ... Add more TimeBlocks with details
-  ];
+  late Map<String, dynamic> _currentBlock;
+  late List toDoList;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _currentBlock = widget.currentBlock;
+      if (_currentBlock["toDoList"] == null) {
+        toDoList = [
+          ToDoItem(name: 'No data', isChecked: false),
+        ];
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Use blockIndex here when implemented
-    TimeBlock currentBlock = timeBlocks[0];
-    // Add null check here when implemented:
-    List<ToDoItem> toDoList = currentBlock.toDoItems!;
     return Expanded(
       child: ListView.builder(
         itemCount: toDoList.length,
