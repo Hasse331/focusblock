@@ -80,7 +80,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // Description
+            // Description / notes
             DescriptionWidget(
               currentBlock: _currentBlock,
               index: index,

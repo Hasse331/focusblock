@@ -66,7 +66,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                     showInput = !showInput;
                   });
                 },
-                child: const Text('Add decription'),
+                child: const Text('Add notes'),
               ),
             if (!nullDescription && !showInput)
               Expanded(
@@ -102,9 +102,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
-                        labelText: nullDescription
-                            ? "Add description"
-                            : "Edti description",
+                        labelText: nullDescription ? "Add notes" : "Edti notes",
                       ),
                     ),
                     // Descritpion input field buttons:

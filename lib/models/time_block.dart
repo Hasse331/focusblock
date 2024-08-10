@@ -10,7 +10,7 @@ class TimeBlock {
   final String blockName;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
-  final String? description;
+  final String? description; // referred as notes also in UI
   final List<ToDoItem>? toDoItems;
   final List<Link>? links;
 
