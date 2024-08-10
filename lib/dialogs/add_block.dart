@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
+import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/save_time_block.dart';
 import 'package:time_blocking/utils/convert_to_time_of_day.dart';
@@ -10,7 +11,7 @@ void addBlockDialog(context, Function updateState,
   TextEditingController nameController;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
-  late List<dynamic> timeBlocks = [];
+  late List<TimeBlock> timeBlocks = [];
 
   int timeToMinutes(TimeOfDay time) {
     return time.hour * 60 + time.minute;
@@ -34,11 +35,10 @@ void addBlockDialog(context, Function updateState,
       timeBlocks = blocks;
 
       // Prefill field controllers in correct format:
-      nameController =
-          TextEditingController(text: timeBlocks[index]["blockName"]);
+      nameController = TextEditingController(text: timeBlocks[index].blockName);
       // Reformat these to timeOfDay:
-      startTime = convertStringToTimeOfDay(timeBlocks[index]["startTime"]);
-      endTime = convertStringToTimeOfDay(timeBlocks[index]["endTime"]);
+      startTime = convertStringToTimeOfDay(timeBlocks[index].startTime);
+      endTime = convertStringToTimeOfDay(timeBlocks[index].endTime);
     });
   }
 

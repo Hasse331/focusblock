@@ -26,6 +26,8 @@ class ToDoList extends StatefulWidget {
 
 class ToDoListState extends State<ToDoList> {
   int get blockIndex => widget.blockIndex;
+  // TODO: When editing block toDoList is null
+  // Probably because of updateState function what is resetting value of toDoItems
   List<ToDoItem> get toDoItem => widget.toDoList!;
   TimeBlock get currentBlock => widget.currentBlock;
   Function get updateState => widget.updateState;
