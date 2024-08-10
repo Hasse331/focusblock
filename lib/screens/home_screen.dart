@@ -104,6 +104,8 @@ class HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           final TimeBlock currentBlock = timeBlocks[index];
 
+          if (timeBlocks.length > 1) const Text("No blocks added");
+
           // Block Dismissing
           return Dismissible(
             key: Key(currentBlock.blockName + index.toString()),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
+import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/widgets/add_to_do_item.dart';
 import 'package:time_blocking/widgets/description.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
 
@@ -22,6 +24,7 @@ class OpenBlockScreen extends StatefulWidget {
 
 class OpenBlockScreenState extends State<OpenBlockScreen> {
   late TimeBlock _currentBlock;
+  late List<ToDoItem>? _toDoList;
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
@@ -30,12 +33,15 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
+    _toDoList = _currentBlock.toDoItems;
+    _toDoList ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
   }
 
   void updateState() {
     loadTimeBlocks().then((updatedBlocks) {
       setState(() {
         _currentBlock = updatedBlocks[index];
+        _toDoList = _currentBlock.toDoItems;
       });
     });
   }
@@ -94,9 +100,15 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               "To Do List",
               style: TextStyle(fontSize: 25),
             ),
+            AddToDoItem(
+              blockIndex: index,
+              currentBlock: _currentBlock,
+              updateState: updateState,
+            ),
             ToDoList(
               currentBlock: _currentBlock,
               blockIndex: index,
+              toDoList: _toDoList,
             ),
             // TODO: Links/sources
           ],
