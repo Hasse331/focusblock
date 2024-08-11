@@ -93,8 +93,33 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.golf_course_sharp),
+              title: const Text('Goals'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.account_box),
+              title: const Text('Account'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.room_preferences),
+              title: const Text('Theme'),
               onTap: () {
                 // Update the state of the app.
                 // ...
