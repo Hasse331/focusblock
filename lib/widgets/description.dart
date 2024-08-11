@@ -19,6 +19,14 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
   bool showInput = false;
   bool nullDescription = true;
   late TextEditingController _descriptionController;
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    // Dispose the FocusNode when the widget is disposed
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -65,6 +73,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                   setState(() {
                     showInput = !showInput;
                   });
+                  _focusNode.requestFocus();
                 },
                 child: const Text('Add notes'),
               ),
@@ -84,6 +93,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                   setState(() {
                     showInput = true;
                   });
+                  _focusNode.requestFocus();
                 },
                 padding: EdgeInsets.only(left: nullDescription ? 0 : 18),
                 icon: Icon(
@@ -100,6 +110,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                     TextField(
                       textCapitalization: TextCapitalization.sentences,
                       controller: _descriptionController,
+                      focusNode: _focusNode,
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
