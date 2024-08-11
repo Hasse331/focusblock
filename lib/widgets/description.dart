@@ -111,6 +111,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                       textCapitalization: TextCapitalization.sentences,
                       controller: _descriptionController,
                       focusNode: _focusNode,
+                      autofocus: false,
                       maxLines: 10,
                       minLines: 1,
                       decoration: InputDecoration(
@@ -124,6 +125,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                           onPressed: () {
                             setState(() {
                               showInput = !showInput;
+                              FocusScope.of(context).unfocus();
                             });
                           },
                           child: const Text("Return"),
@@ -131,6 +133,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                         TextButton(
                           onPressed: () {
                             saveDescription();
+                            FocusScope.of(context).unfocus();
                           },
                           child: const Text("Save"),
                         ),

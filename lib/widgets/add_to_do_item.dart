@@ -47,6 +47,7 @@ class AddToDoItemState extends State<AddToDoItem> {
         TextField(
           textCapitalization: TextCapitalization.sentences,
           focusNode: _focusNode,
+          autofocus: false,
           controller: _toDoNameController,
           decoration: const InputDecoration(
             hintText: 'Add new To Do',
@@ -59,9 +60,10 @@ class AddToDoItemState extends State<AddToDoItem> {
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).unfocus();
+                    _toDoNameController.clear();
                   });
                 },
-                child: const Text("Return"),
+                child: const Text("Cancel"),
               ),
               TextButton(
                 onPressed: () {
