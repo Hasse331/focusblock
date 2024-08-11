@@ -28,9 +28,6 @@ class ToDoListState extends State<ToDoList> {
   TimeBlock get currentBlock => widget.currentBlock;
   Function get updateState => widget.updateState;
 
-  // TODO: PROBLEM: new todo items are not displaying sometimes
-  // getting old toDoList form parent maybe/ not updating it idk??
-
   void removeToDoItem(int blockIndex, int index) {
     loadTimeBlocks().then((blocks) {
       setState(() {
@@ -47,8 +44,6 @@ class ToDoListState extends State<ToDoList> {
       child: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
-          // TODO: CRASH: dismissing is crashing the app sometimes
-          // Fixing state issues will probably fix this bug
           return Dismissible(
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
