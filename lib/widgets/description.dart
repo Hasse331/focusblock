@@ -98,6 +98,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                 child: Column(
                   children: [
                     TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       controller: _descriptionController,
                       maxLines: 10,
                       minLines: 1,

@@ -45,6 +45,7 @@ class AddToDoItemState extends State<AddToDoItem> {
     return Column(
       children: [
         TextField(
+          textCapitalization: TextCapitalization.sentences,
           focusNode: _focusNode,
           controller: _toDoNameController,
           decoration: const InputDecoration(

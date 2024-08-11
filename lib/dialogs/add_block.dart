@@ -53,6 +53,7 @@ void addBlockDialog(context, Function updateState,
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                textCapitalization: TextCapitalization.sentences,
                 controller: nameController,
                 decoration: const InputDecoration(
                   labelText: 'Block name: ',
