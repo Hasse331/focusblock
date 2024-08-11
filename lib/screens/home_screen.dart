@@ -118,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.room_preferences),
+              leading: const Icon(Icons.color_lens),
               title: const Text('Theme'),
               onTap: () {
                 // Update the state of the app.
