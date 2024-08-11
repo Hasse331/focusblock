@@ -64,7 +64,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   type: "Edit", index: index, updateParent: updateParentState);
             },
             icon: const Icon(
-              // TODO: Edit crashing the app
               Icons.edit,
               color: Colors.white,
             ),
@@ -111,9 +110,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
             ToDoList(
               currentBlock: _currentBlock,
               blockIndex: index,
-              // TODO: Make openBlock data and ToDoList data in sync
-              // toDoList data is outdated when returning after making changes
-              // in ToDoList widget
               toDoList: toDoItems,
               updateState: updateState,
             ),

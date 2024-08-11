@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           elevation: 3,
         ),
       ),
-      home: const HomeScreen(),
+      home: const SafeArea(child: HomeScreen()),
     );
   }
 }

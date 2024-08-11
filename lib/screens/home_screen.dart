@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
@@ -10,6 +11,7 @@ import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: Optimizing UI for wide screens and other devices desktop/web
+// TODO: Add no blocks added text
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,17 +53,71 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: ListTile(
+                title: const Text('MENU'),
+                trailing: Builder(builder: (context) {
+                  return IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close),
+                  );
+                }),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.list),
+              title: const Text('Templates'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.done),
+              title: const Text('To Do Blocks'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       // AppBar
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // TODO: Add save schedules feature and menu
-            // TODO: Add To Do - Not today / later screen and feature to add these blocks to today's schedule
-          },
-          icon: const Icon(
-            Icons.menu,
-          ),
-        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+              // TODO: Add menu
+              // TODO: Add save schedules / templates feature
+              // TODO: Add To Do - Not today / later screen and feature to add these blocks to today's schedule
+            },
+            icon: const Icon(
+              Icons.menu,
+            ),
+          );
+        }),
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

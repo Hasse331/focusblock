@@ -49,7 +49,7 @@ class ToDoListState extends State<ToDoList> {
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
               removeToDoItem(blockIndex, index);
-              // TODO: Make undo snackbar work
+              // TODO: Add undo snackbar
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(
               //     content: Text(
