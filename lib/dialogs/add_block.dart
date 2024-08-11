@@ -7,11 +7,12 @@ import 'package:time_blocking/utils/convert_to_time_of_day.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
 void addBlockDialog(context, Function updateState,
-    {required String type, index, updateParent}) async {
+    {required String type, index, updateParent}) {
   TextEditingController nameController;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
   late List<TimeBlock> timeBlocks = [];
+  nameController = TextEditingController();
 
   int timeToMinutes(TimeOfDay time) {
     return time.hour * 60 + time.minute;
@@ -37,13 +38,22 @@ void addBlockDialog(context, Function updateState,
 
       // Prefill field controllers in correct format:
       nameController = TextEditingController(text: timeBlocks[index].blockName);
+      print("DEBUGGING PRINT - DEBUGGING PRINT - DEBUGGING PRINT");
       // Reformat these to timeOfDay:
-      startTime = convertStringToTimeOfDay(timeBlocks[index].startTime);
-      endTime = convertStringToTimeOfDay(timeBlocks[index].endTime);
+      try {
+        startTime = convertStringToTimeOfDay(timeBlocks[index].startTime);
+        endTime = convertStringToTimeOfDay(timeBlocks[index].endTime);
+      } catch (error) {
+        // Handle the error gracefully
+        print(
+            "Error convertStringToTimeOfDay in add_block.dart: $error"); // Log the error for debugging
+        // You can also display a user-friendly error message here
+      }
+      print("DEBUGGING PRINT - DEBUGGING PRINT - DEBUGGING PRINT");
+      print(startTime);
+      print(endTime);
     });
   }
-
-  nameController = TextEditingController();
 
   showDialog(
     context: context,
@@ -96,7 +106,7 @@ void addBlockDialog(context, Function updateState,
                         index: index);
                     updateState();
                     if (type == "Edit") {
-                      updateParent();
+                      updateState();
                     }
                     Navigator.of(context).pop();
                   } else {

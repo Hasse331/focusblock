@@ -74,6 +74,7 @@ class ToDoListState extends State<ToDoList> {
               onChanged: (value) {
                 loadTimeBlocks().then((blocks) {
                   setState(() {
+                    // TODO: sometimes not updating the state when re-entering the widgewt
                     toDoList[index].isChecked = !toDoList[index].isChecked;
                     blocks[blockIndex].toDoItems![index].isChecked = value!;
                     updateTimeBlocks(blocks);

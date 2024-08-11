@@ -17,12 +17,19 @@ class MyTimePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
-        TimeOfDay? pickedTime = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now(),
-        );
-        if (pickedTime != null) {
-          updateState(pickedTime);
+        try {
+          TimeOfDay? pickedTime = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          if (pickedTime != null) {
+            updateState(pickedTime);
+          }
+        } catch (error) {
+          // Handle the error gracefully
+          print(
+              "Error showing time picker: $error"); // Log the error for debugging
+          // You can also display a user-friendly error message here
         }
       },
       child: Row(

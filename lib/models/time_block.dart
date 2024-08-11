@@ -40,13 +40,6 @@ class TimeBlock {
         'toDoItems': toDoItems?.map((item) => item.toJson()).toList(),
         'links': links?.map((item) => item.toJson()).toList(),
       };
-
-  TimeOfDay stringToTimeOfDay(String timeString) {
-    final splitTime = timeString.split(':');
-    final hour = int.parse(splitTime[0]);
-    final minute = int.parse(splitTime[1]);
-    return TimeOfDay(hour: hour, minute: minute);
-  }
 }
 
 
