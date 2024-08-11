@@ -44,12 +44,12 @@ class ToDoListState extends State<ToDoList> {
       child: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
-          // TODO: Make the toDoList reorderable
+          // TODO: UI/UX: Make the toDoList reorderable
           return Dismissible(
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
               removeToDoItem(blockIndex, index);
-              // TODO: Add undo snackbar
+              // TODO: UI/UX: Add undo snackbar
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(
               //     content: Text(
@@ -74,7 +74,7 @@ class ToDoListState extends State<ToDoList> {
               onChanged: (value) {
                 loadTimeBlocks().then((blocks) {
                   setState(() {
-                    // TODO: sometimes not updating the state when re-entering the widgewt
+                    // TODO: BUG: sometimes not updating the state when re-entering the widgewt
                     toDoList[index].isChecked = !toDoList[index].isChecked;
                     blocks[blockIndex].toDoItems![index].isChecked = value!;
                     updateTimeBlocks(blocks);

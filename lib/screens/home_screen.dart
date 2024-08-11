@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
@@ -10,8 +9,8 @@ import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: Optimizing UI for wide screens and other devices desktop/web
-// TODO: Add no blocks added text
+// TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
+// TODO: UI/UX: Add no blocks added text
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +36,7 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // TODO: Refactor to better state management system
+  // TODO: REFACTOR: to better state management system
   // Now states have to be updated separately in every level
   // what makes state management complicated and may causing unexpected
   // behaviour / bugs if not handiling properly. Maintainance and new
@@ -53,6 +52,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // TODO: REFACTOR: Drawer to separate widget
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -80,24 +80,21 @@ class HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.list),
               title: const Text('Templates'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add save schedules / templates feature
               },
             ),
             ListTile(
               leading: const Icon(Icons.done),
               title: const Text('To Do Blocks'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add To Do blocks
               },
             ),
             ListTile(
               leading: const Icon(Icons.golf_course_sharp),
               title: const Text('Goals'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add Goals
               },
             ),
             const Divider(),
@@ -105,24 +102,21 @@ class HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.account_box),
               title: const Text('Account'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add accounts
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add Settings and user preferences
               },
             ),
             ListTile(
               leading: const Icon(Icons.color_lens),
               title: const Text('Theme'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // TODO: FEATURE: Add themes
               },
             ),
           ],
@@ -134,9 +128,6 @@ class HomeScreenState extends State<HomeScreen> {
           return IconButton(
             onPressed: () {
               Scaffold.of(context).openDrawer();
-              // TODO: Add menu
-              // TODO: Add save schedules / templates feature
-              // TODO: Add To Do - Not today / later screen and feature to add these blocks to today's schedule
             },
             icon: const Icon(
               Icons.menu,

@@ -10,7 +10,7 @@ class MyTimeBlock extends StatelessWidget {
 
   final TimeBlock currentBlock;
 
-  // TODO: Add optional icon to each block and in addBlock dialog
+  // TODO: UI/UX: Add optional icon to each block and in addBlock dialog
 
   @override
   Widget build(BuildContext context) {
