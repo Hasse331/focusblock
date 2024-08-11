@@ -24,7 +24,7 @@ class OpenBlockScreen extends StatefulWidget {
 
 class OpenBlockScreenState extends State<OpenBlockScreen> {
   late TimeBlock _currentBlock;
-  late List<ToDoItem>? _toDoList;
+  late List<ToDoItem>? toDoItems;
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
@@ -33,8 +33,8 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
-    _toDoList = _currentBlock.toDoItems;
-    _toDoList ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
+    toDoItems = _currentBlock.toDoItems;
+    toDoItems ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
   }
 
   void updateState({bool toDo = false}) {
@@ -42,11 +42,13 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       setState(() {
         _currentBlock = updatedBlocks[index];
         if (toDo) {
-          print("updating toDoList in openBlock widget");
-          _toDoList = _currentBlock.toDoItems;
+          print("DEBUGGING: updating toDoList in openBlock widget");
+          toDoItems = _currentBlock.toDoItems;
+          toDoItems!.forEach((item) => print(item.name));
         }
       });
     });
+    updateParentState();
   }
 
   @override
@@ -112,7 +114,10 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
             ToDoList(
               currentBlock: _currentBlock,
               blockIndex: index,
-              toDoList: _toDoList,
+              // TODO: Make openBlock data and ToDoList data in sync
+              // toDoList data is outdated when returning after making changes
+              // in ToDoList widget
+              toDoList: toDoItems,
               updateState: updateState,
             ),
             // TODO: Links/sources

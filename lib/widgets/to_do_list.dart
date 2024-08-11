@@ -4,9 +4,6 @@ import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 
-// TODO: PROBLEM: new todo items are not displaying sometimes
-// getting old toDoList form parent maybe/ not updating it idk??
-
 class ToDoList extends StatefulWidget {
   const ToDoList(
       {super.key,
@@ -31,10 +28,12 @@ class ToDoListState extends State<ToDoList> {
   TimeBlock get currentBlock => widget.currentBlock;
   Function get updateState => widget.updateState;
 
+  // TODO: PROBLEM: new todo items are not displaying sometimes
+  // getting old toDoList form parent maybe/ not updating it idk??
+
   void removeToDoItem(int blockIndex, int index) {
     loadTimeBlocks().then((blocks) {
       setState(() {
-        toDoList.removeAt(index);
         blocks[blockIndex].toDoItems!.removeAt(index);
         updateTimeBlocks(blocks);
         updateState(toDo: true);

@@ -35,6 +35,12 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // TODO: Refactor to better state management system
+  // Now states have to be updated separately in every level
+  // what makes state management complicated and may causing unexpected
+  // behaviour / bugs if not handiling properly. Maintainance and new
+  // features are also harder to implement.
+
   void removeBlock(index) {
     setState(() {
       timeBlocks.removeAt(index);

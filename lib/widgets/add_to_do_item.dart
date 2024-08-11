@@ -40,8 +40,6 @@ class AddToDoItemState extends State<AddToDoItem> {
     });
     setState(() {
       _currentBlock = widget.currentBlock;
-      toDoList = _currentBlock.toDoItems;
-      toDoList ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
     });
   }
 
