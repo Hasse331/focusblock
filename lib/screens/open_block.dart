@@ -37,11 +37,14 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     _toDoList ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
   }
 
-  void updateState() {
+  void updateState({bool toDo = false}) {
     loadTimeBlocks().then((updatedBlocks) {
       setState(() {
         _currentBlock = updatedBlocks[index];
-        _toDoList = _currentBlock.toDoItems;
+        if (toDo) {
+          print("updating toDoList in openBlock widget");
+          _toDoList = _currentBlock.toDoItems;
+        }
       });
     });
   }
@@ -61,7 +64,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   type: "Edit", index: index, updateParent: updateParentState);
             },
             icon: const Icon(
-              // TODO: Edit icon crashing the app
+              // TODO: Edit crashing the app
               Icons.edit,
               color: Colors.white,
             ),

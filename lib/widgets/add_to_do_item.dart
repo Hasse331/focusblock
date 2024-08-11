@@ -77,7 +77,7 @@ class AddToDoItemState extends State<AddToDoItem> {
                 onPressed: () {
                   saveToDo(
                       blockIndex: blockIndex, toDo: _toDoNameController.text);
-                  updateState();
+                  updateState(toDo: true);
                   _toDoNameController.clear();
                   FocusScope.of(context).unfocus();
                 },

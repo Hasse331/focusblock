@@ -4,7 +4,7 @@ import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 
-// TODO: new todo items are not displaying when going home_screen and back
+// TODO: PROBLEM: new todo items are not displaying sometimes
 // getting old toDoList form parent maybe/ not updating it idk??
 
 class ToDoList extends StatefulWidget {
@@ -26,19 +26,18 @@ class ToDoList extends StatefulWidget {
 
 class ToDoListState extends State<ToDoList> {
   int get blockIndex => widget.blockIndex;
-  // TODO: When editing block toDoList is null
   // Probably because of updateState function what is resetting value of toDoItems
-  List<ToDoItem> get toDoItem => widget.toDoList!;
+  List<ToDoItem> get toDoList => widget.toDoList!;
   TimeBlock get currentBlock => widget.currentBlock;
   Function get updateState => widget.updateState;
 
   void removeToDoItem(int blockIndex, int index) {
     loadTimeBlocks().then((blocks) {
       setState(() {
-        toDoItem.removeAt(index);
+        toDoList.removeAt(index);
         blocks[blockIndex].toDoItems!.removeAt(index);
         updateTimeBlocks(blocks);
-        updateState();
+        updateState(toDo: true);
       });
     });
   }
@@ -47,12 +46,15 @@ class ToDoListState extends State<ToDoList> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: toDoItem.length,
+        itemCount: toDoList.length,
         itemBuilder: (context, index) {
+          // TODO: CRASH: dismissing is crashing the app sometimes
+          // Fixing state issues will probably fix this bug
           return Dismissible(
-            key: Key(toDoItem[index].name + index.toString()),
+            key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
               removeToDoItem(blockIndex, index);
+              // TODO: Make undo snackbar work
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(
               //     content: Text(
@@ -72,12 +74,12 @@ class ToDoListState extends State<ToDoList> {
               // );
             },
             child: CheckboxListTile(
-              title: Text(toDoItem[index].name),
-              value: toDoItem[index].isChecked,
+              title: Text(toDoList[index].name),
+              value: toDoList[index].isChecked,
               onChanged: (value) {
                 loadTimeBlocks().then((blocks) {
                   setState(() {
-                    toDoItem[index].isChecked = !toDoItem[index].isChecked;
+                    toDoList[index].isChecked = !toDoList[index].isChecked;
                     // TODO: This is buggy somehow
                     // blocks[blockIndex].toDoItems![index].isChecked = value!;
                     // updateTimeBlocks(blocks);

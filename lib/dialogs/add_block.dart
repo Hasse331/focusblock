@@ -30,6 +30,7 @@ void addBlockDialog(context, Function updateState,
     }
   }
 
+  // TODO: CRASH: When editing block app is crashing
   if (type == "Edit") {
     loadTimeBlocks().then((blocks) {
       timeBlocks = blocks;
