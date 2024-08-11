@@ -44,6 +44,7 @@ class ToDoListState extends State<ToDoList> {
       child: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
+          // TODO: Make the toDoList reorderable
           return Dismissible(
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
@@ -74,9 +75,8 @@ class ToDoListState extends State<ToDoList> {
                 loadTimeBlocks().then((blocks) {
                   setState(() {
                     toDoList[index].isChecked = !toDoList[index].isChecked;
-                    // TODO: This is buggy somehow
-                    // blocks[blockIndex].toDoItems![index].isChecked = value!;
-                    // updateTimeBlocks(blocks);
+                    blocks[blockIndex].toDoItems![index].isChecked = value!;
+                    updateTimeBlocks(blocks);
                   });
                 });
               },
