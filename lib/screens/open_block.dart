@@ -34,7 +34,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     super.initState();
     _currentBlock = widget.currentBlock;
     toDoItems = _currentBlock.toDoItems;
-    toDoItems ??= [ToDoItem(name: "No To DO items yet", isChecked: false)];
+    toDoItems ??= [];
   }
 
   void updateState({bool toDo = false}) {
@@ -42,9 +42,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       setState(() {
         _currentBlock = updatedBlocks[index];
         if (toDo) {
-          print("DEBUGGING: updating toDoList in openBlock widget");
           toDoItems = _currentBlock.toDoItems;
-          toDoItems!.forEach((item) => print(item.name));
         }
       });
     });
