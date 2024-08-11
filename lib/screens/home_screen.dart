@@ -102,7 +102,7 @@ class HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.account_box),
               title: const Text('Account'),
               onTap: () {
-                // TODO: FEATURE: Add accounts
+                // TODO: CROSS-PLATFORM: Add user accounts
               },
             ),
             ListTile(
