@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/save_to_do.dart';
 
 class AddToDoItem extends StatefulWidget {
   const AddToDoItem(
-      {super.key,
-      required this.blockIndex,
-      required this.currentBlock,
-      required this.updateState});
+      {super.key, required this.blockIndex, required this.updateState});
 
   final int blockIndex;
-  final TimeBlock currentBlock;
   final Function updateState;
 
   @override
@@ -19,7 +14,6 @@ class AddToDoItem extends StatefulWidget {
 }
 
 class AddToDoItemState extends State<AddToDoItem> {
-  late TimeBlock _currentBlock;
   late List<ToDoItem>? toDoList;
   late TextEditingController _toDoNameController;
   final FocusNode _focusNode = FocusNode();
@@ -37,9 +31,6 @@ class AddToDoItemState extends State<AddToDoItem> {
       setState(() {
         _isFocused = _focusNode.hasFocus;
       });
-    });
-    setState(() {
-      _currentBlock = widget.currentBlock;
     });
   }
 

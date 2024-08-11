@@ -106,7 +106,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
             ),
             AddToDoItem(
               blockIndex: index,
-              currentBlock: _currentBlock,
               updateState: updateState,
             ),
             ToDoList(
