@@ -31,27 +31,15 @@ void addBlockDialog(context, Function updateState,
     }
   }
 
-  // TODO: CRASH: When editing block app is crashing
   if (type == "Edit") {
     loadTimeBlocks().then((blocks) {
       timeBlocks = blocks;
 
       // Prefill field controllers in correct format:
       nameController = TextEditingController(text: timeBlocks[index].blockName);
-      print("DEBUGGING PRINT - DEBUGGING PRINT - DEBUGGING PRINT");
       // Reformat these to timeOfDay:
-      try {
-        startTime = convertStringToTimeOfDay(timeBlocks[index].startTime);
-        endTime = convertStringToTimeOfDay(timeBlocks[index].endTime);
-      } catch (error) {
-        // Handle the error gracefully
-        print(
-            "Error convertStringToTimeOfDay in add_block.dart: $error"); // Log the error for debugging
-        // You can also display a user-friendly error message here
-      }
-      print("DEBUGGING PRINT - DEBUGGING PRINT - DEBUGGING PRINT");
-      print(startTime);
-      print(endTime);
+      startTime = convertStringToTimeOfDay(timeBlocks[index].startTime);
+      endTime = convertStringToTimeOfDay(timeBlocks[index].endTime);
     });
   }
 
