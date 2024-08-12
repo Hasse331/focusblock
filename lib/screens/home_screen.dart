@@ -7,6 +7,7 @@ import 'package:time_blocking/screens/open_block.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
+import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
@@ -53,75 +54,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // TODO: REFACTOR: Drawer to separate widget
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: ListTile(
-                title: const Text('MENU'),
-                trailing: Builder(builder: (context) {
-                  return IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                  );
-                }),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.list),
-              title: const Text('Templates'),
-              onTap: () {
-                // TODO: FEATURE: Add save schedules / templates feature
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.done),
-              title: const Text('To Do Blocks'),
-              onTap: () {
-                // TODO: FEATURE: Add To Do blocks
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.golf_course_sharp),
-              title: const Text('Goals'),
-              onTap: () {
-                // TODO: FEATURE: Add Goals
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.account_box),
-              title: const Text('Account'),
-              onTap: () {
-                // TODO: CROSS-PLATFORM: Add user accounts
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // TODO: FEATURE: Add Settings and user preferences
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.color_lens),
-              title: const Text('Theme'),
-              onTap: () {
-                // TODO: FEATURE: Add themes
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const DrawerWidget(),
       // AppBar
       appBar: AppBar(
         leading: Builder(builder: (context) {
