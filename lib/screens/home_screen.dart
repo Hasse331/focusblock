@@ -53,7 +53,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: REFACTOR: Drawer to separate widget
       drawer: const DrawerWidget(),
       // AppBar
       appBar: AppBar(
