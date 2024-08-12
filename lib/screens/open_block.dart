@@ -28,6 +28,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
+  late bool emptyToDo;
 
   @override
   void initState() {
@@ -35,6 +36,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     _currentBlock = widget.currentBlock;
     toDoItems = _currentBlock.toDoItems;
     toDoItems ??= [];
+    if (toDoItems == null || toDoItems!.length < 1) {
+      emptyToDo = true;
+    } else {
+      emptyToDo = false;
+    }
   }
 
   void updateState({bool toDo = false}) {
@@ -99,14 +105,40 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              "To Do List",
-              style: TextStyle(fontSize: 25),
-            ),
-            AddToDoItem(
-              blockIndex: index,
-              updateState: updateState,
-            ),
+            if (emptyToDo)
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        emptyToDo = !emptyToDo;
+                      });
+                    },
+                    child: const Text('Add To Do List'),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        emptyToDo = !emptyToDo;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            if (!emptyToDo)
+              const Text(
+                "To Do List",
+                style: TextStyle(fontSize: 25),
+              ),
+            if (!emptyToDo)
+              AddToDoItem(
+                blockIndex: index,
+                updateState: updateState,
+              ),
             ToDoList(
               currentBlock: _currentBlock,
               blockIndex: index,

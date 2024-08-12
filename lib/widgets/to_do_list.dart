@@ -46,9 +46,6 @@ class ToDoListState extends State<ToDoList> {
     _editTaskController = TextEditingController();
   }
 
-  // TODO: UI/UX: Display To Do list as "Add to do list + if no items added yet"
-  // Same way as "Add notes +"
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

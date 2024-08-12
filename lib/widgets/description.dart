@@ -75,7 +75,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                   });
                   _focusNode.requestFocus();
                 },
-                child: const Text('Add notes'),
+                child: const Text('Add Notes'),
               ),
             if (!nullDescription && !showInput)
               Expanded(
@@ -120,7 +120,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                     ),
                     // Descritpion input field buttons:
                     Row(
-                      // TODO: UI/UX remove left side padding
+                      // TODO: UI/UX add vertical horizontal padding to inputfields
                       children: [
                         TextButton(
                           onPressed: () {
