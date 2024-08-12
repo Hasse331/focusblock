@@ -56,6 +56,7 @@ class ToDoListState extends State<ToDoList> {
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
           return Dismissible(
+            // TODO: BUG: Dismissing is sometimes crashing the application
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
               final savedToDo = toDoList[index];
@@ -81,40 +82,40 @@ class ToDoListState extends State<ToDoList> {
               contentPadding: EdgeInsets.zero,
               title: TextButton(
                 onPressed: () {
-                  // TODO: Add edit todo name dialog
                   _editTaskController.text = toDoList[index].name;
+                  // TODO: REFACTOR: dialog to separate widget
                   showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Edit task"),
-                          content: TextField(
-                            controller: _editTaskController,
-                            autofocus: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Edit task"),
+                        content: TextField(
+                          controller: _editTaskController,
+                          autofocus: true,
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  toDoList[index].name =
-                                      _editTaskController.text;
-                                  updateToDo(
-                                      blockIndex: blockIndex, toDo: toDoList);
-                                  updateParentStates(toDo: true);
-                                });
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Save'),
-                            ),
-                          ],
-                        );
-                      });
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                toDoList[index].name = _editTaskController.text;
+                                updateToDo(
+                                    blockIndex: blockIndex, toDo: toDoList);
+                                updateParentStates(toDo: true);
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Save'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Align(
                     alignment: Alignment.centerLeft,
