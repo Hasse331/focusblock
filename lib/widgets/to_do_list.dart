@@ -76,7 +76,12 @@ class ToDoListState extends State<ToDoList> {
                 onPressed: () {},
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(toDoList[index].name)),
+                    child: Text(
+                      toDoList[index].name,
+                      style: const TextStyle(
+                        color: Colors.black, // Replace with your desired color
+                      ),
+                    )),
               ),
               value: toDoList[index].isChecked,
               onChanged: (value) {
