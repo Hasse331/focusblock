@@ -48,27 +48,27 @@ class ToDoListState extends State<ToDoList> {
           return Dismissible(
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
+              final savedToDo = toDoList[index];
               removeToDoItem(blockIndex, index);
-              // TODO: UI/UX: Add undo snackbar
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   SnackBar(
-              //     content: Text(
-              //         "${toDoItem[index].name} dismissed (not working yet)"),
-              //     action: SnackBarAction(
-              //       label: 'Undo',
-              //       onPressed: () {
-              //         setState(() {
-              //           // Make this work
-              //           // toDoItems.insert(index, toDoItem[index]);
-              //           // updateToDoItems(toDoItem);
-              //         });
-              //       },
-              //     ),
-              //     duration: const Duration(seconds: 5),
-              //   ),
-              // );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("${toDoList[index].name} dismissed"),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      setState(() {
+                        toDoList.insert(index, savedToDo);
+                        updateToDo(blockIndex: blockIndex, toDo: toDoList);
+                        updateParentStates(toDo: true);
+                      });
+                    },
+                  ),
+                  duration: const Duration(seconds: 5),
+                ),
+              );
             },
             child: CheckboxListTile(
+              // TODO: UI/UX: Make toDoItems editable
               title: Text(toDoList[index].name),
               value: toDoList[index].isChecked,
               onChanged: (value) {
@@ -92,11 +92,7 @@ class ToDoListState extends State<ToDoList> {
               }
               final toDo = toDoList.removeAt(oldIndex);
               toDoList.insert(newIndex, toDo);
-              updateToDo(
-                  blockIndex: blockIndex,
-                  oldIndex: oldIndex,
-                  newIndex: newIndex,
-                  toDo: toDoList);
+              updateToDo(blockIndex: blockIndex, toDo: toDoList);
               updateParentStates(toDo: true);
             },
           );
