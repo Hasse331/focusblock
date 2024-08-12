@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/storage/update_to_do.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 
 class ToDoList extends StatefulWidget {
@@ -10,12 +11,12 @@ class ToDoList extends StatefulWidget {
       required this.blockIndex,
       required this.currentBlock,
       required this.toDoList,
-      required this.updateState});
+      required this.updateParentStates});
 
   final int blockIndex;
   final TimeBlock currentBlock;
   final List<ToDoItem>? toDoList;
-  final Function updateState;
+  final Function updateParentStates;
 
   @override
   ToDoListState createState() => ToDoListState();
@@ -23,17 +24,17 @@ class ToDoList extends StatefulWidget {
 
 class ToDoListState extends State<ToDoList> {
   int get blockIndex => widget.blockIndex;
-  // Probably because of updateState function what is resetting value of toDoItems
+  // Probably because of updateParentStates function what is resetting value of toDoItems
   List<ToDoItem> get toDoList => widget.toDoList!;
   TimeBlock get currentBlock => widget.currentBlock;
-  Function get updateState => widget.updateState;
+  Function get updateParentStates => widget.updateParentStates;
 
   void removeToDoItem(int blockIndex, int index) {
     loadTimeBlocks().then((blocks) {
       setState(() {
         blocks[blockIndex].toDoItems!.removeAt(index);
         updateTimeBlocks(blocks);
-        updateState(toDo: true);
+        updateParentStates(toDo: true);
       });
     });
   }
@@ -41,10 +42,9 @@ class ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
+      child: ReorderableListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
-          // TODO: UI/UX: Make the toDoList reorderable
           return Dismissible(
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
@@ -82,6 +82,23 @@ class ToDoListState extends State<ToDoList> {
                 });
               },
             ),
+          );
+        },
+        onReorder: (int oldIndex, int newIndex) {
+          setState(
+            () {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final toDo = toDoList.removeAt(oldIndex);
+              toDoList.insert(newIndex, toDo);
+              updateToDo(
+                  blockIndex: blockIndex,
+                  oldIndex: oldIndex,
+                  newIndex: newIndex,
+                  toDo: toDoList);
+              updateParentStates(toDo: true);
+            },
           );
         },
       ),

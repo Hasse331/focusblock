@@ -111,7 +111,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               currentBlock: _currentBlock,
               blockIndex: index,
               toDoList: toDoItems,
-              updateState: updateState,
+              updateParentStates: updateState,
             ),
             // TODO: FEATURE: Links/sources
           ],
