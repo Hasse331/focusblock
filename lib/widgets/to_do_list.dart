@@ -39,6 +39,9 @@ class ToDoListState extends State<ToDoList> {
     });
   }
 
+  // TODO: UI/UX: Display To Do list as "Add to do list + if no items added yet"
+  // Same way as "Add notes +"
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -69,19 +72,11 @@ class ToDoListState extends State<ToDoList> {
             },
             child: CheckboxListTile(
               contentPadding: EdgeInsets.zero,
-              // TODO: UI/UX: Make toDoItems editable
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(child: Text(toDoList[index].name)),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit,
-                      size: 18,
-                    ),
-                  ),
-                ],
+              title: TextButton(
+                onPressed: () {},
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(toDoList[index].name)),
               ),
               value: toDoList[index].isChecked,
               onChanged: (value) {

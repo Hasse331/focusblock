@@ -113,7 +113,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               toDoList: toDoItems,
               updateParentStates: updateState,
             ),
-            // TODO: FEATURE: Links/sources
+            // TODO: FEATURE: Links/resources
           ],
         ),
       ),
