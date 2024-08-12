@@ -28,6 +28,7 @@ class ToDoListState extends State<ToDoList> {
   List<ToDoItem> get toDoList => widget.toDoList!;
   TimeBlock get currentBlock => widget.currentBlock;
   Function get updateParentStates => widget.updateParentStates;
+  late TextEditingController _editTaskController;
 
   void removeToDoItem(int blockIndex, int index) {
     loadTimeBlocks().then((blocks) {
@@ -37,6 +38,12 @@ class ToDoListState extends State<ToDoList> {
         updateParentStates(toDo: true);
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _editTaskController = TextEditingController();
   }
 
   // TODO: UI/UX: Display To Do list as "Add to do list + if no items added yet"
@@ -73,7 +80,42 @@ class ToDoListState extends State<ToDoList> {
             child: CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               title: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // TODO: Add edit todo name dialog
+                  _editTaskController.text = toDoList[index].name;
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Edit task"),
+                          content: TextField(
+                            controller: _editTaskController,
+                            autofocus: true,
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  toDoList[index].name =
+                                      _editTaskController.text;
+                                  updateToDo(
+                                      blockIndex: blockIndex, toDo: toDoList);
+                                  updateParentStates(toDo: true);
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Save'),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
