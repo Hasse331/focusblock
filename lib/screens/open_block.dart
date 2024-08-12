@@ -186,6 +186,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 "Links And Resources",
                 style: TextStyle(fontSize: 25),
               ), // TODO: FEATURE: Continue links/resources
+            if (!emptyLinks)
+              // const AddLinks()
+              // TODO: FEATURE: Make AddLinks widget to add links
+            if (!emptyLinks)
+              // TODO: FEATURE: Display links here
           ],
         ),
       ),
