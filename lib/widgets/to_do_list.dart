@@ -48,8 +48,10 @@ class ToDoListState extends State<ToDoList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 320),
       child: ReorderableListView.builder(
+        shrinkWrap: true,
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
           return Dismissible(

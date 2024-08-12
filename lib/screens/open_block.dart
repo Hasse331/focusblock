@@ -29,6 +29,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
   late bool emptyToDo;
+  late bool emptyLinks;
 
   @override
   void initState() {
@@ -40,6 +41,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       emptyToDo = true;
     } else {
       emptyToDo = false;
+    }
+    if (_currentBlock.links == null || _currentBlock.links!.length < 1) {
+      emptyLinks = true;
+    } else {
+      emptyLinks = false;
     }
   }
 
@@ -106,6 +112,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               height: 10,
             ),
             if (emptyToDo)
+              // TODO: REFACTOR: Make this reusable, since it is already in 3 places
               Row(
                 children: [
                   TextButton(
@@ -124,7 +131,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                     },
                     icon: Icon(
                       Icons.add,
-                      size: 20,
+                      size: 25,
                     ),
                   ),
                 ],
@@ -145,7 +152,40 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               toDoList: toDoItems,
               updateParentStates: updateState,
             ),
-            // TODO: FEATURE: Links/resources
+            Divider(),
+            SizedBox(
+              height: 10,
+            ),
+            if (emptyLinks)
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        emptyLinks = !emptyLinks;
+                      });
+                    },
+                    child: const Text('Add Links / Resources'),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        emptyLinks = !emptyLinks;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      size: 25,
+                    ),
+                  ),
+                ],
+              ),
+
+            if (!emptyLinks)
+              const Text(
+                "Links And Resources",
+                style: TextStyle(fontSize: 25),
+              ), // TODO: FEATURE: Continue links/resources
           ],
         ),
       ),
