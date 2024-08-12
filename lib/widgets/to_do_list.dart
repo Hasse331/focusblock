@@ -68,13 +68,28 @@ class ToDoListState extends State<ToDoList> {
               );
             },
             child: CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
               // TODO: UI/UX: Make toDoItems editable
-              title: Text(toDoList[index].name),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: Text(toDoList[index].name)),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 18,
+                    ),
+                  ),
+                ],
+              ),
               value: toDoList[index].isChecked,
               onChanged: (value) {
                 loadTimeBlocks().then((blocks) {
                   setState(() {
                     // TODO: BUG: sometimes not updating the state when re-entering the widgewt
+                    // Have not happended anymore for a while
+                    // Maybe after fixing state update problems
                     toDoList[index].isChecked = !toDoList[index].isChecked;
                     blocks[blockIndex].toDoItems![index].isChecked = value!;
                     updateTimeBlocks(blocks);

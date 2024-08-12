@@ -120,6 +120,7 @@ class DescriptionWidgetState extends State<DescriptionWidget> {
                     ),
                     // Descritpion input field buttons:
                     Row(
+                      // TODO: UI/UX remove left side padding
                       children: [
                         TextButton(
                           onPressed: () {

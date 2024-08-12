@@ -55,6 +55,7 @@ class AddToDoItemState extends State<AddToDoItem> {
         ),
         if (_isFocused)
           Row(
+            // TODO: UI/UX remove left side padding
             children: [
               TextButton(
                 onPressed: () {
