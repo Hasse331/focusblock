@@ -14,12 +14,13 @@ Future<void> saveTimeBlock(String blockName, TimeOfDay startTime,
 
   // Edti current timeblocks by received index
   if (type == "Edit") {
-    // TODO: BUG: Editing a block will destroy all toDo items and decription
-    // Since both are missing here
     blocks[index] = {
       'blockName': blockName,
       'startTime': startTime.format(context),
       'endTime': endTime.format(context),
+      'description': blocks[index]["description"] ?? "",
+      'toDoItems': blocks[index]["toDoItems"] ?? [],
+      'links': blocks[index]["links"] ?? [],
     };
   }
 
