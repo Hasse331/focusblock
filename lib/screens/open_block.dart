@@ -101,70 +101,71 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // Description / notes
-            DescriptionWidget(
-              currentBlock: _currentBlock,
-              index: index,
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
-            if (emptyToDo)
-              // Add To Do List +
-              AddBlockContent(
-                  displayContentState: () {
-                    setState(() {
-                      emptyToDo = !emptyToDo;
-                    });
-                  },
-                  message: "Add To Do List"),
-            if (!emptyToDo)
-              const Text(
-                "To Do List",
-                style: TextStyle(fontSize: 25),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Description / notes
+              DescriptionWidget(
+                currentBlock: _currentBlock,
+                index: index,
               ),
-            if (!emptyToDo)
-              AddToDoItem(
+              const Divider(),
+              const SizedBox(
+                height: 10,
+              ),
+              if (emptyToDo)
+                // Add To Do List +
+                AddBlockContent(
+                    displayContentState: () {
+                      setState(() {
+                        emptyToDo = !emptyToDo;
+                      });
+                    },
+                    message: "Add To Do List"),
+              if (!emptyToDo)
+                const Text(
+                  "To Do List",
+                  style: TextStyle(fontSize: 25),
+                ),
+              if (!emptyToDo)
+                AddToDoItem(
+                  blockIndex: index,
+                  updateState: updateState,
+                ),
+              ToDoList(
+                currentBlock: _currentBlock,
                 blockIndex: index,
-                updateState: updateState,
+                toDoList: toDoItems,
+                updateParentStates: updateState,
               ),
-            // TODO: UI/UX: 2. displaying unnecessary overflow
-            ToDoList(
-              currentBlock: _currentBlock,
-              blockIndex: index,
-              toDoList: toDoItems,
-              updateParentStates: updateState,
-            ),
-            Divider(),
-            SizedBox(
-              height: 10,
-            ),
-            if (emptyLinks)
-              // Add Links +
-              AddBlockContent(
-                  displayContentState: () {
-                    setState(() {
-                      emptyLinks = !emptyLinks;
-                    });
-                  },
-                  message: "Add Links"),
+              Divider(),
+              SizedBox(
+                height: 10,
+              ),
+              if (emptyLinks)
+                // Add Links +
+                AddBlockContent(
+                    displayContentState: () {
+                      setState(() {
+                        emptyLinks = !emptyLinks;
+                      });
+                    },
+                    message: "Add Links"),
 
-            if (!emptyLinks)
-              const Text(
-                "Links And Resources",
-                style: TextStyle(fontSize: 25),
-              ),
-            if (!emptyLinks)
-              // const AddLinks()
-              TextField(),
-            // TODO: FEATURE: 3. Make AddLinks widget to add links
-            if (!emptyLinks)
-              // TODO: FEATURE: 4. Display links here
-              Text("Link 1")
-          ],
+              if (!emptyLinks)
+                const Text(
+                  "Links And Resources",
+                  style: TextStyle(fontSize: 25),
+                ),
+              if (!emptyLinks)
+                // const AddLinks()
+                TextField(),
+              // TODO: FEATURE: 3. Make AddLinks widget to add links
+              if (!emptyLinks)
+                // TODO: FEATURE: 4. Display links here
+                Text("Link 1")
+            ],
+          ),
         ),
       ),
     );
