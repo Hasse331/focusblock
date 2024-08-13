@@ -4,6 +4,7 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/widgets/add_to_do_content.dart';
 import 'package:time_blocking/widgets/add_to_do_item.dart';
 import 'package:time_blocking/widgets/description.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
@@ -112,30 +113,14 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               height: 10,
             ),
             if (emptyToDo)
-              // TODO: REFACTOR: Make this reusable, since it is already in 3 places
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        emptyToDo = !emptyToDo;
-                      });
-                    },
-                    child: const Text('Add To Do List'),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        emptyToDo = !emptyToDo;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.add,
-                      size: 25,
-                    ),
-                  ),
-                ],
-              ),
+              // Add To Do List +
+              AddBlockContent(
+                  displayContentState: () {
+                    setState(() {
+                      emptyToDo = !emptyToDo;
+                    });
+                  },
+                  message: "Add To Do List"),
             if (!emptyToDo)
               const Text(
                 "To Do List",
@@ -146,6 +131,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 blockIndex: index,
                 updateState: updateState,
               ),
+            // TODO: UI/UX: 2. displaying unnecessary overflow
             ToDoList(
               currentBlock: _currentBlock,
               blockIndex: index,
@@ -157,40 +143,27 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               height: 10,
             ),
             if (emptyLinks)
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        emptyLinks = !emptyLinks;
-                      });
-                    },
-                    child: const Text('Add Links / Resources'),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        emptyLinks = !emptyLinks;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.add,
-                      size: 25,
-                    ),
-                  ),
-                ],
-              ),
+              // Add Links +
+              AddBlockContent(
+                  displayContentState: () {
+                    setState(() {
+                      emptyLinks = !emptyLinks;
+                    });
+                  },
+                  message: "Add Links"),
 
             if (!emptyLinks)
               const Text(
                 "Links And Resources",
                 style: TextStyle(fontSize: 25),
-              ), // TODO: FEATURE: Continue links/resources
+              ),
             if (!emptyLinks)
               // const AddLinks()
-              // TODO: FEATURE: Make AddLinks widget to add links
+              TextField(),
+            // TODO: FEATURE: 3. Make AddLinks widget to add links
             if (!emptyLinks)
-              // TODO: FEATURE: Display links here
+              // TODO: FEATURE: 4. Display links here
+              Text("Link 1")
           ],
         ),
       ),
