@@ -4,7 +4,7 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/widgets/add_to_do_content.dart';
+import 'package:time_blocking/widgets/add_block_content_btn.dart';
 import 'package:time_blocking/widgets/add_to_do_item.dart';
 import 'package:time_blocking/widgets/description.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
@@ -115,7 +115,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               ),
               if (emptyToDo)
                 // Add To Do List +
-                AddBlockContent(
+                AddBlockContentBtn(
                     displayContentState: () {
                       setState(() {
                         emptyToDo = !emptyToDo;
@@ -128,6 +128,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   style: TextStyle(fontSize: 25),
                 ),
               if (!emptyToDo)
+                // Add to do input
                 AddToDoItem(
                   blockIndex: index,
                   updateState: updateState,
@@ -144,7 +145,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               ),
               if (emptyLinks)
                 // Add Links +
-                AddBlockContent(
+                AddBlockContentBtn(
                     displayContentState: () {
                       setState(() {
                         emptyLinks = !emptyLinks;

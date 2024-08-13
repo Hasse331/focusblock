@@ -50,7 +50,7 @@ class AddToDoItemState extends State<AddToDoItem> {
           autofocus: false,
           controller: _toDoNameController,
           decoration: const InputDecoration(
-            hintText: 'Add new To Do',
+            hintText: 'Add New To Do',
           ),
         ),
         if (_isFocused)

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddBlockContent extends StatelessWidget {
-  const AddBlockContent(
+class AddBlockContentBtn extends StatelessWidget {
+  const AddBlockContentBtn(
       {super.key, required this.displayContentState, required this.message});
 
   final Function displayContentState;
