@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/widgets/add_block_content_btn.dart';
-import 'package:time_blocking/widgets/add_to_do_item.dart';
+import 'package:time_blocking/widgets/buttons/add_block_content_btn.dart';
+import 'package:time_blocking/widgets/inputs/add_link_input.dart';
+import 'package:time_blocking/widgets/inputs/add_to_do_item.dart';
 import 'package:time_blocking/widgets/description.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -26,6 +29,7 @@ class OpenBlockScreen extends StatefulWidget {
 class OpenBlockScreenState extends State<OpenBlockScreen> {
   late TimeBlock _currentBlock;
   late List<ToDoItem>? toDoItems;
+  late List<Link>? links;
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
@@ -36,6 +40,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
+    // Load and set To Do List
     toDoItems = _currentBlock.toDoItems;
     toDoItems ??= [];
     if (toDoItems == null || toDoItems!.length < 1) {
@@ -43,11 +48,22 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     } else {
       emptyToDo = false;
     }
-    if (_currentBlock.links == null || _currentBlock.links!.length < 1) {
-      emptyLinks = true;
-    } else {
-      emptyLinks = false;
-    }
+    // Dummy data for testing:
+    links = [
+      Link(name: 'Google', link: Uri.parse('https://www.google.com/')),
+      Link(name: 'Wikipedia', link: Uri.parse('https://www.wikipedia.org/')),
+      Link(name: 'Example', link: Uri.parse('https://www.example.com/')),
+    ];
+    emptyLinks = false;
+
+    // Load and set links list
+    // links = _currentBlock.links;
+    // links ??= [];
+    // if (_currentBlock.links == null || _currentBlock.links!.length < 1) {
+    //   emptyLinks = true;
+    // } else {
+    //   emptyLinks = false;
+    // }
   }
 
   void updateState({bool toDo = false}) {
@@ -60,6 +76,12 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       });
     });
     updateParentState();
+  }
+
+  Future<void> _launchUrl(_url) async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   @override
@@ -160,11 +182,28 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 ),
               if (!emptyLinks)
                 // const AddLinks()
-                TextField(),
+                AddLinkInput(blockIndex: index, updateState: updateState),
               // TODO: FEATURE: 3. Make AddLinks widget to add links
               if (!emptyLinks)
-                // TODO: FEATURE: 4. Display links here
-                Text("Link 1")
+                for (var i = 0; i < links!.length; i++)
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    trailing: IconButton(
+                      onPressed: () async {
+                        _launchUrl(links![i].link);
+                      },
+                      icon: Icon(Icons.open_in_new),
+                    ),
+                    title: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        child: Text(links![i].name),
+                        onPressed: () async {
+                          _launchUrl(links![i].link);
+                        },
+                      ),
+                    ),
+                  )
             ],
           ),
         ),
