@@ -5,6 +5,8 @@ import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+// import 'package:time_blocking/storage/update_links.dart';
+import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/buttons/add_block_content_btn.dart';
 import 'package:time_blocking/widgets/inputs/add_link_input.dart';
 import 'package:time_blocking/widgets/inputs/add_to_do_item.dart';
@@ -79,6 +81,16 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       });
     });
     updateParentState();
+  }
+
+  void removeListItem(int blockIndex, int index) {
+    loadTimeBlocks().then((blocks) {
+      setState(() {
+        blocks[blockIndex].links!.removeAt(index);
+        updateTimeBlocks(blocks);
+        updateState(link: true);
+      });
+    });
   }
 
   Future<void> _launchUrl(uri) async {
@@ -188,24 +200,47 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               if (!emptyLinks)
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
-                // TODO: UI/UX: Make links dismissable
                 // TODO: REFACTOR: link list to separate file
                 for (var i = 0; i < links!.length; i++)
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    trailing: IconButton(
-                      onPressed: () async {
-                        _launchUrl(links![i].link);
-                      },
-                      icon: const Icon(Icons.open_in_new),
-                    ),
-                    title: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                        child: Text(links![i].name),
+                  Dismissible(
+                    key: Key(links![i].name + i.toString()),
+                    onDismissed: (direction) {
+                      // final Link savedListItem = links![i];
+                      removeListItem(index, i);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("${links![i].name} link dismissed"),
+                          // action: SnackBarAction(
+                          //   // TODO: Make undo snackbad work
+                          //   label: 'Undo',
+                          //   onPressed: () {
+                          //     setState(() {
+                          //       links!.insert(i, savedListItem);
+                          //       updateLinks(blockIndex: index, links: links!);
+                          //       updateState(link: true);
+                          //     });
+                          //   },
+                          // ),
+                          duration: const Duration(seconds: 5),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      trailing: IconButton(
                         onPressed: () async {
                           _launchUrl(links![i].link);
                         },
+                        icon: const Icon(Icons.open_in_new),
+                      ),
+                      title: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton(
+                          child: Text(links![i].name),
+                          onPressed: () async {
+                            _launchUrl(links![i].link);
+                          },
+                        ),
                       ),
                     ),
                   )

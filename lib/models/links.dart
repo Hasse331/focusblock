@@ -9,6 +9,6 @@ class Link {
 
   Map<String, dynamic> toJson() => {
         'name': name,
-        'isChecked': link.toString(),
+        'link': link.toString(),
       };
 }
