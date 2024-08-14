@@ -189,7 +189,8 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               if (emptyLinks)
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
-                // TODO: Make links dismissable
+                // TODO: UI/UX: Make links dismissable
+                // TODO: REFACTOR: link list to separate file
                 for (var i = 0; i < links!.length; i++)
                   ListTile(
                     contentPadding: EdgeInsets.zero,
