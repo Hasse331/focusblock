@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/to_do.dart';
+import 'package:time_blocking/storage/save_link.dart';
 
 class AddLinkInput extends StatefulWidget {
   const AddLinkInput(
@@ -14,7 +15,7 @@ class AddLinkInput extends StatefulWidget {
 
 class AddToDoItemState extends State<AddLinkInput> {
   late List<ToDoItem>? toDoList;
-  late TextEditingController _toDoNameController;
+  late TextEditingController _linkController;
   final FocusNode _focusNode = FocusNode();
 
   get blockIndex => widget.blockIndex;
@@ -25,7 +26,7 @@ class AddToDoItemState extends State<AddLinkInput> {
   @override
   void initState() {
     super.initState();
-    _toDoNameController = TextEditingController();
+    _linkController = TextEditingController();
     _focusNode.addListener(() {
       setState(() {
         _isFocused = _focusNode.hasFocus;
@@ -47,7 +48,7 @@ class AddToDoItemState extends State<AddLinkInput> {
           textCapitalization: TextCapitalization.sentences,
           focusNode: _focusNode,
           autofocus: false,
-          controller: _toDoNameController,
+          controller: _linkController,
           decoration: const InputDecoration(
             hintText: 'Add New Link',
           ),
@@ -60,7 +61,7 @@ class AddToDoItemState extends State<AddLinkInput> {
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).unfocus();
-                    _toDoNameController.clear();
+                    _linkController.clear();
                   });
                 },
                 child: const Text("Cancel"),
@@ -68,8 +69,9 @@ class AddToDoItemState extends State<AddLinkInput> {
               TextButton(
                 onPressed: () {
                   // TODO: Add save link function
-                  updateState();
-                  _toDoNameController.clear();
+                  saveLink(blockIndex: blockIndex, link: _linkController.text);
+                  updateState(link: true);
+                  _linkController.clear();
                   FocusScope.of(context).unfocus();
                 },
                 child: const Text("Save"),

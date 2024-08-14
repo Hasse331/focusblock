@@ -49,29 +49,32 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       emptyToDo = false;
     }
     // Dummy data for testing:
-    links = [
-      Link(name: 'Google', link: Uri.parse('https://www.google.com/')),
-      Link(name: 'Wikipedia', link: Uri.parse('https://www.wikipedia.org/')),
-      Link(name: 'Example', link: Uri.parse('https://www.example.com/')),
-    ];
-    emptyLinks = false;
+    // links = [
+    //   Link(name: 'Google', link: Uri.parse('https://www.google.com/')),
+    //   Link(name: 'Wikipedia', link: Uri.parse('https://www.wikipedia.org/')),
+    //   Link(name: 'Example', link: Uri.parse('https://www.example.com/')),
+    // ];
+    // emptyLinks = false;
 
     // Load and set links list
-    // links = _currentBlock.links;
-    // links ??= [];
-    // if (_currentBlock.links == null || _currentBlock.links!.length < 1) {
-    //   emptyLinks = true;
-    // } else {
-    //   emptyLinks = false;
-    // }
+    links = _currentBlock.links;
+    links ??= [];
+    if (_currentBlock.links == null || _currentBlock.links!.isEmpty) {
+      emptyLinks = true;
+    } else {
+      emptyLinks = false;
+    }
   }
 
-  void updateState({bool toDo = false}) {
+  void updateState({bool toDo = false, bool link = false}) {
     loadTimeBlocks().then((updatedBlocks) {
       setState(() {
         _currentBlock = updatedBlocks[index];
         if (toDo) {
           toDoItems = _currentBlock.toDoItems;
+        }
+        if (link) {
+          links = _currentBlock.links;
         }
       });
     });
@@ -184,6 +187,8 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 // const AddLinks()
                 AddLinkInput(blockIndex: index, updateState: updateState),
               // TODO: FEATURE: 3. Make AddLinks widget to add links
+              if (emptyLinks)
+                AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
                 for (var i = 0; i < links!.length; i++)
                   ListTile(

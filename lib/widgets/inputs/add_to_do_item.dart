@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/save_to_do.dart';
 
 class AddToDoItem extends StatefulWidget {
@@ -14,7 +13,6 @@ class AddToDoItem extends StatefulWidget {
 }
 
 class AddToDoItemState extends State<AddToDoItem> {
-  late List<ToDoItem>? toDoList;
   late TextEditingController _toDoNameController;
   final FocusNode _focusNode = FocusNode();
 
