@@ -68,7 +68,6 @@ class AddToDoItemState extends State<AddLinkInput> {
               ),
               TextButton(
                 onPressed: () {
-                  // TODO: Add save link function
                   saveLink(blockIndex: blockIndex, link: _linkController.text);
                   updateState(link: true);
                   _linkController.clear();

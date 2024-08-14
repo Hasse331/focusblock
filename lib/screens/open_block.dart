@@ -186,10 +186,10 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               if (!emptyLinks)
                 // const AddLinks()
                 AddLinkInput(blockIndex: index, updateState: updateState),
-              // TODO: FEATURE: 3. Make AddLinks widget to add links
               if (emptyLinks)
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
+                // TODO: Make links dismissable
                 for (var i = 0; i < links!.length; i++)
                   ListTile(
                     contentPadding: EdgeInsets.zero,
