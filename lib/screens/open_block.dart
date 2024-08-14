@@ -135,6 +135,10 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 index: index,
               ),
               const Divider(),
+              if (!emptyToDo)
+                const SizedBox(
+                  height: 20,
+                ),
               if (emptyToDo)
                 // Add To Do List +
                 AddBlockContentBtn(
@@ -162,6 +166,10 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 updateParentStates: updateState,
               ),
               const Divider(),
+              if (!emptyLinks)
+                const SizedBox(
+                  height: 20,
+                ),
               if (emptyLinks)
                 // Add Links +
                 AddBlockContentBtn(
