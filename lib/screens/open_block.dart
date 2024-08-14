@@ -135,9 +135,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 index: index,
               ),
               const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
               if (emptyToDo)
                 // Add To Do List +
                 AddBlockContentBtn(
@@ -165,9 +162,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 updateParentStates: updateState,
               ),
               const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
               if (emptyLinks)
                 // Add Links +
                 AddBlockContentBtn(
@@ -184,9 +178,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   style: TextStyle(fontSize: 25),
                 ),
               if (!emptyLinks)
-                // const AddLinks()
-                AddLinkInput(blockIndex: index, updateState: updateState),
-              if (emptyLinks)
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
                 // TODO: UI/UX: Make links dismissable
