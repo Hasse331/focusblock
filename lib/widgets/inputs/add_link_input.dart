@@ -45,6 +45,7 @@ class AddToDoItemState extends State<AddLinkInput> {
     return Column(
       children: [
         TextField(
+          // TODO: Add link input validation
           textCapitalization: TextCapitalization.sentences,
           focusNode: _focusNode,
           autofocus: false,
