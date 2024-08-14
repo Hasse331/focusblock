@@ -23,7 +23,7 @@ class AddBlockContentBtn extends StatelessWidget {
           onPressed: () {
             displayContentState();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.add,
             size: 25,
           ),

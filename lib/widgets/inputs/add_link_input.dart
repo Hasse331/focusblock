@@ -76,7 +76,7 @@ class AddToDoItemState extends State<AddLinkInput> {
               ),
             ],
           ),
-        Text(""),
+        const Text(""),
       ],
     );
   }

@@ -43,7 +43,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     // Load and set To Do List
     toDoItems = _currentBlock.toDoItems;
     toDoItems ??= [];
-    if (toDoItems == null || toDoItems!.length < 1) {
+    if (toDoItems == null || toDoItems!.isEmpty) {
       emptyToDo = true;
     } else {
       emptyToDo = false;
@@ -78,9 +78,9 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     updateParentState();
   }
 
-  Future<void> _launchUrl(_url) async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+  Future<void> _launchUrl(uri) async {
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $uri');
     }
   }
 
@@ -161,8 +161,8 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 toDoList: toDoItems,
                 updateParentStates: updateState,
               ),
-              Divider(),
-              SizedBox(
+              const Divider(),
+              const SizedBox(
                 height: 10,
               ),
               if (emptyLinks)
@@ -192,7 +192,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                       onPressed: () async {
                         _launchUrl(links![i].link);
                       },
-                      icon: Icon(Icons.open_in_new),
+                      icon: const Icon(Icons.open_in_new),
                     ),
                     title: Align(
                       alignment: Alignment.centerLeft,
