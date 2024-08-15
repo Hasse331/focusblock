@@ -138,7 +138,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   height: 20,
                 ),
               if (emptyToDo)
-                // Add To Do List +
+                // Add To Do List + input
                 AddBlockContentBtn(
                     displayContentState: () {
                       setState(() {
@@ -169,7 +169,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   height: 20,
                 ),
               if (emptyLinks)
-                // Add Links +
+                // Add Links + input
                 AddBlockContentBtn(
                     displayContentState: () {
                       setState(() {

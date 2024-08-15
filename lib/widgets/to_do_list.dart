@@ -56,6 +56,7 @@ class ToDoListState extends State<ToDoList> {
         itemBuilder: (context, index) {
           return Dismissible(
             // TODO: BUG: Dismissing is sometimes crashing the application
+            // Have not happened anymore recently 15/8/24
             key: Key(toDoList[index].name + index.toString()),
             onDismissed: (direction) {
               final savedToDo = toDoList[index];

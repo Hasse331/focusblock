@@ -32,7 +32,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {
-              // TODO: FEATURE: Add save schedules / templates feature
+              // TODO: 1. FEATURE: Add save schedules / templates feature
             },
           ),
           ListTile(
