@@ -11,8 +11,8 @@ import 'package:time_blocking/widgets/buttons/add_block_content_btn.dart';
 import 'package:time_blocking/widgets/inputs/add_link_input.dart';
 import 'package:time_blocking/widgets/inputs/add_to_do_item.dart';
 import 'package:time_blocking/widgets/description.dart';
+import 'package:time_blocking/widgets/link_list.dart';
 import 'package:time_blocking/widgets/to_do_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
@@ -50,13 +50,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
     } else {
       emptyToDo = false;
     }
-    // Dummy data for testing:
-    // links = [
-    //   Link(name: 'Google', link: Uri.parse('https://www.google.com/')),
-    //   Link(name: 'Wikipedia', link: Uri.parse('https://www.wikipedia.org/')),
-    //   Link(name: 'Example', link: Uri.parse('https://www.example.com/')),
-    // ];
-    // emptyLinks = false;
 
     // Load and set links list
     links = _currentBlock.links;
@@ -91,12 +84,6 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         updateState(link: true);
       });
     });
-  }
-
-  Future<void> _launchUrl(uri) async {
-    if (!await launchUrl(uri)) {
-      throw Exception('Could not launch $uri');
-    }
   }
 
   @override
@@ -200,49 +187,12 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               if (!emptyLinks)
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
-                // TODO: REFACTOR: link list to separate file
                 for (var i = 0; i < links!.length; i++)
-                  Dismissible(
-                    key: Key(links![i].name + i.toString()),
-                    onDismissed: (direction) {
-                      // final Link savedListItem = links![i];
-                      removeListItem(index, i);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("${links![i].name} link dismissed"),
-                          // action: SnackBarAction(
-                          //   // TODO: Make undo snackbad work
-                          //   label: 'Undo',
-                          //   onPressed: () {
-                          //     setState(() {
-                          //       links!.insert(i, savedListItem);
-                          //       updateLinks(blockIndex: index, links: links!);
-                          //       updateState(link: true);
-                          //     });
-                          //   },
-                          // ),
-                          duration: const Duration(seconds: 5),
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      trailing: IconButton(
-                        onPressed: () async {
-                          _launchUrl(links![i].link);
-                        },
-                        icon: const Icon(Icons.open_in_new),
-                      ),
-                      title: Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextButton(
-                          child: Text(links![i].name),
-                          onPressed: () async {
-                            _launchUrl(links![i].link);
-                          },
-                        ),
-                      ),
-                    ),
+                  LinkList(
+                    links: links!,
+                    blockIndex: index,
+                    removeListItem: removeListItem,
+                    listIndex: i,
                   )
             ],
           ),
