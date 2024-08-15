@@ -90,14 +90,19 @@ void addBlockDialog(context, Function updateState,
                     endTime != null) {
                   if (timeToMinutes(endTime!) - timeToMinutes(startTime!) >=
                       30) {
-                    saveTimeBlock(nameController.text, startTime!, endTime!,
-                        type, context,
-                        index: index);
-                    updateState();
-                    if (type == "Edit") {
+                    if (nameController.text.length < 40) {
+                      saveTimeBlock(nameController.text, startTime!, endTime!,
+                          type, context,
+                          index: index);
                       updateState();
+                      if (type == "Edit") {
+                        updateState();
+                      }
+                      Navigator.of(context).pop();
+                    } else {
+                      showError(
+                          context, "Block name haS to be less than 40 letters");
                     }
-                    Navigator.of(context).pop();
                   } else {
                     showError(context, "Block has to be +30 min long");
                   }

@@ -56,7 +56,6 @@ class AddToDoItemState extends State<AddLinkInput> {
         ),
         if (_isFocused)
           Row(
-            // TODO: UI/UX remove left side padding
             children: [
               TextButton(
                 onPressed: () {
