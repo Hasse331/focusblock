@@ -101,7 +101,7 @@ void addBlockDialog(context, Function updateState,
                       Navigator.of(context).pop();
                     } else {
                       showError(
-                          context, "Block name haS to be less than 40 letters");
+                          context, "Block name has to be less than 40 letters");
                     }
                   } else {
                     showError(context, "Block has to be +30 min long");
