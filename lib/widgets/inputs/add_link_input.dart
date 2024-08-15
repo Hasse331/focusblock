@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/save_link.dart';
+import 'package:time_blocking/widgets/show_error.dart';
 
 class AddLinkInput extends StatefulWidget {
   const AddLinkInput(
@@ -40,6 +41,11 @@ class AddToDoItemState extends State<AddLinkInput> {
     super.dispose();
   }
 
+  bool hasValidEnding(String url) {
+    final RegExp endingPattern = RegExp(r"\.[a-zA-Z]{2,}$");
+    return endingPattern.hasMatch(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,10 +74,16 @@ class AddToDoItemState extends State<AddLinkInput> {
               ),
               TextButton(
                 onPressed: () {
-                  saveLink(blockIndex: blockIndex, link: _linkController.text);
-                  updateState(link: true);
-                  _linkController.clear();
-                  FocusScope.of(context).unfocus();
+                  if (hasValidEnding(_linkController.text)) {
+                    saveLink(
+                        blockIndex: blockIndex, link: _linkController.text);
+                    updateState(link: true);
+                    _linkController.clear();
+                    FocusScope.of(context).unfocus();
+                  } else {
+                    showError(context,
+                        "Link has to end wih valid ending like .com .org .fi");
+                  }
                 },
                 child: const Text("Save"),
               ),
