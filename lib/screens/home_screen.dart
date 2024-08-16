@@ -88,12 +88,6 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.save,
-            ),
-          ),
-          IconButton(
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTimeBlocks,

@@ -29,10 +29,17 @@ class DrawerWidget extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            leading: const Icon(Icons.save),
+            title: const Text('Save today as a template'),
+            onTap: () {
+              // TODO: 1. FEATURE: Add save schedules / templates feature
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {
-              // TODO: 1. FEATURE: Add save schedules / templates feature
+              // TODO: 2. FEATURE: Display saved schedules
             },
           ),
           ListTile(
