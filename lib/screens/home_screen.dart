@@ -12,6 +12,7 @@ import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
 // TODO: UI/UX: Add no blocks added text
+// TODO: FEATURE&UI/UX: Add new day screen and 1-3 today's goals and link it to long term goal
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,6 +89,9 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
+            // TODO: UI/UX: Change this to checkmark/completed
+            // TODO: FETURE: Add reflection feature: 1. question and answer
+            // 2. summary 3. Saving the refleciton
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTimeBlocks,

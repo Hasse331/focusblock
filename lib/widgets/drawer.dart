@@ -53,7 +53,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.golf_course_sharp),
             title: const Text('Goals'),
             onTap: () {
-              // TODO: FEATURE: Add Goals
+              // TODO: FEATURE: Add long term Goals
             },
           ),
           const Divider(),
