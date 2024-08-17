@@ -11,8 +11,8 @@ import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
-// TODO: UI/UX: Add no blocks added text
-// TODO: FEATURE&UI/UX: Add new day screen and 1-3 today's goals and link it to long term goal
+// TODO: UI/UX: Add no blocks added screen
+// TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
