@@ -35,7 +35,6 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.list),
             title: const Text('Today'),
             onTap: () {
-              // TODO: 2. FEATURE: Creater and display templates screen
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const BlockScreen()),
@@ -47,7 +46,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.save),
             title: const Text('Save today as a template'),
             onTap: () {
-              // TODO: 1. FEATURE: Add save schedules / templates feature
+              // TODO: Add some indication it worked
               saveTemplate();
             },
           ),

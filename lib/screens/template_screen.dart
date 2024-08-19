@@ -6,7 +6,6 @@ import 'package:time_blocking/screens/block_screen.dart';
 import 'package:time_blocking/storage/load_templates.dart';
 import 'package:time_blocking/storage/reset_templates.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
-import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
@@ -44,12 +43,15 @@ class TemplateScreenState extends State<TemplateScreen> {
     });
   }
 
-  void removeBlock(index) {
+  void removeTemplate(index) {
     setState(() {
-      timeBlocks.removeAt(index);
-      updateTimeBlocks(timeBlocks);
+      // TODO: Make template removing to work
+      templates.removeAt(index);
+      removeTemplate(index);
     });
   }
+
+  // TODO: Add template renaming
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,7 @@ class TemplateScreenState extends State<TemplateScreen> {
           return Dismissible(
             key: Key(templates[index].name + index.toString()),
             onDismissed: (direction) {
-              removeBlock(index);
+              removeTemplate(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("${templates[index].name} dismissed"),
@@ -133,7 +135,10 @@ class TemplateScreenState extends State<TemplateScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const BlockScreen();
+                      return BlockScreen(
+                          templateView: true,
+                          templates: templates,
+                          templateIndex: index);
                     },
                   ),
                 );
@@ -147,12 +152,13 @@ class TemplateScreenState extends State<TemplateScreen> {
         onReorder: (int oldIndex, int newIndex) {
           setState(
             () {
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
-              final block = timeBlocks.removeAt(oldIndex);
-              timeBlocks.insert(newIndex, block);
-              updateTimeBlocks(timeBlocks);
+              // TODO: make template reorder work
+              // if (oldIndex < newIndex) {
+              //   newIndex -= 1;
+              // }
+              // final block = timeBlocks.removeAt(oldIndex);
+              // timeBlocks.insert(newIndex, block);
+              // updateTimeBlocks(timeBlocks);
             },
           );
         },
