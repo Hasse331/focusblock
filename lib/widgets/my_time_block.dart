@@ -21,7 +21,9 @@ class MyTimeBlock extends StatelessWidget {
       ArgumentError(
           "ERROR: currentTemplate and currentBlock both can not be null");
     }
-    final blockSize = calcBlockLength(currentBlock);
+    final blockSize = currentTemplate == null
+        ? calcBlockLength(currentBlock)
+        : 200.toDouble();
     final blockName = currentTemplate == null
         ? currentBlock!.blockName
         : currentTemplate!.name;
