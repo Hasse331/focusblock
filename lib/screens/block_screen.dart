@@ -4,8 +4,10 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/open_block.dart';
+import 'package:time_blocking/storage/load_templates.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
+import 'package:time_blocking/storage/reset_templates.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
@@ -16,39 +18,55 @@ import 'package:time_blocking/widgets/my_time_block.dart';
 // TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
 class BlockScreen extends StatefulWidget {
-  const BlockScreen({super.key, this.templateMainScreen = false});
+  const BlockScreen(
+      {super.key,
+      this.templateMainScreen = false,
+      this.templateOpenScreen = false});
   final bool templateMainScreen;
+  final bool templateOpenScreen;
   @override
   BlockScreenState createState() => BlockScreenState();
 }
 
 class BlockScreenState extends State<BlockScreen> {
   late List<TimeBlock> timeBlocks = [];
-  late Template templates = Template(name: "No tempaltes added", timeBlock: []);
+  late List<Template> templates = [];
   get _templateMainScreen => widget.templateMainScreen;
+  get _templateOpenScreen => widget.templateOpenScreen;
 
   @override
   void initState() {
     super.initState();
     // addTestData();
     // resetTimeBlocks()
+    // resetTemplates();
     updateState();
   }
 
   void updateState() {
-    if (!_templateMainScreen) {
-      loadTimeBlocks().then((blocks) {
+    if (!_templateMainScreen && !_templateOpenScreen) {
+      loadTimeBlocks().then((List<TimeBlock> blocks) {
         setState(() {
           timeBlocks = blocks;
         });
       });
     }
     if (_templateMainScreen) {
-      // loadTemplates().then((blocks) {
-      //   setState(() {
-      //     templates = blocks;
-      //   });
-      // });
+      loadTemplates().then((List<Template> newTemplates) {
+        print("DEBUGGING PRING DEBUGGING PRING DEBUGGING PRING");
+        print("Loading templates in if statement");
+        setState(() {
+          templates = newTemplates;
+          if (templates.isEmpty) {
+            templates = [
+              Template(name: "No tempaltes added", templates: [
+                TimeBlock(
+                    blockName: "NO BLOCK", startTime: "12:00", endTime: "13:00")
+              ])
+            ];
+          }
+        });
+      });
     }
   }
 
@@ -135,15 +153,17 @@ class BlockScreenState extends State<BlockScreen> {
             ),
       // Blocks
       body: ReorderableListView.builder(
-        itemCount: _templateMainScreen
-            ? templates.timeBlock.length
-            : timeBlocks.length,
+        itemCount: _templateMainScreen ? templates.length : timeBlocks.length,
         itemBuilder: (context, index) {
+          _templateMainScreen ??
+              print("DEBUGGING PRINT DEBUGGING PRINT DEBUGGING PRINT");
+          _templateMainScreen ?? print(templates[index].templates);
           final TimeBlock currentBlock = _templateMainScreen
-              ? templates.timeBlock[index]
+              ? templates[index].templates[index]
               : timeBlocks[index];
-          final dismissingItem =
-              _templateMainScreen ? templates.name : currentBlock.blockName;
+          final dismissingItem = _templateMainScreen
+              ? templates[index].name
+              : currentBlock.blockName;
           // Block Dismissing
           return Dismissible(
             key: Key(dismissingItem + index.toString()),
@@ -160,7 +180,7 @@ class BlockScreenState extends State<BlockScreen> {
                           timeBlocks.insert(index, currentBlock);
                           updateTimeBlocks(timeBlocks);
                         } else {
-                          // TODO: Make template screen dismiss function
+                          // TODO: Make template main screen dismiss function
                         }
                       });
                     },
@@ -177,7 +197,9 @@ class BlockScreenState extends State<BlockScreen> {
                   MaterialPageRoute(
                     builder: (context) {
                       if (_templateMainScreen) {
-                        return const BlockScreen();
+                        return const BlockScreen(
+                          templateOpenScreen: true,
+                        );
                       } else {
                         return OpenBlockScreen(
                             currentBlock, index, removeBlock, updateState);

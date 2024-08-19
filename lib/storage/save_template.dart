@@ -10,8 +10,8 @@ Future<void> saveTemplate() async {
 
   int templateNumber = templates.length;
   Map<String, dynamic> newTemplate = {
-    'name': 'Saved Template$templateNumber',
-    'template': timeBlocks,
+    'name': 'Saved Template $templateNumber',
+    'templates': timeBlocks
   };
 
   templates.add(newTemplate);

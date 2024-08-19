@@ -31,7 +31,7 @@ class TimeBlock {
             .toList(),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson([timeBlock]) => {
         'blockName': blockName,
         'startTime': startTime, // Already a string, no changes needed
         'endTime': endTime, // Already a string, no changes needed
