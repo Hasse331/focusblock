@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/open_block.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
@@ -15,15 +16,16 @@ import 'package:time_blocking/widgets/my_time_block.dart';
 // TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
 class BlockScreen extends StatefulWidget {
-  const BlockScreen({super.key, this.templateScreen = false});
-  final bool templateScreen;
+  const BlockScreen({super.key, this.templateMainScreen = false});
+  final bool templateMainScreen;
   @override
   BlockScreenState createState() => BlockScreenState();
 }
 
 class BlockScreenState extends State<BlockScreen> {
   late List<TimeBlock> timeBlocks = [];
-  get _templateScreen => widget.templateScreen;
+  late Template templates = Template(name: "No tempaltes added", timeBlock: []);
+  get _templateMainScreen => widget.templateMainScreen;
 
   @override
   void initState() {
@@ -34,17 +36,17 @@ class BlockScreenState extends State<BlockScreen> {
   }
 
   void updateState() {
-    if (!_templateScreen) {
+    if (!_templateMainScreen) {
       loadTimeBlocks().then((blocks) {
         setState(() {
           timeBlocks = blocks;
         });
       });
     }
-    if (_templateScreen) {
+    if (_templateMainScreen) {
       // loadTemplates().then((blocks) {
       //   setState(() {
-      //     timeBlocks = blocks;
+      //     templates = blocks;
       //   });
       // });
     }
@@ -79,69 +81,87 @@ class BlockScreenState extends State<BlockScreen> {
             ),
           );
         }),
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("FocusBlock "),
-            Icon(
+            const Text("FocusBlock "),
+            const Icon(
               Icons.horizontal_rule,
               size: 12,
             ),
             Center(
               child: Align(
                 alignment: Alignment.center,
-                child: Text(
-                  " My Day",
-                  style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-                ),
+                child: _templateMainScreen
+                    ? const Text("Templates",
+                        style: TextStyle(
+                            fontSize: 18, fontStyle: FontStyle.italic))
+                    : const Text(
+                        " My Day",
+                        style: TextStyle(
+                            fontSize: 18, fontStyle: FontStyle.italic),
+                      ),
               ),
             )
           ],
         ),
         actions: [
-          IconButton(
-            // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
-            onPressed: () {
-              confirmDialog(context, updateState,
-                  action: resetTimeBlocks,
-                  title: "Day completed!",
-                  message:
-                      "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nKeep in mind, this action can't be undone.");
-            },
-            // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
-            icon: const Icon(
-              Icons.check_box_sharp,
+          if (!_templateMainScreen)
+            IconButton(
+              // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
+              onPressed: () {
+                confirmDialog(context, updateState,
+                    action: resetTimeBlocks,
+                    title: "Day completed!",
+                    message:
+                        "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nKeep in mind, this action can't be undone.");
+              },
+              // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
+              icon: const Icon(
+                Icons.check_box_sharp,
+              ),
             ),
-          ),
         ],
       ),
       // Add btn
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addBlockDialog(context, updateState, type: "New");
-        },
-        child: const Icon(Icons.add),
-      ),
+
+      floatingActionButton: _templateMainScreen
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () {
+                addBlockDialog(context, updateState, type: "New");
+              },
+              child: const Icon(Icons.add),
+            ),
       // Blocks
       body: ReorderableListView.builder(
-        itemCount: timeBlocks.length,
+        itemCount: _templateMainScreen
+            ? templates.timeBlock.length
+            : timeBlocks.length,
         itemBuilder: (context, index) {
-          final TimeBlock currentBlock = timeBlocks[index];
-
+          final TimeBlock currentBlock = _templateMainScreen
+              ? templates.timeBlock[index]
+              : timeBlocks[index];
+          final dismissingItem =
+              _templateMainScreen ? templates.name : currentBlock.blockName;
           // Block Dismissing
           return Dismissible(
-            key: Key(currentBlock.blockName + index.toString()),
+            key: Key(dismissingItem + index.toString()),
             onDismissed: (direction) {
               removeBlock(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("${currentBlock.blockName} dismissed"),
+                  content: Text("$dismissingItem dismissed"),
                   action: SnackBarAction(
                     label: 'Undo',
                     onPressed: () {
                       setState(() {
-                        timeBlocks.insert(index, currentBlock);
-                        updateTimeBlocks(timeBlocks);
+                        if (!_templateMainScreen) {
+                          timeBlocks.insert(index, currentBlock);
+                          updateTimeBlocks(timeBlocks);
+                        } else {
+                          // TODO: Make template screen dismiss function
+                        }
                       });
                     },
                   ),
@@ -155,8 +175,14 @@ class BlockScreenState extends State<BlockScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OpenBlockScreen(
-                        currentBlock, index, removeBlock, updateState),
+                    builder: (context) {
+                      if (_templateMainScreen) {
+                        return const BlockScreen();
+                      } else {
+                        return OpenBlockScreen(
+                            currentBlock, index, removeBlock, updateState);
+                      }
+                    },
                   ),
                 );
               },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/screens/block_screen.dart';
 import 'package:time_blocking/storage/save_template.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -30,6 +31,18 @@ class DrawerWidget extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            leading: const Icon(Icons.list),
+            title: const Text('Today'),
+            onTap: () {
+              // TODO: 2. FEATURE: Creater and display templates screen
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const BlockScreen()),
+                (Route<dynamic> route) => false, // Removes all previous routes
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.save),
             title: const Text('Save today as a template'),
             onTap: () {
@@ -42,6 +55,13 @@ class DrawerWidget extends StatelessWidget {
             title: const Text('Templates'),
             onTap: () {
               // TODO: 2. FEATURE: Creater and display templates screen
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const BlockScreen(templateMainScreen: true)),
+                (Route<dynamic> route) => false, // Removes all previous routes
+              );
             },
           ),
           ListTile(
