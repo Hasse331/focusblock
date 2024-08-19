@@ -89,9 +89,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            // TODO: UI/UX: Change this to checkmark/completed
-            // TODO: FETURE: Add reflection feature: 1. question and answer
-            // 2. summary 3. Saving the refleciton
+            // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTimeBlocks,
