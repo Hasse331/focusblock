@@ -95,13 +95,13 @@ class HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTimeBlocks,
-                  title: "Reset time blocks",
+                  title: "Day completed!",
                   message:
-                      "This will permanently delete all timeblocks. Are you sure you want to continue?");
+                      "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nKeep in mind, this action can't be undone.");
             },
+            // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
             icon: const Icon(
-              Icons.delete,
-              color: Colors.red,
+              Icons.check_box_sharp,
             ),
           ),
         ],
