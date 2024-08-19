@@ -33,8 +33,8 @@ class TimeBlock {
 
   Map<String, dynamic> toJson() => {
         'blockName': blockName,
-        'startTime': startTime, // Convert TimeOfDay to string
-        'endTime': endTime,
+        'startTime': startTime, // Already a string, no changes needed
+        'endTime': endTime, // Already a string, no changes needed
         'description': description,
         'toDoItems': toDoItems?.map((item) => item.toJson()).toList(),
         'links': links?.map((item) => item.toJson()).toList(),
