@@ -10,10 +10,6 @@ import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
-// TODO: UI/UX: Add no blocks added screen
-// TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
-
 class TemplateScreen extends StatefulWidget {
   const TemplateScreen({super.key});
   @override
@@ -27,35 +23,26 @@ class TemplateScreenState extends State<TemplateScreen> {
   @override
   void initState() {
     super.initState();
-    // addTestData();
-    // resetTimeBlocks()
-    // resetTemplates();
     updateState();
   }
 
   void updateState() {
     loadTemplates().then((List<Template> newTemplates) {
-      print("DEBUGGING PRING DEBUGGING PRING DEBUGGING PRING");
-      print("Loading templates in if statement");
       setState(() {
         templates = newTemplates;
         if (templates.isEmpty) {
           templates = [
             Template(name: "No tempaltes added", templates: [
               TimeBlock(
-                  blockName: "NO BLOCK", startTime: "12:00", endTime: "13:00")
+                  blockName: "NO BLOCKS ADDED",
+                  startTime: "12:00",
+                  endTime: "13:00")
             ])
           ];
         }
       });
     });
   }
-
-  // TODO: REFACTOR: to better state management system
-  // Now states have to be updated separately in every level
-  // what makes state management complicated and may causing unexpected
-  // behaviour / bugs if not handiling properly. Maintainance and new
-  // features are also harder to implement.
 
   void removeBlock(index) {
     setState(() {
@@ -91,7 +78,7 @@ class TemplateScreenState extends State<TemplateScreen> {
             Center(
               child: Align(
                   alignment: Alignment.center,
-                  child: Text("Templates",
+                  child: Text(" Templates",
                       style: TextStyle(
                           fontSize: 18, fontStyle: FontStyle.italic))),
             )
@@ -99,14 +86,12 @@ class TemplateScreenState extends State<TemplateScreen> {
         ),
         actions: [
           IconButton(
-            // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
             onPressed: () {
               confirmDialog(context, updateState,
                   action: resetTemplates,
                   title: "Reset all templates!",
                   message: "This action can't be undone!");
             },
-            // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
             icon: const Icon(
               Icons.delete,
               color: Colors.red,
@@ -119,8 +104,6 @@ class TemplateScreenState extends State<TemplateScreen> {
       body: ReorderableListView.builder(
         itemCount: templates.length,
         itemBuilder: (context, index) {
-          print("DEBUGGING PRINT DEBUGGING PRINT DEBUGGING PRINT");
-          print(templates[index].templates);
           final Template currentTemplate = templates[index];
 
           // Block Dismissing
