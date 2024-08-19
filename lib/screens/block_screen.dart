@@ -14,29 +14,40 @@ import 'package:time_blocking/widgets/my_time_block.dart';
 // TODO: UI/UX: Add no blocks added screen
 // TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class BlockScreen extends StatefulWidget {
+  const BlockScreen({super.key, this.templateScreen = false});
+  final bool templateScreen;
   @override
-  HomeScreenState createState() => HomeScreenState();
+  BlockScreenState createState() => BlockScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class BlockScreenState extends State<BlockScreen> {
   late List<TimeBlock> timeBlocks = [];
+  get _templateScreen => widget.templateScreen;
 
   @override
   void initState() {
     super.initState();
     // addTestData();
-    // resetTimeBlocks();
+    // resetTimeBlocks()
     updateState();
   }
 
   void updateState() {
-    loadTimeBlocks().then((blocks) {
-      setState(() {
-        timeBlocks = blocks;
+    if (!_templateScreen) {
+      loadTimeBlocks().then((blocks) {
+        setState(() {
+          timeBlocks = blocks;
+        });
       });
-    });
+    }
+    if (_templateScreen) {
+      // loadTemplates().then((blocks) {
+      //   setState(() {
+      //     timeBlocks = blocks;
+      //   });
+      // });
+    }
   }
 
   // TODO: REFACTOR: to better state management system

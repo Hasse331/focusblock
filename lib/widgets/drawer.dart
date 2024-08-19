@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/storage/save_template.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -33,13 +34,14 @@ class DrawerWidget extends StatelessWidget {
             title: const Text('Save today as a template'),
             onTap: () {
               // TODO: 1. FEATURE: Add save schedules / templates feature
+              saveTemplate();
             },
           ),
           ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {
-              // TODO: 2. FEATURE: Display saved schedules
+              // TODO: 2. FEATURE: Creater and display templates screen
             },
           ),
           ListTile(

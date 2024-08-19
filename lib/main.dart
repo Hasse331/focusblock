@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_blocking/screens/home_screen.dart';
+import 'package:time_blocking/screens/block_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           elevation: 3,
         ),
       ),
-      home: const SafeArea(child: HomeScreen()),
+      home: const SafeArea(child: BlockScreen()),
     );
   }
 }
