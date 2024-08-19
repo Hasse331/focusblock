@@ -149,7 +149,7 @@ class BlockScreenState extends State<BlockScreen> {
                   ),
                 );
               },
-              child: MyTimeBlock(currentBlock),
+              child: MyTimeBlock(currentBlock: currentBlock),
             ),
           );
         },

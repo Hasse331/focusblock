@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/utils/calc_block_length.dart';
 
 class MyTimeBlock extends StatelessWidget {
-  const MyTimeBlock(
-    this.currentBlock, {
+  const MyTimeBlock({
+    this.currentBlock,
+    this.currentTemplate,
     super.key,
   });
 
-  final TimeBlock currentBlock;
+  final TimeBlock? currentBlock;
+  final Template? currentTemplate;
 
   // TODO: UI/UX: Add optional icon to each block and in addBlock dialog
 
   @override
   Widget build(BuildContext context) {
+    if (currentTemplate == null && currentBlock == null) {
+      ArgumentError(
+          "ERROR: currentTemplate and currentBlock both can not be null");
+    }
     final blockSize = calcBlockLength(currentBlock);
+    final blockName = currentTemplate == null
+        ? currentBlock!.blockName
+        : currentTemplate!.name;
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: blockSize,
@@ -36,13 +46,14 @@ class MyTimeBlock extends StatelessWidget {
       ),
       child: Column(children: [
         Text(
-          currentBlock.blockName,
+          blockName,
           style: const TextStyle(color: Colors.white),
         ),
-        Text(
-          '${currentBlock.startTime} - ${currentBlock.endTime}',
-          style: const TextStyle(color: Colors.white),
-        ),
+        if (currentTemplate == null && currentBlock != null)
+          Text(
+            '${currentBlock!.startTime} - ${currentBlock!.endTime}',
+            style: const TextStyle(color: Colors.white),
+          ),
       ]),
     );
   }

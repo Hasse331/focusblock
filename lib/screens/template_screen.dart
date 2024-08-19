@@ -121,7 +121,8 @@ class TemplateScreenState extends State<TemplateScreen> {
         itemBuilder: (context, index) {
           print("DEBUGGING PRINT DEBUGGING PRINT DEBUGGING PRINT");
           print(templates[index].templates);
-          final TimeBlock currentBlock = templates[index].templates[index];
+          final Template currentTemplate = templates[index];
+
           // Block Dismissing
           return Dismissible(
             key: Key(templates[index].name + index.toString()),
@@ -154,7 +155,9 @@ class TemplateScreenState extends State<TemplateScreen> {
                   ),
                 );
               },
-              child: MyTimeBlock(currentBlock),
+              child: MyTimeBlock(
+                currentTemplate: currentTemplate,
+              ),
             ),
           );
         },
