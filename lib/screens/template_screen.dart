@@ -31,7 +31,7 @@ class TemplateScreenState extends State<TemplateScreen> {
         templates = newTemplates;
         if (templates.isEmpty) {
           templates = [
-            Template(name: "No tempaltes added", templates: [
+            Template(name: "No templates added", templates: [
               TimeBlock(
                   blockName: "NO BLOCKS ADDED",
                   startTime: "12:00",
