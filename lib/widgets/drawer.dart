@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/screens/block_screen.dart';
+import 'package:time_blocking/screens/template_screen.dart';
 import 'package:time_blocking/storage/save_template.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -57,9 +58,7 @@ class DrawerWidget extends StatelessWidget {
               // TODO: 2. FEATURE: Creater and display templates screen
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const BlockScreen(templateMainScreen: true)),
+                MaterialPageRoute(builder: (context) => const TemplateScreen()),
                 (Route<dynamic> route) => false, // Removes all previous routes
               );
             },

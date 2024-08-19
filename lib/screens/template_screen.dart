@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/screens/open_block.dart';
+import 'package:time_blocking/screens/block_screen.dart';
+import 'package:time_blocking/storage/load_templates.dart';
+import 'package:time_blocking/storage/reset_templates.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
-import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/storage/reset_time_blocks.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
@@ -14,27 +14,39 @@ import 'package:time_blocking/widgets/my_time_block.dart';
 // TODO: UI/UX: Add no blocks added screen
 // TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
-class BlockScreen extends StatefulWidget {
-  const BlockScreen({super.key});
+class TemplateScreen extends StatefulWidget {
+  const TemplateScreen({super.key});
   @override
-  BlockScreenState createState() => BlockScreenState();
+  TemplateScreenState createState() => TemplateScreenState();
 }
 
-class BlockScreenState extends State<BlockScreen> {
+class TemplateScreenState extends State<TemplateScreen> {
   late List<TimeBlock> timeBlocks = [];
+  late List<Template> templates = [];
 
   @override
   void initState() {
     super.initState();
     // addTestData();
-    // resetTimeBlocks();
+    // resetTimeBlocks()
+    // resetTemplates();
     updateState();
   }
 
   void updateState() {
-    loadTimeBlocks().then((blocks) {
+    loadTemplates().then((List<Template> newTemplates) {
+      print("DEBUGGING PRING DEBUGGING PRING DEBUGGING PRING");
+      print("Loading templates in if statement");
       setState(() {
-        timeBlocks = blocks;
+        templates = newTemplates;
+        if (templates.isEmpty) {
+          templates = [
+            Template(name: "No tempaltes added", templates: [
+              TimeBlock(
+                  blockName: "NO BLOCK", startTime: "12:00", endTime: "13:00")
+            ])
+          ];
+        }
       });
     });
   }
@@ -78,12 +90,10 @@ class BlockScreenState extends State<BlockScreen> {
             ),
             Center(
               child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  " My Day",
-                  style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-                ),
-              ),
+                  alignment: Alignment.center,
+                  child: Text("Templates",
+                      style: TextStyle(
+                          fontSize: 18, fontStyle: FontStyle.italic))),
             )
           ],
         ),
@@ -92,45 +102,39 @@ class BlockScreenState extends State<BlockScreen> {
             // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
             onPressed: () {
               confirmDialog(context, updateState,
-                  action: resetTimeBlocks,
-                  title: "Day completed!",
-                  message:
-                      "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nKeep in mind, this action can't be undone.");
+                  action: resetTemplates,
+                  title: "Reset all templates!",
+                  message: "This action can't be undone!");
             },
             // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
             icon: const Icon(
-              Icons.check_box_sharp,
+              Icons.delete,
+              color: Colors.red,
             ),
           ),
         ],
       ),
       // Add btn
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addBlockDialog(context, updateState, type: "New");
-        },
-        child: const Icon(Icons.add),
-      ),
       // Blocks
       body: ReorderableListView.builder(
-        itemCount: timeBlocks.length,
+        itemCount: templates.length,
         itemBuilder: (context, index) {
-          final TimeBlock currentBlock = timeBlocks[index];
-
+          print("DEBUGGING PRINT DEBUGGING PRINT DEBUGGING PRINT");
+          print(templates[index].templates);
+          final TimeBlock currentBlock = templates[index].templates[index];
           // Block Dismissing
           return Dismissible(
-            key: Key(currentBlock.blockName + index.toString()),
+            key: Key(templates[index].name + index.toString()),
             onDismissed: (direction) {
               removeBlock(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("${currentBlock.blockName} dismissed"),
+                  content: Text("${templates[index].name} dismissed"),
                   action: SnackBarAction(
                     label: 'Undo',
                     onPressed: () {
                       setState(() {
-                        timeBlocks.insert(index, currentBlock);
-                        updateTimeBlocks(timeBlocks);
+                        // TODO: Make template screen dismiss function
                       });
                     },
                   ),
@@ -144,8 +148,9 @@ class BlockScreenState extends State<BlockScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OpenBlockScreen(
-                        currentBlock, index, removeBlock, updateState),
+                    builder: (context) {
+                      return const BlockScreen();
+                    },
                   ),
                 );
               },
