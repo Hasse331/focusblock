@@ -2,7 +2,7 @@ import 'package:time_blocking/models/time_block.dart';
 
 class Template {
   String name;
-  List<TimeBlock> templates;
+  List<TimeBlock> templates; // timeblocks may be better naming?
 
   Template({required this.name, required this.templates});
 

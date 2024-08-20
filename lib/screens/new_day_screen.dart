@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
+import 'package:time_blocking/storage/templates/use_template.dart';
 
 class NewDayScreen extends StatefulWidget {
   const NewDayScreen({super.key, required this.updateParentState});
@@ -83,7 +84,12 @@ class NewDayScreenState extends State<NewDayScreen> {
                 child: const Text("Add first block"),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // TODO: Make select template dialog
+                  // TODO: Make useTemplate function
+                  useTemplate();
+                  _updateParentState();
+                },
                 child: const Text("Load template"),
               )
             ],
