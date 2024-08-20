@@ -6,6 +6,7 @@ import 'package:time_blocking/storage/templates/use_template.dart';
 import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/storage/to_do_blocks/load_to_do_blocks.dart';
+import 'package:time_blocking/storage/to_do_blocks/remove_to_do_block.dart';
 
 class SelectDialog extends StatefulWidget {
   const SelectDialog(this.updateParentState,
@@ -94,6 +95,7 @@ class SelectDialogState extends State<SelectDialog> {
                               setState(() {
                                 timeBlocks.add(dataList[index]);
                                 updateTimeBlocks(timeBlocks);
+                                removeToDoBlock(index);
                                 _updateParentState();
                               });
                             });
