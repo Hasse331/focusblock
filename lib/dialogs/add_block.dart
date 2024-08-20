@@ -48,46 +48,55 @@ void addBlockDialog(context, Function updateState,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
+          contentPadding: const EdgeInsets.only(bottom: 0),
           title: Text('$type Time Block'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                textCapitalization: TextCapitalization.sentences,
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Block name: ',
+          content: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  textCapitalization: TextCapitalization.sentences,
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Block name: ',
+                  ),
                 ),
-              ),
-              // Start time picker:
-              MyTimePicker(
-                context: context,
-                type: "Start",
-                updateState: (pickedTime) =>
-                    setState(() => startTime = pickedTime),
-                selectedTime: startTime,
-              ),
-              // End time picker:
-              MyTimePicker(
-                context: context,
-                type: "End",
-                updateState: (pickedTime) =>
-                    setState(() => endTime = pickedTime),
-                selectedTime: endTime,
-              ),
-            ],
+                // Start time picker:
+                MyTimePicker(
+                  context: context,
+                  type: "Start",
+                  updateState: (pickedTime) =>
+                      setState(() => startTime = pickedTime),
+                  selectedTime: startTime,
+                ),
+                // End time picker:
+                MyTimePicker(
+                  context: context,
+                  type: "End",
+                  updateState: (pickedTime) =>
+                      setState(() => endTime = pickedTime),
+                  selectedTime: endTime,
+                ),
+                const Divider(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                      onPressed: () {
+                        // TODO: Add select To Do block dialog and move To Do block form To Do blocks to today's blocks
+                      },
+                      child: const Text("To Do Block")),
+                ),
+              ],
+            ),
           ),
           actions: [
             // TODO: UI/UX: Add closing mechanism here
-            // TextButton(
-            //   onPressed: () => Navigator.of(context).pop(),
-            //   child: const Text("Cancel"),
-            // ),
             TextButton(
-                onPressed: () {
-                  // TODO: Add select To Do block dialog and move To Do block form To Do blocks to today's blocks
-                },
-                child: const Text("To Do Block")),
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+
             // Save button
             TextButton(
               onPressed: () {
