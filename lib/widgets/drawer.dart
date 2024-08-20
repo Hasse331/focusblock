@@ -57,7 +57,6 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.done),
             title: const Text('To Do Blocks'),
             onTap: () {
-              // TODO: FEATURE: Add To Do blocks
               Navigator.push(
                 context,
                 // ReadOnlyBlocks() Without arguments will display To Do blocks

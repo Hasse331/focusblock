@@ -74,14 +74,20 @@ void addBlockDialog(context, Function updateState,
                 updateState: (pickedTime) =>
                     setState(() => endTime = pickedTime),
                 selectedTime: endTime,
-              )
+              ),
             ],
           ),
           actions: [
+            // TODO: UI/UX: Add closing mechanism here
+            // TextButton(
+            //   onPressed: () => Navigator.of(context).pop(),
+            //   child: const Text("Cancel"),
+            // ),
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
-            ),
+                onPressed: () {
+                  // TODO: Add select To Do block dialog and move To Do block form To Do blocks to today's blocks
+                },
+                child: const Text("To Do Block")),
             // Save button
             TextButton(
               onPressed: () {
