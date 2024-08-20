@@ -59,7 +59,7 @@ class NewDayScreenState extends State<NewDayScreen> {
               ),
               const Text(
                 textAlign: TextAlign.center,
-                "To get best out from your day, set 1-3 goals for next day aligned with your long term goals",
+                "To get best out from your day, set 1-3 goals for next day. Select goals aligned with your long term goals.",
               ),
               const TextField(
                   // TODO: today's goals FEATURE: Make user able to save today's goals

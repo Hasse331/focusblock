@@ -5,8 +5,6 @@ import 'package:time_blocking/storage/templates/load_templates.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
-// TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
-
 class ReadOnlyBlocks extends StatefulWidget {
   const ReadOnlyBlocks({super.key, this.templates, this.templateIndex});
 
@@ -25,8 +23,6 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
   @override
   void initState() {
     super.initState();
-    // addTestData();
-    // resetTimeBlocks();
     updateState();
   }
 
@@ -37,12 +33,6 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
       });
     });
   }
-
-  // TODO: REFACTOR: to better state management system
-  // Now states have to be updated separately in every level
-  // what makes state management complicated and may causing unexpected
-  // behaviour / bugs if not handiling properly. Maintainance and new
-  // features are also harder to implement.
 
   void removeBlock(index) {
     setState(() {
