@@ -59,7 +59,9 @@ class BlockScreenState extends State<BlockScreen> {
   @override
   Widget build(BuildContext context) {
     return timeBlocks.isEmpty
-        ? const NewDayScreen()
+        ? NewDayScreen(
+            updateParentState: updateState,
+          )
         : Scaffold(
             drawer: const DrawerWidget(),
             // AppBar

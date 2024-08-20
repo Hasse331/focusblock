@@ -6,16 +6,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
-import 'package:time_blocking/screens/block_screen.dart';
 
 class NewDayScreen extends StatefulWidget {
-  const NewDayScreen({super.key});
+  const NewDayScreen({super.key, required this.updateParentState});
+
+  final Function updateParentState;
 
   @override
   NewDayScreenState createState() => NewDayScreenState();
 }
 
 class NewDayScreenState extends State<NewDayScreen> {
+  get _updateParentState => widget.updateParentState;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,17 +78,7 @@ class NewDayScreenState extends State<NewDayScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // NOT WORKING
-                  // addBlockDialog(context, () {
-                  //   // updateState is replaced with routing to BlockScreen
-                  //   Navigator.pushAndRemoveUntil(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const BlockScreen()),
-                  //     (Route<dynamic> route) =>
-                  //         false, // Removes all previous routes
-                  //   );
-                  // }, type: "New");
+                  addBlockDialog(context, _updateParentState, type: "New");
                 },
                 child: const Text("Add first block"),
               ),
