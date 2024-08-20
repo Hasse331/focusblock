@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
-import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/storage/update_to_do.dart';
-import 'package:time_blocking/storage/update_time_block.dart';
+import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
+import 'package:time_blocking/storage/open_block/update_to_do.dart';
+import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 
 class ToDoList extends StatefulWidget {
   const ToDoList(

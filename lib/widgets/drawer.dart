@@ -31,8 +31,8 @@ class DrawerWidget extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.list),
-            title: const Text('Today'),
+            leading: const Icon(Icons.today),
+            title: const Text("Today's schedule"),
             onTap: () {
               Navigator.pushAndRemoveUntil(
                 context,

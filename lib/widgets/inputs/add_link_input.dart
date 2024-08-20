@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/to_do.dart';
-import 'package:time_blocking/storage/save_link.dart';
+import 'package:time_blocking/storage/open_block/save_link.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
 class AddLinkInput extends StatefulWidget {

@@ -4,10 +4,10 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/open_block.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
-import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/storage/reset_time_blocks.dart';
-import 'package:time_blocking/storage/save_template.dart';
-import 'package:time_blocking/storage/update_time_block.dart';
+import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
+import 'package:time_blocking/storage/timeblocks/reset_time_blocks.dart';
+import 'package:time_blocking/storage/templates/save_template.dart';
+import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
@@ -96,7 +96,7 @@ class BlockScreenState extends State<BlockScreen> {
                   action: resetTimeBlocks,
                   title: "Day completed!",
                   message:
-                      "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nKeep in mind, this action can't be undone.");
+                      "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nThis action can't be undone.");
             },
             // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
             icon: const Icon(

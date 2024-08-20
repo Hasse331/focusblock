@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/storage/load_templates.dart';
-import 'package:time_blocking/storage/update_time_block.dart';
+import 'package:time_blocking/storage/templates/load_templates.dart';
+import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
@@ -86,8 +86,8 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
           return GestureDetector(
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content:
-                      Text("Templates are read only and can not be opened")));
+                  content: Text(
+                      "Template blocks are read only and can not be opened")));
             },
             child: MyTimeBlock(currentBlock: currentBlock),
           );

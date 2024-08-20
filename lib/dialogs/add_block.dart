@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/storage/load_time_blocks.dart';
-import 'package:time_blocking/storage/save_time_block.dart';
+import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
+import 'package:time_blocking/storage/timeblocks/save_time_block.dart';
 import 'package:time_blocking/utils/convert_to_time_of_day.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 

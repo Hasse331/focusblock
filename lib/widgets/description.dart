@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/storage/save_description.dart';
+import 'package:time_blocking/storage/open_block/save_description.dart';
 
 class DescriptionWidget extends StatefulWidget {
   const DescriptionWidget(

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/screens/block_screen.dart';
 import 'package:time_blocking/screens/read_only_blocks.dart';
-import 'package:time_blocking/storage/load_templates.dart';
-import 'package:time_blocking/storage/remove_template.dart';
-import 'package:time_blocking/storage/reset_templates.dart';
+import 'package:time_blocking/storage/templates/load_templates.dart';
+import 'package:time_blocking/storage/templates/remove_template.dart';
+import 'package:time_blocking/storage/templates/reset_templates.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
@@ -104,7 +103,7 @@ class TemplateScreenState extends State<TemplateScreen> {
       ),
       // Add btn
       // Blocks
-      body: ReorderableListView.builder(
+      body: ListView.builder(
         itemCount: templates.length,
         itemBuilder: (context, index) {
           final Template currentTemplate = templates[index];
@@ -147,19 +146,6 @@ class TemplateScreenState extends State<TemplateScreen> {
                 currentTemplate: currentTemplate,
               ),
             ),
-          );
-        },
-        onReorder: (int oldIndex, int newIndex) {
-          setState(
-            () {
-              // TODO: make template reorder work
-              // if (oldIndex < newIndex) {
-              //   newIndex -= 1;
-              // }
-              // final block = timeBlocks.removeAt(oldIndex);
-              // timeBlocks.insert(newIndex, block);
-              // updateTimeBlocks(timeBlocks);
-            },
           );
         },
       ),
