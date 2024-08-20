@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/screens/block_screen.dart';
 import 'package:time_blocking/screens/template_screen.dart';
-import 'package:time_blocking/storage/save_template.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});

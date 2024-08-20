@@ -3,6 +3,7 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/block_screen.dart';
+import 'package:time_blocking/screens/read_only_blocks.dart';
 import 'package:time_blocking/storage/load_templates.dart';
 import 'package:time_blocking/storage/remove_template.dart';
 import 'package:time_blocking/storage/reset_templates.dart';
@@ -112,10 +113,11 @@ class TemplateScreenState extends State<TemplateScreen> {
           return Dismissible(
             key: Key(templates[index].name + index.toString()),
             onDismissed: (direction) {
+              final templateName = templates[index].name;
               updateTemplateState(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("${templates[index].name} dismissed"),
+                  content: Text("$templateName dismissed"),
                   action: SnackBarAction(
                     label: 'Undo',
                     onPressed: () {
@@ -135,10 +137,8 @@ class TemplateScreenState extends State<TemplateScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return BlockScreen(
-                          templateView: true,
-                          templates: templates,
-                          templateIndex: index);
+                      return ReadOnlyBlocks(
+                          templates: templates, templateIndex: index);
                     },
                   ),
                 );
