@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/time_picker.dart';
+import 'package:time_blocking/dialogs/select_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
 import 'package:time_blocking/storage/timeblocks/save_time_block.dart';
@@ -84,6 +85,13 @@ void addBlockDialog(context, Function updateState,
                   child: TextButton(
                       onPressed: () {
                         // TODO: Add select To Do block dialog and move To Do block form To Do blocks to today's blocks
+                        showDialog(
+                          context: context,
+                          builder: (context) => SelectDialog(
+                            updateState,
+                            selectToDoBlock: true,
+                          ),
+                        );
                       },
                       child: const Text("To Do Block")),
                 ),

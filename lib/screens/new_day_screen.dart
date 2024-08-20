@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
-import 'package:time_blocking/dialogs/use_template_dialog.dart';
+import 'package:time_blocking/dialogs/select_dialog.dart';
 
 class NewDayScreen extends StatefulWidget {
   const NewDayScreen({super.key, required this.updateParentState});
@@ -87,7 +87,7 @@ class NewDayScreenState extends State<NewDayScreen> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => UseTemplateDialog(_updateParentState),
+                    builder: (context) => SelectDialog(_updateParentState),
                   );
                 },
                 child: const Text("Load template"),
