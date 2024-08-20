@@ -8,9 +8,9 @@ Future<void> saveTemplate() async {
   List<dynamic> timeBlocks = json.decode(timeBlocksStr);
   List<dynamic> templates = json.decode(templatesStr);
 
-  int templateNumber = templates.length;
+  int templateNumber = templates.length + 1;
   Map<String, dynamic> newTemplate = {
-    'name': 'Saved Template $templateNumber',
+    'name': 'Template $templateNumber',
     'templates': timeBlocks
   };
 

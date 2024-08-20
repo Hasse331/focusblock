@@ -68,7 +68,6 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
               child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    // TODO: Fix overflow
                     " ${_templates[_templateIndex].name}",
                     style: const TextStyle(
                         fontSize: 18, fontStyle: FontStyle.italic),
