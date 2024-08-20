@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/screens/block_screen.dart';
+import 'package:time_blocking/screens/read_only_blocks.dart';
 import 'package:time_blocking/screens/template_screen.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -57,6 +58,11 @@ class DrawerWidget extends StatelessWidget {
             title: const Text('To Do Blocks'),
             onTap: () {
               // TODO: FEATURE: Add To Do blocks
+              Navigator.push(
+                context,
+                // ReadOnlyBlocks() Without arguments will display To Do blocks
+                MaterialPageRoute(builder: (context) => const ReadOnlyBlocks()),
+              );
             },
           ),
           ListTile(

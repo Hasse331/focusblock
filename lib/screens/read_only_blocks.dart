@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/models/template.dart';
 import 'package:time_blocking/models/time_block.dart';
-import 'package:time_blocking/storage/templates/load_templates.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
+import 'package:time_blocking/storage/to_do_blocks/load_to_do_blocks.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 class ReadOnlyBlocks extends StatefulWidget {
@@ -17,6 +17,7 @@ class ReadOnlyBlocks extends StatefulWidget {
 
 class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
   late List<TimeBlock> timeBlocks = [];
+  late String blockType;
   get _templates => widget.templates;
   get _templateIndex => widget.templateIndex;
 
@@ -27,11 +28,28 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
   }
 
   void updateState() {
-    loadTemplates().then((List<Template> loadedTemplates) {
+    if (_templates == null) {
+      loadToDoBlocks().then((List<TimeBlock> loadedToDoBlocks) {
+        setState(() {
+          blockType = "To Do";
+          if (loadedToDoBlocks.isEmpty) {
+            timeBlocks = [
+              TimeBlock(
+                  blockName: "No To Do blocks added",
+                  startTime: "12:00",
+                  endTime: "15:00")
+            ];
+          } else {
+            timeBlocks = loadedToDoBlocks;
+          }
+        });
+      });
+    } else {
       setState(() {
+        blockType = "Template";
         timeBlocks = _templates[_templateIndex].templates;
       });
-    });
+    }
   }
 
   void removeBlock(index) {
@@ -57,11 +75,17 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
             Center(
               child: Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    " ${_templates[_templateIndex].name}",
-                    style: const TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic),
-                  )),
+                  child: _templates == null
+                      ? const Text(
+                          " To Do Blocks",
+                          style: TextStyle(
+                              fontSize: 18, fontStyle: FontStyle.italic),
+                        )
+                      : Text(
+                          " ${_templates[_templateIndex].name}",
+                          style: const TextStyle(
+                              fontSize: 18, fontStyle: FontStyle.italic),
+                        )),
             )
           ],
         ),
@@ -75,9 +99,12 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
 
           return GestureDetector(
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
                   content: Text(
-                      "Template blocks are read only and can not be opened")));
+                      "$blockType blocks are read only and can not be opened"),
+                ),
+              );
             },
             child: MyTimeBlock(currentBlock: currentBlock),
           );

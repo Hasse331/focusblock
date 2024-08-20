@@ -10,6 +10,7 @@ import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
 import 'package:time_blocking/storage/timeblocks/reset_time_blocks.dart';
 import 'package:time_blocking/storage/templates/save_template.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
+import 'package:time_blocking/storage/to_do_blocks/save_to_do_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
@@ -34,7 +35,7 @@ class BlockScreenState extends State<BlockScreen> {
   }
 
   void updateState() {
-    loadTimeBlocks().then((blocks) {
+    loadTimeBlocks().then((List<TimeBlock> blocks) {
       setState(() {
         timeBlocks = blocks;
       });
@@ -178,6 +179,7 @@ class BlockScreenState extends State<BlockScreen> {
                         ),
                       );
                     } else if (direction == DismissDirection.startToEnd) {
+                      saveToDoBlock(timeBlocks[index]);
                       removeBlock(index);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -186,10 +188,10 @@ class BlockScreenState extends State<BlockScreen> {
                           action: SnackBarAction(
                             label: 'Undo',
                             onPressed: () {
-                              // TODO: Make saveToDoBlock function
                               setState(() {
                                 timeBlocks.insert(index, currentBlock);
                                 updateTimeBlocks(timeBlocks);
+                                // TODO: removeToDoBlock
                               });
                             },
                           ),
