@@ -14,6 +14,7 @@ class MyTimeBlock extends StatelessWidget {
   final Template? currentTemplate;
 
   // TODO: UI/UX: Add optional icon to each block and in addBlock dialog
+  // TODO: UI/UX: Display first 3 To Do tasks in the block
 
   @override
   Widget build(BuildContext context) {
