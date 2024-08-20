@@ -45,7 +45,6 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {
-              // TODO: 2. FEATURE: Creater and display templates screen
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const TemplateScreen()),

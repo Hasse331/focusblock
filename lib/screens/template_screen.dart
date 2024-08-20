@@ -120,7 +120,6 @@ class TemplateScreenState extends State<TemplateScreen> {
                     label: 'Undo',
                     onPressed: () {
                       setState(() {
-                        // TODO: Make template screen dismiss undo function
                         templates.insert(index, savedTemplate);
                         updateTemplates(templates);
                       });

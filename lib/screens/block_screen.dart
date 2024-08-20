@@ -14,8 +14,6 @@ import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
 
 // TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
-// TODO: UI/UX: Add no blocks added screen
-// TODO: FEATURE: Add in new day screen 1-3 today's goals and link the goals to long term goal
 
 class BlockScreen extends StatefulWidget {
   const BlockScreen({super.key});
@@ -106,7 +104,6 @@ class BlockScreenState extends State<BlockScreen> {
                         message:
                             "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nThis action can't be undone.");
                   },
-                  // TODO: Add days completed score to new_day screen and validation between starting time and reset time to 8 hours
                   icon: const Icon(
                     Icons.check_box_sharp,
                   ),

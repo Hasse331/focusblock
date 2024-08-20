@@ -1,9 +1,3 @@
-// TODO: UI/UX: Add new day screen
-// TODO: FEATURE: Add in new day screen 1-3 today's goals
-// TODO: FEATURE: Make user able to load templates
-
-// TODO: FEATURE: Make user able to link a goal to a long term goal
-
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/use_template_dialog.dart';
@@ -16,6 +10,8 @@ class NewDayScreen extends StatefulWidget {
   @override
   NewDayScreenState createState() => NewDayScreenState();
 }
+
+// TODO: GAMIFYING: Add days completed score and validation between starting time and reset time to 8 hours
 
 class NewDayScreenState extends State<NewDayScreen> {
   get _updateParentState => widget.updateParentState;
@@ -65,7 +61,11 @@ class NewDayScreenState extends State<NewDayScreen> {
                 textAlign: TextAlign.center,
                 "To get best out from your day, set 1-3 goals for next day aligned with your long term goals",
               ),
-              const TextField(),
+              const TextField(
+                  // TODO: today's goals FEATURE: Make user able to save today's goals
+                  // TODO: today's goals FEATURE: Make user able to link a goal to a long term goal
+                  ),
+              // TODO: today's goals FEATURE: Display added goals
               const SizedBox(height: 30),
               const Text(
                 textAlign: TextAlign.center,
