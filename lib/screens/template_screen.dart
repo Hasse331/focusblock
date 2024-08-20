@@ -34,9 +34,9 @@ class TemplateScreenState extends State<TemplateScreen> {
           templates = [
             Template(name: "No templates added", templates: [
               TimeBlock(
-                  blockName: "NO BLOCKS ADDED",
+                  blockName: "No templates added",
                   startTime: "12:00",
-                  endTime: "13:00")
+                  endTime: "15:00")
             ])
           ];
         }
