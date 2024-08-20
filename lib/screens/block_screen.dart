@@ -147,23 +147,56 @@ class BlockScreenState extends State<BlockScreen> {
                 // Block Dismissing
                 return Dismissible(
                   key: Key(currentBlock.blockName + index.toString()),
+                  background: Container(
+                    color: Colors.orange,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Icon(Icons.archive, color: Colors.white),
+                  ),
+                  secondaryBackground: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
                   onDismissed: (direction) {
-                    removeBlock(index);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("${currentBlock.blockName} dismissed"),
-                        action: SnackBarAction(
-                          label: 'Undo',
-                          onPressed: () {
-                            setState(() {
-                              timeBlocks.insert(index, currentBlock);
-                              updateTimeBlocks(timeBlocks);
-                            });
-                          },
+                    if (direction == DismissDirection.endToStart) {
+                      removeBlock(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("${currentBlock.blockName} dismissed"),
+                          action: SnackBarAction(
+                            label: 'Undo',
+                            onPressed: () {
+                              setState(() {
+                                timeBlocks.insert(index, currentBlock);
+                                updateTimeBlocks(timeBlocks);
+                              });
+                            },
+                          ),
+                          duration: const Duration(seconds: 5),
                         ),
-                        duration: const Duration(seconds: 5),
-                      ),
-                    );
+                      );
+                    } else if (direction == DismissDirection.startToEnd) {
+                      removeBlock(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              "${currentBlock.blockName}: moved in To Do blocks"),
+                          action: SnackBarAction(
+                            label: 'Undo',
+                            onPressed: () {
+                              // TODO: Make saveToDoBlock function
+                              setState(() {
+                                timeBlocks.insert(index, currentBlock);
+                                updateTimeBlocks(timeBlocks);
+                              });
+                            },
+                          ),
+                          duration: const Duration(seconds: 5),
+                        ),
+                      );
+                    }
                   },
                   // Block
                   child: GestureDetector(

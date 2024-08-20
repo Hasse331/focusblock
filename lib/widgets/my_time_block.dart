@@ -46,17 +46,23 @@ class MyTimeBlock extends StatelessWidget {
         color: const Color.fromARGB(255, 12, 16, 46),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(children: [
-        Text(
-          blockName,
-          style: const TextStyle(color: Colors.white),
-        ),
-        if (currentTemplate == null && currentBlock != null)
-          Text(
-            '${currentBlock!.startTime} - ${currentBlock!.endTime}',
-            style: const TextStyle(color: Colors.white),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(children: [
+              Text(
+                blockName,
+                style: const TextStyle(color: Colors.white),
+              ),
+              if (currentTemplate == null && currentBlock != null)
+                Text(
+                  '${currentBlock!.startTime} - ${currentBlock!.endTime}',
+                  style: const TextStyle(color: Colors.white),
+                ),
+            ]),
           ),
-      ]),
+        ],
+      ),
     );
   }
 }

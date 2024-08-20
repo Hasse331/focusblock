@@ -53,20 +53,20 @@ class NewDayScreenState extends State<NewDayScreen> {
               const Text("Start new day or plan for a next one"),
               const Divider(),
               const SizedBox(height: 30),
-              const Text(
-                "Set goals",
-                style: TextStyle(fontSize: 20),
-              ),
-              const Text(
-                textAlign: TextAlign.center,
-                "To get best out from your day, set 1-3 goals for next day. Select goals aligned with your long term goals.",
-              ),
-              const TextField(
-                  // TODO: today's goals FEATURE: Make user able to save today's goals
-                  // TODO: today's goals FEATURE: Make user able to link a goal to a long term goal
-                  ),
-              // TODO: today's goals FEATURE: Display added goals
-              const SizedBox(height: 30),
+              // const Text(
+              //   "Set goals",
+              //   style: TextStyle(fontSize: 20),
+              // ),
+              // const Text(
+              //   textAlign: TextAlign.center,
+              //   "To get best out from your day, set 1-3 goals for next day. Select goals aligned with your long term goals.",
+              // ),
+              // const TextField(
+              //     // TODO: today's goals FEATURE: Make user able to save today's goals
+              //     // TODO: today's goals FEATURE: Make user able to link a goal to a long term goal
+              //     ),
+              // // TODO: today's goals FEATURE: Display added goals
+              // const SizedBox(height: 30),
               const Text(
                 textAlign: TextAlign.center,
                 "Get started",
