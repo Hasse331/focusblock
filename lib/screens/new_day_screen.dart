@@ -87,7 +87,10 @@ class NewDayScreenState extends State<NewDayScreen> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SelectDialog(_updateParentState),
+                    builder: (context) => SelectDialog(
+                      _updateParentState,
+                      selectTemplate: true,
+                    ),
                   );
                 },
                 child: const Text("Load template"),
