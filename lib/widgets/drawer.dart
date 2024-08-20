@@ -43,14 +43,6 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.save),
-            title: const Text('Save today as a template'),
-            onTap: () {
-              // TODO: Add some indication it worked
-              saveTemplate();
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {

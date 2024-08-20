@@ -8,6 +8,7 @@ import 'package:time_blocking/storage/load_templates.dart';
 // import 'package:time_blocking/utils/add_test_data.dart';
 import 'package:time_blocking/storage/load_time_blocks.dart';
 import 'package:time_blocking/storage/reset_time_blocks.dart';
+import 'package:time_blocking/storage/save_template.dart';
 import 'package:time_blocking/storage/update_time_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
@@ -107,6 +108,7 @@ class BlockScreenState extends State<BlockScreen> {
                 alignment: Alignment.center,
                 child: _templateView
                     ? Text(
+                        // TODO: Fix overflow
                         " ${_templates[_templateIndex].name}",
                         style: const TextStyle(
                             fontSize: 18, fontStyle: FontStyle.italic),
@@ -138,13 +140,36 @@ class BlockScreenState extends State<BlockScreen> {
             ),
         ],
       ),
+
       // Add btn
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addBlockDialog(context, updateState, type: "New");
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: "save button",
+            mini: true,
+            onPressed: () {
+              saveTemplate();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Today's schedule saved as a template ✅"),
+                ),
+              );
+            },
+            child: const Icon(Icons.save, size: 18),
+          ),
+          const SizedBox(width: 15),
+          FloatingActionButton(
+            heroTag: "new block button",
+            onPressed: () {
+              addBlockDialog(context, updateState, type: "New");
+            },
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
+
       // Blocks
       body: ReorderableListView.builder(
         itemCount: timeBlocks.length,
