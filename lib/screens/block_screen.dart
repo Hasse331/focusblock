@@ -24,6 +24,7 @@ class BlockScreen extends StatefulWidget {
 
 class BlockScreenState extends State<BlockScreen> {
   late List<TimeBlock> timeBlocks = [];
+  late TextEditingController _nameTemplateController;
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class BlockScreenState extends State<BlockScreen> {
     // addTestData();
     // resetTimeBlocks();
     // resetTemplates();
+    _nameTemplateController = TextEditingController();
     updateState();
   }
 
@@ -120,12 +122,42 @@ class BlockScreenState extends State<BlockScreen> {
                   heroTag: "save button",
                   mini: true,
                   onPressed: () {
-                    // TODO: Add template naming dialog
-                    saveTemplate();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Today's schedule saved as a template ✅"),
-                      ),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Name template"),
+                          content: TextField(
+                            controller: _nameTemplateController,
+                            autofocus: true,
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  saveTemplate(
+                                      templateName:
+                                          _nameTemplateController.text);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          "Today's schedule saved as a template ✅"),
+                                    ),
+                                  );
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Save'),
+                            ),
+                          ],
+                        );
+                      },
                     );
                   },
                   child: const Icon(Icons.save, size: 18),
