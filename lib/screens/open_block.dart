@@ -10,9 +10,9 @@ import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/widgets/buttons/add_block_content_btn.dart';
 import 'package:time_blocking/widgets/inputs/add_link_input.dart';
 import 'package:time_blocking/widgets/inputs/add_to_do_item.dart';
-import 'package:time_blocking/widgets/description.dart';
-import 'package:time_blocking/widgets/link_list.dart';
-import 'package:time_blocking/widgets/to_do_list.dart';
+import 'package:time_blocking/widgets/open_block/description.dart';
+import 'package:time_blocking/widgets/open_block/link_list.dart';
+import 'package:time_blocking/widgets/open_block/to_do_list.dart';
 
 class OpenBlockScreen extends StatefulWidget {
   const OpenBlockScreen(
