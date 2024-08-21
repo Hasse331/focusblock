@@ -11,7 +11,6 @@ var kforegroundColor = const Color.fromARGB(255, 200, 200, 200);
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   // TODO: Change button color, it is too light
   @override
   Widget build(BuildContext context) {

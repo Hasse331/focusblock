@@ -10,11 +10,10 @@ import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
 import 'package:time_blocking/storage/timeblocks/reset_time_blocks.dart';
 import 'package:time_blocking/storage/templates/save_template.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
+import 'package:time_blocking/storage/to_do_blocks/remove_to_do_block.dart';
 import 'package:time_blocking/storage/to_do_blocks/save_to_do_block.dart';
 import 'package:time_blocking/widgets/drawer.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
-
-// TODO: CROSS-PLATFORM: Optimizing UI for wide screens and other devices desktop/web
 
 class BlockScreen extends StatefulWidget {
   const BlockScreen({super.key});
@@ -44,7 +43,7 @@ class BlockScreenState extends State<BlockScreen> {
     });
   }
 
-  // TODO: REFACTOR: to better state management system
+  // TODO: REFACTOR: to better state management system?
   // Now states have to be updated separately in every level
   // what makes state management complicated and may causing unexpected
   // behaviour / bugs if not handiling properly. Maintainance and new
@@ -196,7 +195,7 @@ class BlockScreenState extends State<BlockScreen> {
                   ),
                   onDismissed: (direction) {
                     if (direction == DismissDirection.endToStart) {
-                      // TODO: Make this reusable. DRY
+                      // TODO: Make this reusable. DRY. Text and onPressed differentiates only
                       removeBlock(index);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -226,7 +225,8 @@ class BlockScreenState extends State<BlockScreen> {
                               setState(() {
                                 timeBlocks.insert(index, currentBlock);
                                 updateTimeBlocks(timeBlocks);
-                                // TODO: removeToDoBlock
+                                removeToDoBlock(
+                                    /* No arguments = last item in the list */);
                               });
                             },
                           ),

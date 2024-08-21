@@ -95,7 +95,7 @@ class SelectDialogState extends State<SelectDialog> {
                               setState(() {
                                 timeBlocks.add(dataList[index]);
                                 updateTimeBlocks(timeBlocks);
-                                removeToDoBlock(index);
+                                removeToDoBlock(listIndex: index);
                                 _updateParentState();
                               });
                             });

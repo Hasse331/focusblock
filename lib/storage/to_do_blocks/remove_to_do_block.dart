@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> removeToDoBlock(int index) async {
+Future<void> removeToDoBlock({int? listIndex}) async {
   final prefs = await SharedPreferences.getInstance();
-  final templatesStr = prefs.getString('toDoBlocks') ?? '[]';
-  List<dynamic> templates = json.decode(templatesStr);
+  final toDoStr = prefs.getString('toDoBlocks') ?? '[]';
+  List<dynamic> toDo = json.decode(toDoStr);
 
-  templates.removeAt(index);
+  listIndex ??= toDo.length - 1;
 
-  await prefs.setString('toDoBlocks', json.encode(templates));
+  toDo.removeAt(listIndex);
+
+  await prefs.setString('toDoBlocks', json.encode(toDo));
 }

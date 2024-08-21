@@ -7,7 +7,7 @@ import 'package:time_blocking/storage/timeblocks/save_time_block.dart';
 import 'package:time_blocking/utils/convert_to_time_of_day.dart';
 import 'package:time_blocking/widgets/show_error.dart';
 
-// TODO: REFACTORING: This could be reasonably statefulWidget instead of a function
+// TODO: REFACTOR: This could be reasonably statefulWidget instead of a function
 void addBlockDialog(context, Function updateState,
     {required String type, index, updateParent}) {
   TextEditingController nameController;
@@ -85,7 +85,6 @@ void addBlockDialog(context, Function updateState,
                   alignment: Alignment.centerLeft,
                   child: TextButton(
                       onPressed: () {
-                        // TODO: Add select To Do block dialog and move To Do block form To Do blocks to today's blocks
                         showDialog(
                           context: context,
                           builder: (context) => SelectDialog(
@@ -100,7 +99,6 @@ void addBlockDialog(context, Function updateState,
             ),
           ),
           actions: [
-            // TODO: UI/UX: Add closing mechanism here
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("Cancel"),
