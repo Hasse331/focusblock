@@ -24,6 +24,7 @@ class BlockScreen extends StatefulWidget {
 class BlockScreenState extends State<BlockScreen> {
   late List<TimeBlock> timeBlocks = [];
   late TextEditingController _nameTemplateController;
+  bool loading = true;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class BlockScreenState extends State<BlockScreen> {
     loadTimeBlocks().then((List<TimeBlock> blocks) {
       setState(() {
         timeBlocks = blocks;
+        loading = false;
       });
     });
   }
@@ -58,211 +60,221 @@ class BlockScreenState extends State<BlockScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return timeBlocks.isEmpty
-        ? NewDayScreen(
-            updateParentState: updateState,
-          )
-        : Scaffold(
-            drawer: const DrawerWidget(),
-            // AppBar
-            appBar: AppBar(
-              leading: Builder(builder: (context) {
-                return IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
+    return loading
+        ? const Center(
+            child: CircularProgressIndicator(
+            semanticsLabel: "Loading...",
+          ))
+        : timeBlocks.isEmpty
+            ? NewDayScreen(
+                updateParentState: updateState,
+              )
+            : Scaffold(
+                drawer: const DrawerWidget(),
+                // AppBar
+                appBar: AppBar(
+                  leading: Builder(builder: (context) {
+                    return IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                      ),
+                    );
+                  }),
+                  title: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("FocusBlock "),
+                      Icon(
+                        Icons.horizontal_rule,
+                        size: 12,
+                      ),
+                      Center(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            " My Day",
+                            style: TextStyle(
+                                fontSize: 18, fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                );
-              }),
-              title: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("FocusBlock "),
-                  Icon(
-                    Icons.horizontal_rule,
-                    size: 12,
-                  ),
-                  Center(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        " My Day",
-                        style: TextStyle(
-                            fontSize: 18, fontStyle: FontStyle.italic),
+                  actions: [
+                    IconButton(
+                      // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
+                      onPressed: () {
+                        confirmDialog(context, updateState,
+                            action: resetTimeBlocks,
+                            title: "Day completed!",
+                            message:
+                                "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nThis action can't be undone.");
+                      },
+                      icon: const Icon(
+                        Icons.check_box_sharp,
                       ),
                     ),
-                  )
-                ],
-              ),
-              actions: [
-                IconButton(
-                  // TODO: FEATURE: Add reflection feature: 1. question and answer 2. summary 3. Saving the refleciton
-                  onPressed: () {
-                    confirmDialog(context, updateState,
-                        action: resetTimeBlocks,
-                        title: "Day completed!",
-                        message:
-                            "Well done! You've just wrapped up another productive day! 🎉\n\nBy continuing, you'll reset your today's schedule and start fresh for tomorrow.\n\nThis action can't be undone.");
-                  },
-                  icon: const Icon(
-                    Icons.check_box_sharp,
-                  ),
+                  ],
                 ),
-              ],
-            ),
-            // Add btn
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  heroTag: "save button",
-                  mini: true,
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Name template"),
-                          content: TextField(
-                            controller: _nameTemplateController,
-                            autofocus: true,
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  saveTemplate(
-                                      templateName:
-                                          _nameTemplateController.text);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          "Today's schedule saved as a template ✅"),
-                                    ),
-                                  );
-                                });
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Save'),
-                            ),
-                          ],
+                // Add btn
+                floatingActionButton: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    FloatingActionButton(
+                      heroTag: "save button",
+                      mini: true,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Name template"),
+                              content: TextField(
+                                controller: _nameTemplateController,
+                                autofocus: true,
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      saveTemplate(
+                                          templateName:
+                                              _nameTemplateController.text);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              "Today's schedule saved as a template ✅"),
+                                        ),
+                                      );
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Save'),
+                                ),
+                              ],
+                            );
+                          },
                         );
+                      },
+                      child: const Icon(Icons.save, size: 18),
+                    ),
+                    const SizedBox(width: 10),
+                    FloatingActionButton(
+                      heroTag: "new block button",
+                      onPressed: () {
+                        addBlockDialog(context, updateState, type: "New");
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                  ],
+                ),
+                // Blocks
+                body: ReorderableListView.builder(
+                  key: UniqueKey(),
+                  itemCount: timeBlocks.length,
+                  itemBuilder: (context, index) {
+                    final TimeBlock currentBlock = timeBlocks[index];
+
+                    // Block Dismissing
+                    return Dismissible(
+                      key: Key(currentBlock.blockName + index.toString()),
+                      background: Container(
+                        color: Colors.orange,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: const Icon(Icons.archive, color: Colors.white),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          // TODO: Make this reusable. DRY. Text and onPressed differentiates only
+                          removeBlock(index);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("${currentBlock.blockName} dismissed"),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  setState(() {
+                                    timeBlocks.insert(index, currentBlock);
+                                    updateTimeBlocks(timeBlocks);
+                                  });
+                                },
+                              ),
+                              duration: const Duration(seconds: 5),
+                            ),
+                          );
+                        } else if (direction == DismissDirection.startToEnd) {
+                          saveToDoBlock(timeBlocks[index]);
+                          removeBlock(index);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  "${currentBlock.blockName}: moved in To Do blocks"),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  setState(() {
+                                    timeBlocks.insert(index, currentBlock);
+                                    updateTimeBlocks(timeBlocks);
+                                    removeToDoBlock(
+                                        /* No arguments = last item in the list */);
+                                  });
+                                },
+                              ),
+                              duration: const Duration(seconds: 5),
+                            ),
+                          );
+                        }
+                      },
+                      // Block
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OpenBlockScreen(
+                                  currentBlock,
+                                  index,
+                                  removeBlock,
+                                  updateState),
+                            ),
+                          );
+                        },
+                        child: MyTimeBlock(currentBlock: currentBlock),
+                      ),
+                    );
+                  },
+                  onReorder: (int oldIndex, int newIndex) {
+                    setState(
+                      () {
+                        if (oldIndex < newIndex) {
+                          newIndex -= 1;
+                        }
+                        final block = timeBlocks.removeAt(oldIndex);
+                        timeBlocks.insert(newIndex, block);
+                        updateTimeBlocks(timeBlocks);
                       },
                     );
                   },
-                  child: const Icon(Icons.save, size: 18),
                 ),
-                const SizedBox(width: 10),
-                FloatingActionButton(
-                  heroTag: "new block button",
-                  onPressed: () {
-                    addBlockDialog(context, updateState, type: "New");
-                  },
-                  child: const Icon(Icons.add),
-                ),
-              ],
-            ),
-            // Blocks
-            body: ReorderableListView.builder(
-              key: UniqueKey(),
-              itemCount: timeBlocks.length,
-              itemBuilder: (context, index) {
-                final TimeBlock currentBlock = timeBlocks[index];
-
-                // Block Dismissing
-                return Dismissible(
-                  key: Key(currentBlock.blockName + index.toString()),
-                  background: Container(
-                    color: Colors.orange,
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: const Icon(Icons.archive, color: Colors.white),
-                  ),
-                  secondaryBackground: Container(
-                    color: Colors.red,
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: const Icon(Icons.delete, color: Colors.white),
-                  ),
-                  onDismissed: (direction) {
-                    if (direction == DismissDirection.endToStart) {
-                      // TODO: Make this reusable. DRY. Text and onPressed differentiates only
-                      removeBlock(index);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("${currentBlock.blockName} dismissed"),
-                          action: SnackBarAction(
-                            label: 'Undo',
-                            onPressed: () {
-                              setState(() {
-                                timeBlocks.insert(index, currentBlock);
-                                updateTimeBlocks(timeBlocks);
-                              });
-                            },
-                          ),
-                          duration: const Duration(seconds: 5),
-                        ),
-                      );
-                    } else if (direction == DismissDirection.startToEnd) {
-                      saveToDoBlock(timeBlocks[index]);
-                      removeBlock(index);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              "${currentBlock.blockName}: moved in To Do blocks"),
-                          action: SnackBarAction(
-                            label: 'Undo',
-                            onPressed: () {
-                              setState(() {
-                                timeBlocks.insert(index, currentBlock);
-                                updateTimeBlocks(timeBlocks);
-                                removeToDoBlock(
-                                    /* No arguments = last item in the list */);
-                              });
-                            },
-                          ),
-                          duration: const Duration(seconds: 5),
-                        ),
-                      );
-                    }
-                  },
-                  // Block
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OpenBlockScreen(
-                              currentBlock, index, removeBlock, updateState),
-                        ),
-                      );
-                    },
-                    child: MyTimeBlock(currentBlock: currentBlock),
-                  ),
-                );
-              },
-              onReorder: (int oldIndex, int newIndex) {
-                setState(
-                  () {
-                    if (oldIndex < newIndex) {
-                      newIndex -= 1;
-                    }
-                    final block = timeBlocks.removeAt(oldIndex);
-                    timeBlocks.insert(newIndex, block);
-                    updateTimeBlocks(timeBlocks);
-                  },
-                );
-              },
-            ),
-          );
+              );
   }
 }

@@ -90,6 +90,7 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
             )
           ],
         ),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
       ),
 
       // Blocks

@@ -82,7 +82,6 @@ class ToDoListState extends State<ToDoList> {
               title: TextButton(
                 onPressed: () {
                   _editTaskController.text = toDoList[index].name;
-                  // TODO: REFACTOR: dialog to separate widget
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
