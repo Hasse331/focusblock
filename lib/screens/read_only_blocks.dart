@@ -64,6 +64,7 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
     return Scaffold(
       // AppBar
       appBar: AppBar(
+        // TODO: Add here + btn to add to do:s
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

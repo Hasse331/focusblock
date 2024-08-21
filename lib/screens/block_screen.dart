@@ -120,6 +120,7 @@ class BlockScreenState extends State<BlockScreen> {
                   heroTag: "save button",
                   mini: true,
                   onPressed: () {
+                    // TODO: Add template naming dialog
                     saveTemplate();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -162,6 +163,7 @@ class BlockScreenState extends State<BlockScreen> {
                   ),
                   onDismissed: (direction) {
                     if (direction == DismissDirection.endToStart) {
+                      // TODO: Make this reusable. DRY
                       removeBlock(index);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
