@@ -174,6 +174,7 @@ class BlockScreenState extends State<BlockScreen> {
             ),
             // Blocks
             body: ReorderableListView.builder(
+              key: UniqueKey(),
               itemCount: timeBlocks.length,
               itemBuilder: (context, index) {
                 final TimeBlock currentBlock = timeBlocks[index];

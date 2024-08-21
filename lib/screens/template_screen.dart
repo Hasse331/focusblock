@@ -108,7 +108,7 @@ class TemplateScreenState extends State<TemplateScreen> {
 
           // Block Dismissing
           return Dismissible(
-            key: Key(templates[index].name + index.toString()),
+            key: UniqueKey(),
             onDismissed: (direction) {
               final templateName = templates[index].name;
               final savedTemplate = templates[index];

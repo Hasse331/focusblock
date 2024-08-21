@@ -51,6 +51,7 @@ class ToDoListState extends State<ToDoList> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 290),
       child: ReorderableListView.builder(
+        key: UniqueKey(),
         shrinkWrap: true,
         itemCount: toDoList.length,
         itemBuilder: (context, index) {

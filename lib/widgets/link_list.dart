@@ -24,7 +24,7 @@ class LinkList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(links[listIndex].name + listIndex.toString()),
+      key: UniqueKey(),
       onDismissed: (direction) {
         // final Link savedListItem = links![i];
         removeListItem(blockIndex, listIndex);
