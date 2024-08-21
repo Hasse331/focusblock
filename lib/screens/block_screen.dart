@@ -181,14 +181,16 @@ class BlockScreenState extends State<BlockScreen> {
                 ),
                 // Blocks
                 body: ReorderableListView.builder(
-                  key: UniqueKey(),
+                  // key: UniqueKey(),
                   itemCount: timeBlocks.length,
                   itemBuilder: (context, index) {
                     final TimeBlock currentBlock = timeBlocks[index];
 
                     // Block Dismissing
                     return Dismissible(
-                      key: Key(currentBlock.blockName + index.toString()),
+                      key: Key(currentBlock.blockName +
+                          index.toString() +
+                          currentBlock.blockId),
                       background: Container(
                         color: Colors.orange,
                         alignment: Alignment.centerLeft,

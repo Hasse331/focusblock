@@ -67,7 +67,7 @@ class DrawerWidget extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+/*           ListTile(
             leading: const Icon(Icons.golf_course_sharp),
             title: const Text('Goals'),
             onTap: () {
@@ -95,7 +95,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               // TODO: FEATURE: Add themes
             },
-          ),
+          ), */
         ],
       ),
     );

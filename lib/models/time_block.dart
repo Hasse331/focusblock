@@ -1,7 +1,9 @@
 import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/to_do.dart';
+import 'package:uuid/uuid.dart';
 
 class TimeBlock {
+  final String blockId;
   final String blockName;
   final String startTime;
   final String endTime;
@@ -10,15 +12,17 @@ class TimeBlock {
   final List<Link>? links;
 
   TimeBlock({
+    String? blockId,
     required this.blockName,
     required this.startTime,
     required this.endTime,
     this.description,
     this.toDoItems,
     this.links,
-  });
+  }) : blockId = blockId ?? const Uuid().v4();
 
   factory TimeBlock.fromJson(Map<String, dynamic> json) => TimeBlock(
+        blockId: json['blockId'] ?? const Uuid().v4(),
         blockName: json['blockName'] as String,
         startTime: json['startTime'] as String,
         endTime: json['endTime'] as String,
@@ -32,6 +36,7 @@ class TimeBlock {
       );
 
   Map<String, dynamic> toJson([timeBlock]) => {
+        'blockId': blockId,
         'blockName': blockName,
         'startTime': startTime, // Already a string, no changes needed
         'endTime': endTime, // Already a string, no changes needed

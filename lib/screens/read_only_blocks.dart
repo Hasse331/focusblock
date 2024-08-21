@@ -4,6 +4,7 @@ import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/storage/to_do_blocks/load_to_do_blocks.dart';
 import 'package:time_blocking/widgets/my_time_block.dart';
+import 'package:uuid/uuid.dart';
 
 class ReadOnlyBlocks extends StatefulWidget {
   const ReadOnlyBlocks({super.key, this.templates, this.templateIndex});
@@ -35,6 +36,7 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
           if (loadedToDoBlocks.isEmpty) {
             timeBlocks = [
               TimeBlock(
+                  blockId: const Uuid().v4(),
                   blockName: "No To Do blocks added",
                   startTime: "12:00",
                   endTime: "15:00")
@@ -78,7 +80,7 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
                   alignment: Alignment.center,
                   child: _templates == null
                       ? const Text(
-                          " To Do Blocks",
+                          " To Do",
                           style: TextStyle(
                               fontSize: 18, fontStyle: FontStyle.italic),
                         )
@@ -90,7 +92,7 @@ class ReadOnlyBlocksState extends State<ReadOnlyBlocks> {
             )
           ],
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
+        // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
       ),
 
       // Blocks
