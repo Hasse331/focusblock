@@ -4,6 +4,7 @@ import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/links.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
+import 'package:time_blocking/storage/open_block/update_links.dart';
 import 'package:time_blocking/storage/timeblocks/load_time_blocks.dart';
 import 'package:time_blocking/storage/timeblocks/update_time_block.dart';
 import 'package:time_blocking/widgets/buttons/add_block_content_btn.dart';
@@ -83,6 +84,12 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
         updateState(link: true);
       });
     });
+  }
+
+  void undoRemove(int listIndex, Link removedItem) {
+    links!.insert(listIndex, removedItem);
+    updateLinks(blockIndex: index, links: links!);
+    updateState(link: true);
   }
 
   @override
@@ -188,11 +195,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
               if (!emptyLinks)
                 for (var i = 0; i < links!.length; i++)
                   LinkList(
-                    links: links!,
-                    blockIndex: index,
-                    removeListItem: removeListItem,
-                    listIndex: i,
-                  )
+                      links: links!,
+                      blockIndex: index,
+                      removeListItem: removeListItem,
+                      listIndex: i,
+                      undoRemove: undoRemove)
             ],
           ),
         ),

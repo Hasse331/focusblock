@@ -8,11 +8,13 @@ class LinkList extends StatelessWidget {
       required this.links,
       required this.blockIndex,
       required this.removeListItem,
-      required this.listIndex});
+      required this.listIndex,
+      required this.undoRemove});
 
   final List<Link> links;
   final int blockIndex;
   final Function removeListItem;
+  final Function undoRemove;
   final int listIndex;
 
   Future<void> _launchUrl(uri) async {
@@ -26,23 +28,19 @@ class LinkList extends StatelessWidget {
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (direction) {
-        // final Link savedListItem = links![i];
+        final removedItem = links[listIndex];
         removeListItem(blockIndex, listIndex);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("${links[listIndex].name} link dismissed"),
-            // action: SnackBarAction(
-            //   // TODO: Make undo snackbad work -> indexing problems
-            //   label: 'Undo',
-            //   onPressed: () {
-            //     setState(() {
-            //       links!.insert(i, savedListItem);
-            //       updateLinks(blockIndex: index, links: links!);
-            //       updateState(link: true);
-            //     });
-            //   },
-            // ),
-            duration: const Duration(seconds: 5),
+            content: Text("${links[listIndex].name} dismissed"),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                undoRemove(listIndex, removedItem);
+              },
+            ),
+            duration: const Duration(seconds: 3),
           ),
         );
       },
