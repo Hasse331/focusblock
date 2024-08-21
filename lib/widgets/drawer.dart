@@ -35,6 +35,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.today),
             title: const Text("Today's schedule"),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const BlockScreen()),
@@ -46,6 +47,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.list),
             title: const Text('Templates'),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const TemplateScreen()),
@@ -57,6 +59,7 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.done),
             title: const Text('To Do Blocks'),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               Navigator.push(
                 context,
                 // ReadOnlyBlocks() Without arguments will display To Do blocks
