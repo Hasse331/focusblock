@@ -67,19 +67,19 @@ class DrawerWidget extends StatelessWidget {
               );
             },
           ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              // TODO: CROSS-PLATFORM: Add user accounts
+            },
+          ),
 /*           ListTile(
             leading: const Icon(Icons.golf_course_sharp),
             title: const Text('Goals'),
             onTap: () {
               // TODO: FEATURE: Add long term Goals
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.account_box),
-            title: const Text('Account'),
-            onTap: () {
-              // TODO: CROSS-PLATFORM: Add user accounts
             },
           ),
           ListTile(
