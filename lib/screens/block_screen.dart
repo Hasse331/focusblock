@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
+import 'package:time_blocking/dialogs/template_name_dialog.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/screens/new_day_screen.dart';
 import 'package:time_blocking/screens/open_block.dart';
@@ -55,6 +56,17 @@ class BlockScreenState extends State<BlockScreen> {
     setState(() {
       timeBlocks.removeAt(index);
       updateTimeBlocks(timeBlocks);
+    });
+  }
+
+  void nameTemplateAction() {
+    setState(() {
+      saveTemplate(templateName: _nameTemplateController.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Today's schedule saved as a template ✅"),
+        ),
+      );
     });
   }
 
@@ -125,58 +137,12 @@ class BlockScreenState extends State<BlockScreen> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     FloatingActionButton(
-                      heroTag: "save button",
+                      heroTag: "save template button",
                       mini: true,
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Name template"),
-                              content: TextField(
-                                controller: _nameTemplateController,
-                                autofocus: true,
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    if (_nameTemplateController.text.length <=
-                                        10) {
-                                      setState(() {
-                                        saveTemplate(
-                                            templateName:
-                                                _nameTemplateController.text);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                "Today's schedule saved as a template ✅"),
-                                          ),
-                                        );
-                                      });
-                                      Navigator.pop(context);
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              "Template name can not be more than 10 characters"),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: const Text('Save'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        nameTemplateDialog(context,
+                            controller: _nameTemplateController,
+                            action: nameTemplateAction);
                       },
                       child: const Icon(Icons.save, size: 18),
                     ),
