@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_blocking/dialogs/add_block.dart';
 import 'package:time_blocking/dialogs/confirm_dialog.dart';
 import 'package:time_blocking/models/links.dart';
+import 'package:time_blocking/models/reminder.dart';
 import 'package:time_blocking/models/time_block.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:time_blocking/storage/open_block/update_links.dart';
@@ -34,11 +35,11 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   late TimeBlock _currentBlock;
   late List<ToDoItem>? toDoItems;
   late List<Link>? links;
+  late Reminder? reminder;
   Function get removeBlock => widget.removeBlock;
   int get index => widget.index;
   Function get updateParentState => widget.updateParentState;
-  late bool emptyToDo;
-  late bool emptyLinks;
+  late bool emptyToDo, emptyLinks, emptyReminder;
 
   @override
   void initState() {
@@ -61,6 +62,13 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
       emptyLinks = true;
     } else {
       emptyLinks = false;
+    }
+
+    reminder = _currentBlock.reminder;
+    if (reminder == null) {
+      emptyReminder = true;
+    } else {
+      emptyReminder = false;
     }
   }
 
@@ -163,6 +171,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                 ),
               if (!emptyToDo)
                 // Add to do input
+                // TODO: Make cancel btn to change emptyToDo = false
                 AddToDoItem(
                   blockIndex: index,
                   updateState: updateState,
@@ -194,6 +203,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                   style: TextStyle(fontSize: 25),
                 ),
               if (!emptyLinks)
+                // TODO: Make cancel btn to change emptyLinks = false
                 AddLinkInput(blockIndex: index, updateState: updateState),
               if (!emptyLinks)
                 for (var i = 0; i < links!.length; i++)
@@ -204,7 +214,16 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                       listIndex: i,
                       undoRemove: undoRemove),
               const Divider(),
-              // if (emptyReminder)
+              if (emptyReminder)
+                AddBlockContentBtn(
+                    displayContentState: () {
+                      setState(() {
+                        // TODO: add here dialog to choose 30, 15, 5, 0 minutes before the block
+                        emptyReminder = !emptyReminder;
+                      });
+                    },
+                    message: "Add Reminder"),
+              if (!emptyReminder) const Text("Here will become reminder"),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:time_blocking/models/links.dart';
+import 'package:time_blocking/models/reminder.dart';
 import 'package:time_blocking/models/to_do.dart';
 import 'package:uuid/uuid.dart';
 
@@ -10,6 +11,7 @@ class TimeBlock {
   String? description; // referred as notes also in UI
   List<ToDoItem>? toDoItems;
   final List<Link>? links;
+  final Reminder? reminder;
 
   TimeBlock({
     String? blockId,
@@ -19,6 +21,7 @@ class TimeBlock {
     this.description,
     this.toDoItems,
     this.links,
+    this.reminder,
   }) : blockId = blockId ?? const Uuid().v4();
 
   factory TimeBlock.fromJson(Map<String, dynamic> json) => TimeBlock(
