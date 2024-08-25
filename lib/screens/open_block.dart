@@ -44,6 +44,7 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
   void initState() {
     super.initState();
     _currentBlock = widget.currentBlock;
+
     // Load and set To Do List
     toDoItems = _currentBlock.toDoItems;
     toDoItems ??= [];
@@ -201,7 +202,9 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                       blockIndex: index,
                       removeListItem: removeListItem,
                       listIndex: i,
-                      undoRemove: undoRemove)
+                      undoRemove: undoRemove),
+              const Divider(),
+              // if (emptyReminder)
             ],
           ),
         ),
