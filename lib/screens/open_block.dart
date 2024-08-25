@@ -28,6 +28,8 @@ class OpenBlockScreen extends StatefulWidget {
   OpenBlockScreenState createState() => OpenBlockScreenState();
 }
 
+// TODO: Add optional notifications/reminders for block 30, 15, 5, 0 mins before start
+
 class OpenBlockScreenState extends State<OpenBlockScreen> {
   late TimeBlock _currentBlock;
   late List<ToDoItem>? toDoItems;

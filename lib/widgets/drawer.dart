@@ -83,13 +83,6 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              // TODO: FEATURE: Add Settings and user preferences
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.color_lens),
             title: const Text('Theme'),
             onTap: () {

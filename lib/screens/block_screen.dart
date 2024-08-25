@@ -146,19 +146,30 @@ class BlockScreenState extends State<BlockScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    setState(() {
-                                      saveTemplate(
-                                          templateName:
-                                              _nameTemplateController.text);
+                                    if (_nameTemplateController.text.length <=
+                                        10) {
+                                      setState(() {
+                                        saveTemplate(
+                                            templateName:
+                                                _nameTemplateController.text);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                "Today's schedule saved as a template ✅"),
+                                          ),
+                                        );
+                                      });
+                                      Navigator.pop(context);
+                                    } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                              "Today's schedule saved as a template ✅"),
+                                              "Template name can not be more than 10 characters"),
                                         ),
                                       );
-                                    });
-                                    Navigator.pop(context);
+                                    }
                                   },
                                   child: const Text('Save'),
                                 ),
