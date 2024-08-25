@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_blocking/screens/block_screen.dart';
 import 'package:time_blocking/screens/read_only_blocks.dart';
+import 'package:time_blocking/screens/settings_screen.dart';
 import 'package:time_blocking/screens/template_screen.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -72,7 +73,12 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              // TODO: CROSS-PLATFORM: Add user accounts
+              ScaffoldMessenger.of(context).clearSnackBars();
+              Navigator.push(
+                  context,
+                  // ReadOnlyBlocks() Without arguments will display To Do blocks
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsScreen()));
             },
           ),
 /*           ListTile(
