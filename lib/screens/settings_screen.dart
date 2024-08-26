@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_blocking/widgets/drawer.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -7,10 +8,54 @@ class SettingsScreen extends StatefulWidget {
   SettingsScreenState createState() => SettingsScreenState();
 }
 
+bool isSwitchOn = false;
+
 class SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("FocusBlock "),
+            Icon(
+              Icons.horizontal_rule,
+              size: 12,
+            ),
+            Center(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(" Settings",
+                      style: TextStyle(
+                          fontSize: 18, fontStyle: FontStyle.italic))),
+            )
+          ],
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Diasable block notifications"),
+                  Switch(
+                    value: isSwitchOn,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitchOn = value;
+                      });
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
