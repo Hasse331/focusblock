@@ -223,7 +223,9 @@ class OpenBlockScreenState extends State<OpenBlockScreen> {
                       });
                     },
                     message: "Add Reminder"),
-              if (!emptyReminder) const Text("Here will become reminder"),
+              const SizedBox(height: 15),
+              if (!emptyReminder)
+                Text("Dummy Notification: ${_currentBlock.startTime}"),
             ],
           ),
         ),
