@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:time_blocking/models/links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,21 +45,31 @@ class LinkList extends StatelessWidget {
           ),
         );
       },
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        trailing: IconButton(
-          onPressed: () async {
-            _launchUrl(links[listIndex].link);
-          },
-          icon: const Icon(Icons.open_in_new),
-        ),
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton(
-            child: Text(links[listIndex].name),
+      child: GestureDetector(
+        onLongPress: () {
+          // Copy the link to the clipboard when the ListTile is long-pressed
+          Clipboard.setData(
+              ClipboardData(text: links[listIndex].link.toString()));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Link copied to clipboard!')),
+          );
+        },
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          trailing: IconButton(
             onPressed: () async {
               _launchUrl(links[listIndex].link);
             },
+            icon: const Icon(Icons.open_in_new),
+          ),
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              child: Text(links[listIndex].name),
+              onPressed: () async {
+                _launchUrl(links[listIndex].link);
+              },
+            ),
           ),
         ),
       ),
