@@ -42,7 +42,7 @@ class AddToDoItemState extends State<AddLinkInput> {
   }
 
   bool hasValidEnding(String url) {
-    final RegExp endingPattern = RegExp(r"\.[a-zA-Z]{2,}$");
+    final RegExp endingPattern = RegExp(r"\.[a-zA-Z]{2,}");
     return endingPattern.hasMatch(url);
   }
 
@@ -81,7 +81,7 @@ class AddToDoItemState extends State<AddLinkInput> {
                     FocusScope.of(context).unfocus();
                   } else {
                     showError(context,
-                        "Link has to end wih valid ending like .com .org .fi");
+                        "Link has to have valid domain like .com .org .fi");
                   }
                 },
                 child: const Text("Save"),
