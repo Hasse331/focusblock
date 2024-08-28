@@ -51,7 +51,7 @@ class LinkList extends StatelessWidget {
           Clipboard.setData(
               ClipboardData(text: links[listIndex].link.toString()));
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Link copied to clipboard!')),
+            const SnackBar(content: Text('Link copied to clipboard!')),
           );
         },
         child: ListTile(
